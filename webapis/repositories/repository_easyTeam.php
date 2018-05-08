@@ -60,7 +60,7 @@ class Repository_easyTeam {
         $correo           = $object[0]->correo;
         $telefono         = $object[0]->telefono;
         $nomUsuario       = $object[0]->nomUsuario;
-        $password         = $object[0]->password;
+        $password         = password_hash($object[0]->password, PASSWORD_DEFAULT);
         
         try{
             
@@ -106,12 +106,12 @@ class Repository_easyTeam {
         $sw = false;
         try{
 
-            $usuarios = $this->DAL->query("CALL sp_select_nomUsuario_pass_para_login();", [], false);
+            $usuarios = $this->DAL->query("CALL sp_validacionLogin($nomUsu);", [], false);
 
             $len = count($usuarios);
 
             for ($i=0; $i < $len ; $i++) { 
-                if ($nomUsu == $usuarios[$i]['nombre_usuario'] && $pass == $usuarios[$i]['password']) {
+                if ($nomUsu == $usuarios[$i]['nombre_usuario'] && $password_verify($pass, $usuarios[$i]['password'])) {
                     $sw = true;
                 }
             }

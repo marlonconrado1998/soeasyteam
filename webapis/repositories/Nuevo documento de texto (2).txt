@@ -1,0 +1,128 @@
+<?php
+
+//Requiere Data Access Layer
+require_once '../libraries/PHPMongo/vendor/autoload.php';
+
+// Require Class util response
+require_once '../libraries/class_util_response.php';
+
+class Repository_Galeria {
+
+    public $DAL;
+    public $Response;
+
+    public function __construct() {
+        $this->DAL = new MongoDB\Client("mongodb://documents707shop:Re14_xSX!PEF@den1.mongo1.gear.host:27001/documents707shop");
+        $this->Response = new Response();
+    }
+
+    public function add($object) {
+        $response = null;
+        try {
+            
+            $col = $this->DAL->documents707shop->Galeria_prestador;
+            $inserted = $col->insertOne($object);
+            $response = $this->Response->ok(null, $inserted->getInsertedId());
+            
+        } catch (Exception $e) {
+            $response = $this->Response->error('Error al buscar la galería');
+        }
+        $this->DAL = null;
+        return $response;
+    }
+
+    public function addRange($list_objects) {
+        
+    }
+
+    public function update($object) {
+        $response = null;
+        try {
+            $col = $this->DAL->documents707shop->Galeria_prestador;
+            $col->updateOne(
+                    ['_id' => $id = new MongoDB\BSON\ObjectId($object["id"])], 
+                    ['$set' => 
+                        [
+                            'descripcion' => $object["descripcion"], 
+                            'servicio' => $object["servicio"],
+                            'usuario' => $object["usuario"]
+                        ]
+                    ]
+            );
+            $response = $this->Response->ok(null, "Ingresado correctamente");
+            
+        } catch (Exception $e) {
+            $response = $this->Response->error('Error al buscar la agenda');
+        }
+//        $this->DAL->close();
+        return $response;
+    }
+
+    public function updateByCriteria($id, $criteria) {
+        
+    }
+
+    public function remove($id) {
+      $response = null;
+        try {
+            $id = new MongoDB\BSON\ObjectId($id);
+            $col = $this->DAL->documents707shop->Galeria_prestador;
+            $col->deleteOne(['_id' => $id]);
+            $response = $this->Response->ok(null, "Eliminado correctamente");
+        } catch (Exception $e) {
+            $response = $this->Response->error('Error al buscar la agenda');
+        }
+//        $this->DAL->close();
+        return $response;
+    }
+
+    public function find($usuario, $ids) {
+        $response = null;
+        try {
+            $col = $this->DAL->documents707shop->Galeria_prestador;
+            $result = $col->find(["servicio" => $ids, "usuario" => $usuario]);
+            $data = $this->fill($result);
+            $response = $this->Response->ok(null, $data);
+            
+        } catch (Exception $e) {
+            $response = $this->Response->error('Error al buscar la agenda');
+        }
+//        $this->DAL->close();
+        return $response;
+    }
+
+    public function findByCriteria($criteria) {
+        
+    }
+
+    public function search() {
+        
+    }
+
+    public function searchByCriteria($criteria) {
+        
+    }
+
+    public function countByCriteria($criteria) {
+        
+    }
+
+    public function fill($result) {
+
+        $galeria = null;
+
+        foreach ($result as $row => $object) {
+            $imagen = array(
+                "descripcion" => $object['descripcion'],
+                "imagen" => $object['imagen'],
+                "_id" => $object['_id'],
+                "servicio" => $object['servicio']
+            );
+            $galeria[] = $imagen;
+        }
+        return $galeria;
+    }
+
+}
+
+?>

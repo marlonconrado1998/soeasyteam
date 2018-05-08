@@ -1,0 +1,10 @@
+{
+	"id":1,
+	"name":"BASICO",
+    "descripcion":"transporte incluido (solo perimetro urbano) 5 dias y 4 noches, todos nuentros paquetes ofrecen anfitrion 24/7 para acompañamiento",
+    "pruductos": {
+        "producto1":{"name":"apartamento", "ubicacion":"Bocagrande", "descripcion":"2 habitaciones para dos personas", "imagen":"link"},
+        "producto2":{"carro":"mazda 3", "imagen1":"link","imagen2":"link", "imagen3":"link"}
+    },
+   
+}

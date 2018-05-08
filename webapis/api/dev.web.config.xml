@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appSettings>
+
+  <!--DataBase config-->
+  <setting>
+    <key>Host</key>
+    <value>den1.mysql3.gear.host</value>
+  </setting>
+
+  <setting>
+    <key>DataBase</key>
+    <value>soeasyteam</value>
+  </setting>
+
+  <setting>
+    <key>User</key>
+    <value>soeasyteam</value>
+  </setting>
+
+  <setting>
+    <key>Password</key>
+    <value>Dk39I5J~_ofO</value>
+  </setting>
+
+  <!--Other config-->
+    <setting>
+    <key>Api_Folder</key>
+    <value></value>
+  </setting>
+</appSettings>

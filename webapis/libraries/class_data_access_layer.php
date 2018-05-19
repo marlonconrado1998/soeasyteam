@@ -179,9 +179,7 @@ class Data_Access_Layer {
     public function rowCount() {
 
         if ($this->connected === true) {
-
             return $this->querey->rowCount();
-
         } else {
 
             $this->error = "Not Connected to Database Server";

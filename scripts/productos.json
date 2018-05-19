@@ -1,0 +1,265 @@
+{
+    "yate": [
+    {
+        "id": 1,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 2,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 3,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    }],
+
+    "bote": [
+    {
+        "id": 4,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 5,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 13,
+        "imagen": "img/botes/bote_25/boPrincipal_25/boPrincipal_25.jpg",
+        "galeria": [
+        {
+            "imagen": "img/botes/bote_25/detailsquare.jpg"
+        },
+        {
+            "imagen": "img/botes/bote_25/detailsquare2.jpg"
+        },
+        {
+            "imagen": "img/botes/bote_25/detailsquare3.jpg"
+        }]
+    }],
+
+    "apartamento": [
+    {
+        "id": 6,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 7,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 8,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    }],
+
+    "casa": [
+    {
+        "id": 9,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 10,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    }],
+
+    "carro": [
+    {
+        "id": 11,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    },
+    {
+        "id": 12,
+        "imagen": "",
+        "galeria": [
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        },
+        {
+            "imagen": ""
+        }]
+    }]
+}

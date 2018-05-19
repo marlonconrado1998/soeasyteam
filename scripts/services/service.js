@@ -4,11 +4,26 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
 
     servicio.guardarCliente = GuardarCliente;
     servicio.login = Login;
-    servicio.buscarTodosProductos = BuscarTodosProductos;
+    servicio.buscarApartCasa = BuscarApartCasa;
     servicio.buscarNombresDeUsuarios = BuscarNombresDeUsuarios;
+    servicio.buscarImgJson = BuscarImgJson;
+    servicio.buscarYatesBotes = BuscarYatesBotes;
 
+    var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
-    var url = "http://localhost/easy_team2/webapis/api/api_easyTeam.php/";
+    function BuscarImgJson(){
+
+        var defered = $q.defer();
+        var urlRequest = "http://localhost/soEasyTeam/scripts/productos.json";
+
+        $http.get(urlRequest).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+           defered.reject(error);
+        });
+
+        return defered.promise;
+    }
 
     function GuardarCliente(data) {
         var defered = $q.defer();
@@ -40,7 +55,7 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "Login/" + nomUsu + "/" + pass;
 
-        $http.post(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function(resp) {
             defered.resolve(resp);
         }).catch(function(error) {
             defered.reject(error);
@@ -49,9 +64,22 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         return defered.promise;
     }
 
-    function BuscarTodosProductos() {
+    function BuscarApartCasa() {
         var defered = $q.defer();
-        var urlRequest = url + "BuscarTodosProductos/";
+        var urlRequest = url + "BuscarApartCasa/";
+
+        $http.get(urlRequest).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+            defered.reject(error);
+        })
+
+        return defered.promise;
+    }
+
+    function BuscarYatesBotes() {
+        var defered = $q.defer();
+        var urlRequest = url + "BuscarYatesBotes/";
 
         $http.get(urlRequest).then(function(resp) {
             defered.resolve(resp);

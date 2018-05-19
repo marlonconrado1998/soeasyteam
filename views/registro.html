@@ -1,19 +1,73 @@
 <div ng-controller="controEasyTeam as easyTeamCtrl">
-    <form action="customer-orders.html" method="get">
-        <div class="form-group">
-            <label for="name-login">Name</label>
-            <input id="name-login" type="text" class="form-control">
+    <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarTodosProductos();">
+        <div class="container">
+            <div class="row d-flex align-items-center flex-wrap">
+                <div class="col-md-7">
+                    <h1 class="h2">Sign Up</h1>
+                </div>
+                <!-- <div class="col-md-5">
+                    <ul class="breadcrumb d-flex justify-content-end">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Category Full</li>
+                    </ul>
+                </div> -->
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email-login">Email</label>
-            <input id="email-login" type="text" class="form-control">
+    </div>
+    <div id="content">
+        <div class="container">
+            <div class="row bar">
+                <div class="col-md-12">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="login-modalLabel" class="modal-title">Customer Sing Up</h4>
+                                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="form_registro" name="form_registro">
+                                    <div class="form-group">
+                                        <input type="text" id="nombre" name="nombre" ng-model="easyTeamCtrl.dataRegistro.nombre" placeholder="Name*" class="form-control" required>
+                                        <h6 class="modal-title" ng-show="form_registro.nombre.$dirty && form_registro.nombre.$invalid">The Name Is Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="apellidos" name="apellidos" ng-model="easyTeamCtrl.dataRegistro.apellidos" placeholder="LastName*" class="form-control" required>
+                                        <h6 ng-show="form_registro.apellidos.$touched && form_registro.apellidos.$invalid">The LastName Are Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="identificacion" name="identificacion" ng-model="easyTeamCtrl.dataRegistro.identificacion" placeholder="ID*" class="form-control" required>
+                                        <h6 ng-show="form_registro.identificacion.$touched && form_registro.identificacion.$invalid">The ID Are Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" id="correo" name="correo" ng-model="easyTeamCtrl.dataRegistro.correo" placeholder="Email*" class="form-control" required>
+                                        <h6 ng-show="form_registro.correo.$touched && form_registro.correo.$invalid">The Email Is Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="telefono" name="telefono" ng-model="easyTeamCtrl.dataRegistro.telefono" placeholder="Cell Phone*" class="form-control" required>
+                                        <h6 ng-show="form_registro.telefono.$touched && form_registro.telefono.$invalid">The Cell Phone Is Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="nomUsuario" name="nomUsuario" ng-model="easyTeamCtrl.dataRegistro.nomUsuario" placeholder="Name User*" class="form-control" required>
+                                        <h6 ng-show="form_registro.nomUsuario.$touched && form_registro.nomUsuario.$invalid">The Name User Is Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="password" name="password" ng-model="easyTeamCtrl.dataRegistro.password" placeholder="Password*" class="form-control" minlength="8" maxlength="45" required>
+                                        <h6 ng-show="form_registro.password.$touched && form_registro.password.$invalid">The Password Is Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="configPassword" name="configPassword" ng-model="easyTeamCtrl.dataRegistro.configPassword" placeholder="Confirm Password*" class="form-control" minlength="8" maxlength="45" required>
+                                        <h6 ng-show="form_registro.configPassword.$touched && form_registro.configPassword.$invalid">The Confirm Password Is Required.</h6>
+                                    </div>
+                                    <p class="text-center">
+                                        <input type="button" class="btn btn-template-outlined" ng-disabled="form_registro.$invalid" ng-click="easyTeamCtrl.onGuardarCliente();" value="Create">
+                                        <!-- <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i>Create</button> -->
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="password-login">Password</label>
-            <input id="password-login" type="password" class="form-control">
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-template-outlined"><i class="fa fa-user-md"></i> Register</button>
-        </div>
-    </form>
+    </div>
 </div>

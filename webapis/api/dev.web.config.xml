@@ -4,7 +4,7 @@
   <!--DataBase config-->
   <setting>
     <key>Host</key>
-    <value>den1.mysql3.gear.host</value>
+    <value>localhost</value>
   </setting>
 
   <setting>
@@ -14,12 +14,12 @@
 
   <setting>
     <key>User</key>
-    <value>soeasyteam</value>
+    <value>root</value>
   </setting>
 
   <setting>
     <key>Password</key>
-    <value>Dk39I5J~_ofO</value>
+    <value></value>
   </setting>
 
   <!--Other config-->

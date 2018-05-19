@@ -43,7 +43,7 @@ $app->get('/BuscarNombresDeUsuarios/', function (Request $request, Response $res
     }
 });
 
-$app->post('/Login/{nomUsu}/{pass}', function (Request $request, Response $response) use ($Template){
+$app->get('/Login/{nomUsu}/{pass}', function (Request $request, Response $response) use ($Template){
 
     $nomUsu = $request->getAttribute('nomUsu');
     $pass = $request->getAttribute('pass');
@@ -58,11 +58,23 @@ $app->post('/Login/{nomUsu}/{pass}', function (Request $request, Response $respo
     }
 });
 
-$app->get('/BuscarTodosProductos/', function (Request $request, Response $response) use ($Template){
+$app->get('/BuscarApartCasa/', function (Request $request, Response $response) use ($Template){
 
     try{
 
-        $respuesta = $Template->BuscarTodosProductos();
+        $respuesta = $Template->BuscarApartCasa();
+
+        return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
+
+$app->get('/BuscarYatesBotes/', function (Request $request, Response $response) use ($Template){
+
+    try{
+
+        $respuesta = $Template->BuscarYatesBotes();
 
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){

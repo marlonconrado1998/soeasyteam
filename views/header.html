@@ -12,12 +12,12 @@
                             <li class="list-inline-item"><a href="#"><i class="fa fa-phone"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li>
                         </ul>
-                        <div class="login">
+                        <div class="login" ng-show="easyTeamCtrl.ocultar == false">
                             <a href="" data-toggle="modal" data-target="#login-modal" class="login-btn">
                             <i class="fa fa-sign-in"></i>
                             <span class="d-none d-md-inline-block">Sign In</span>
                         </a>
-                            <a href="" data-toggle="modal" data-target="#registro-modal" class="signup-btn">
+                            <a ui-sref="Registro" class="signup-btn">
                             <i class="fa fa-user"></i>
                             <span class="d-none d-md-inline-block">Sign Up</span>
                         </a>
@@ -25,7 +25,7 @@
                         <ul class="social-custom list-inline">
                             <li class="list-inline-item"><a href="http://www.facebook.com/SO-EASY-Team-SAS-1743112429116725/" target="_blank"><i class="fa fa-facebook"></i></a></li>
                             <li class="list-inline-item"><a href="http://www.instagram.com/soeasyteamsas/?hl=es-la" target="_blank"><i class="fa fa-instagram"></i></a></li>
-<!--                             <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <!--                             <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li> -->
                         </ul>
                     </div>
@@ -58,63 +58,13 @@
                         </p>
                     </form>
                     <p class="text-center text-muted">Not registered yet?</p>
-                    <p class="text-center text-muted"><a href="" data-toggle="modal" data-target="#registro-modal" data-dismiss="modal"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+                    <p class="text-center text-muted"><a data-dismiss="modal" aria-label="Close" ui-sref="Registro"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- Login modal end-->
     <!-- Registro Modal-->
-    <div id="registro-modal" tabindex="-1" role="dialog" aria-labelledby="login-modalLabel" aria-hidden="true" class="modal fade">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 id="login-modalLabel" class="modal-title">Customer Sing Up</h4>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form_registro" name="form_registro">
-                        <div class="form-group">
-                            <input type="text" id="nombre" name="nombre" ng-model="easyTeamCtrl.dataRegistro.nombre" placeholder="Name*" class="form-control" required>
-                            <h6 class="modal-title" ng-show="form_registro.nombre.$dirty && form_registro.nombre.$invalid">The Name Is Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="apellidos" name="apellidos" ng-model="easyTeamCtrl.dataRegistro.apellidos" placeholder="LastName*" class="form-control" required>
-                            <h6 ng-show="form_registro.apellidos.$touched && form_registro.apellidos.$invalid">The LastName Are Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="identificacion" name="identificacion" ng-model="easyTeamCtrl.dataRegistro.identificacion" placeholder="ID*" class="form-control" required>
-                            <h6 ng-show="form_registro.identificacion.$touched && form_registro.identificacion.$invalid">The ID Are Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="correo" name="correo" ng-model="easyTeamCtrl.dataRegistro.correo" placeholder="Email*" class="form-control" required>
-                            <h6 ng-show="form_registro.correo.$touched && form_registro.correo.$invalid">The Email Is Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="telefono" name="telefono" ng-model="easyTeamCtrl.dataRegistro.telefono" placeholder="Cell Phone*" class="form-control" required>
-                            <h6 ng-show="form_registro.telefono.$touched && form_registro.telefono.$invalid">The Cell Phone Is Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="nomUsuario" name="nomUsuario" ng-model="easyTeamCtrl.dataRegistro.nomUsuario" placeholder="Name User*" class="form-control" required>
-                            <h6 ng-show="form_registro.nomUsuario.$touched && form_registro.nomUsuario.$invalid">The Name User Is Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="password" name="password" ng-model="easyTeamCtrl.dataRegistro.password" placeholder="Password*" class="form-control" minlength="8" maxlength="45" required>
-                            <h6 ng-show="form_registro.password.$touched && form_registro.password.$invalid">The Password Is Required.</h6>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="configPassword" name="configPassword" ng-model="easyTeamCtrl.dataRegistro.configPassword" placeholder="Confirm Password*" class="form-control" minlength="8" maxlength="45" required>
-                            <h6 ng-show="form_registro.configPassword.$touched && form_registro.configPassword.$invalid">The Confirm Password Is Required.</h6>
-                        </div>
-                        <p class="text-center">
-                            <input type="button" class="btn btn-template-outlined" ng-disabled="form_registro.$invalid" ng-click="easyTeamCtrl.onGuardarCliente();" value="Create">
-                            <!-- <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i>Create</button> -->
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Registro modal end-->
     <!-- Navbar Start-->
     <header class="nav-holder make-sticky">
@@ -123,7 +73,7 @@
                 <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn-template-outlined"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
                 <div id="navigation" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item dropdown"><a href="#" data-toggle="dropdown" >Home<b class="caret"></b></a>
+                        <li class="nav-item dropdown"><a ui-sref="Inicio">Home<b class="caret"></b></a>
                             <!-- <ul class="dropdown-menu">
                                 <li class="dropdown-item"><a href="index.html" class="nav-link">Option 1: Default Page</a></li>
                                 <li class="dropdown-item"><a href="index2.html" class="nav-link">Option 2: Application</a></li>
@@ -132,22 +82,18 @@
                                 <li class="dropdown-item"><a href="index5.html" class="nav-link">Option 5: Portfolio</a></li>
                             </ul> -->
                         </li>
-                        <li class=""><a ui-sref="Productos">products</a></li>
                         <li class=""><a ui-sref="ClientesFelices">happy customers</a></li>
-
-
-
                         <li class="nav-item dropdown "><a ui-sref="About"> About us<b class="caret"></b></a></li>
-                        <li class="nav-item dropdown "><a  data-toggle="dropdown" >Shopping car<b class="caret"></b></a>
+                        <li class="nav-item dropdown "><a data-toggle="dropdown">cart<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-item"><a ui-sref="Carrito" class="nav-link">Show my car</a></li>
-<!--                                 <li class="dropdown-item"><a href="index2.html" class="nav-link">Option 2: Application</a></li>
+                                <!--                                 <li class="dropdown-item"><a href="index2.html" class="nav-link">Option 2: Application</a></li>
                                 <li class="dropdown-item"><a href="index3.html" class="nav-link">Option 3: Startup</a></li>
                                 <li class="dropdown-item"><a href="index4.html" class="nav-link">Option 4: Agency</a></li>
                                 <li class="dropdown-item"><a href="index5.html" class="nav-link">Option 5: Portfolio</a></li> -->
                             </ul>
                         </li>
-                                                <li class="nav-item dropdown"><a data-toggle="dropdown" ng-show="easyTeamCtrl.ocultar == true">{{easyTeamCtrl.infoUsuario[0].nombre_usuario}}</a><b class="caret"></b>
+                        <li class="nav-item dropdown" ng-show="easyTeamCtrl.infoUsuario.length !== 0"><a data-toggle="dropdown">{{easyTeamCtrl.infoUsuario[0].nombre_usuario}}</a><b class="caret"></b>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-item"><a class="nav-link" ng-click="easyTeamCtrl.onLogout();">Logout</a></li>
                             </ul>

@@ -37,6 +37,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
             templateUrl: "views/about.html"
         }).state('ClientesFelices',{
             url: "/ClientesFelices",
-            templateUrl: "views/clientes_felices.html"});
+            templateUrl: "views/clientes_felices.html"
+        });
     }
 ]);

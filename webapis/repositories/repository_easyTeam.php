@@ -104,14 +104,15 @@ class Repository_easyTeam {
         $result = null;
         $usuarios = array();
         $sw = false;
+
         try{
 
-            $usuarios = $this->DAL->query("CALL sp_validacionLogin($nomUsu);", [], false);
+            $usuarios = $this->DAL->query("CALL sp_validacionLogin('$nomUsu');", [], false);
 
             $len = count($usuarios);
 
             for ($i=0; $i < $len ; $i++) { 
-                if ($nomUsu == $usuarios[$i]['nombre_usuario'] && $password_verify($pass, $usuarios[$i]['password'])) {
+                if ($nomUsu == $usuarios[$i]['nombre_usuario'] && password_verify($pass, $usuarios[$i]['password'])) {
                     $sw = true;
                 }
             }
@@ -131,14 +132,33 @@ class Repository_easyTeam {
         return $response;
     }
 
-    public function BuscarTodosProductos(){
+    public function BuscarApartCasa(){
 
         $response = null;
         $result = null;
 
         try {
             
-            $result = $this->DAL->query("CALL sp_select_todos_productos();", [], false);
+            $result = $this->DAL->query("CALL sp_select_apartamentos_casas();", [], false);
+
+            $response = $this->Response->ok(null, $result);
+        } catch (Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+
+        $this->DAL->close();
+
+        return $response;
+    }
+
+    public function BuscarYatesBotes(){
+
+        $response = null;
+        $result = null;
+
+        try {
+            
+            $result = $this->DAL->query("CALL sp_select_yates_botes();", [], false);
 
             $response = $this->Response->ok(null, $result);
         } catch (Exception $e) {

@@ -37,6 +37,19 @@ app.config(['$stateProvider', '$urlRouterProvider',
             templateUrl: "views/about.html"
         }).state('ClientesFelices',{
             url: "/ClientesFelices",
-            templateUrl: "views/clientes_felices.html"});
+            templateUrl: "views/clientes_felices.html"
+        }).state('ApartCasa', {
+            url: "/ApartCasa",
+            templateUrl: "views/apartCasa.html"
+        }).state('YatesBotes', {
+            url: "/YatesBotes",
+            templateUrl: "views/yatesBotes.html"
+        }).state('Transporte', {
+            url: "/Transporte",
+            templateUrl: "views/transporte.html"
+        }).state('Carros', {
+            url: "/Carros",
+            templateUrl: "views/carros.html"
+        });
     }
 ]);

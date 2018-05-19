@@ -1,0 +1,68 @@
+<div ng-controller="controEasyTeam as easyTeamCtrl">
+    <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarYatesBotes();">
+        <div class="container">
+            <div class="row d-flex align-items-center flex-wrap">
+                <div class="col-md-7">
+                    <h1 class="h2">yachts and Boat's</h1>
+                </div>
+                <!-- <div class="col-md-5">
+                    <ul class="breadcrumb d-flex justify-content-end">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Category Full</li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="container">
+            <div class="row bar">
+                <div class="col-md-12">
+                    <p class="text-muted lead text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+                    <div class="products-big">
+                        <h1 class="h2">YACHTS</h1>
+                        <br>
+                        <br>
+                        <div class="row products">
+                            <div class="col-lg-4 col-md-4" ng-repeat="x in easyTeamCtrl.listaYates">
+                                <div class="product">
+                                    <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                    <div class="text">
+                                        <h3 class="h5"><a >{{x.nombre}}</a></h3>
+                                        <p class="price">{{x.valor | currency}}</p>
+                                    </div>
+                                    <div class="ribbon-holder">
+                                        <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate')">DETAILS</div>
+                                        <div class="ribbon new manito">Add <i class="fa fa-shopping-cart"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <h1 class="h2">BOAT'S</h1>
+                    <br>
+                    <br>
+                    <div class="products-big">
+                        <div class="row products">
+                            <div class="col-lg-4 col-md-4" ng-repeat="x in easyTeamCtrl.listaBotes">
+                                <div class="product">
+                                    <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                    <div class="text">
+                                        <h3 class="h5"><a >{{x.nombre}} {{x.capacidad}}</a></h3>
+                                        <p class="price">{{x.valor | currency}}</p>
+                                    </div>
+                                    <div class="ribbon-holder">
+                                        <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'bote')">DETAILS</div>
+                                        <div class="ribbon new manito">Add <i class="fa fa-shopping-cart"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

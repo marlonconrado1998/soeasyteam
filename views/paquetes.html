@@ -1,142 +1,218 @@
-<div ng-controller="controEasyTeam as easyTeamCtrl">
-    <div id="heading-breadcrumbs">
-        <div class="container">
-            <div class="row d-flex align-items-center flex-wrap">
-                <div class="col-md-7">
-                    <h1 class="h2">All Packages</h1>
-                </div>
-                <div class="col-md-5">
-                    <ul class="breadcrumb d-flex justify-content-end">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active">Category Full</li>
-                    </ul>
-                </div>
+<div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row d-flex align-items-center flex-wrap">
+            <div class="col-md-7">
+                <h1 class="h2">Packages</h1>
+            </div>
+            <div class="col-md-5">
+                <ul class="breadcrumb d-flex justify-content-end">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Packages</li>
+                </ul>
             </div>
         </div>
     </div>
-    <div id="content">
-        <div class="container">
-            <div class="row bar">
+</div>
+<div id="content" ng-controller="carritoController as cc">
+    <div class="container">
+        <section class="bar pb-0">
+            <div class="row">
                 <div class="col-md-12">
-                    <p class="text-muted lead text-center">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
-                    <div class="products-big">
-                        <div class="row products">
-                            <div class="col-lg-3 col-md-4" ng-repeat="x in easyTeamCtrl.arr">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="{{x.img}}" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a ui-sref="Detalles">{{x.nombre}}</a></h3>
-                                        <p class="price">$143.00</p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon sale manito" ui-sref="Detalles">DETAILS</div>
-                                        <div class="ribbon new manito">Add <i class="fa fa-shopping-cart"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product2.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-                                        <p class="price">
-                                            <del>$280</del> $143.00
-                                        </p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon sale">SALE</div>
-                                        <div class="ribbon new">NEW</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product3.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">Black Blouse Versace</a></h3>
-                                        <p class="price">$143.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product4.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">Black Blouse Versace</a></h3>
-                                        <p class="price">$143.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product3.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-                                        <p class="price">
-                                            <del>$280</del> $143.00
-                                        </p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon sale">SALE</div>
-                                        <div class="ribbon new">NEW</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product4.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">White Blouse Versace</a></h3>
-                                        <p class="price">$143.00</p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon new">NEW</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product2.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">White Blouse Versace</a></h3>
-                                        <p class="price">$143.00</p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon new">NEW</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="product">
-                                    <div class="image"><a href="shop-detail.html"><img src="img/product1.jpg" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a href="shop-detail.html">Fur coat</a></h3>
-                                        <p class="price">$143.00</p>
-                                    </div>
-                                </div>
-                            </div> -->
-                        </div>
+                    <div class="heading">
+                        <h2>Our packages</h2>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 banner mb-small text-center"><a href="#"><img src="img/banner2.jpg" alt="" class="img-fluid"></a></div>
-                    </div>
-                    <div class="pages">
-                        <p class="loadMore text-center"><a href="#" class="btn btn-template-outlined"><i class="fa fa-chevron-down"></i> Load more</a></p>
-                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                            <ul class="pagination">
-                                <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
-                        </nav>
+                    <p class="lead">Yielding, they're air. Land replenish spirit given gathered subdue, day Blessed you'll great created, lights a one light, blessed deep morning, appear our. Fruit multiply, creeping first image. Upon saw isn't male winged to replenish tree and.</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading">
+                        <h3>Packages - version 1</h3>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row packages">
+                <div class="col-md-3">
+                    <div class="package">
+                        <div class="package-header bg-primary color-white">
+                            <h5>Basic</h5>
+                        </div>
+                        <div class="price-container d-flex align-items-end justify-content-center">
+                            <h4 class="h1"><span class="currency">$</span>7</h4><span class="period">/ month</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i>100GB Storage</li>
+                            <li><i class="fa fa-check"></i>Own config file</li>
+                            <li><i class="fa fa-times"></i>Sharing Tools</li>
+                            <li><i class="fa fa-times"></i>Auto Backup</li>
+                            <li><i class="fa fa-times"></i>Extended Security</li>
+                        </ul>
+
+                        <button class="btn btn-template-outlined" ng-click="cc.agregar(x)">AddtoCart</button>
+                    </div>
+                </div>
+                <!-- <div class="col-md-3">
+                    <div class="package">
+                        <div class="package-header bg-primary color-white">
+                            <h5>Standard</h5>
+                        </div>
+                        <div class="price-container d-flex align-items-end justify-content-center">
+                            <h4 class="h1"><span class="currency">$</span>21</h4><span class="period">/ month</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i>100GB Storage</li>
+                            <li><i class="fa fa-check"></i>Own config file</li>
+                            <li><i class="fa fa-times"></i>Sharing Tools</li>
+                            <li><i class="fa fa-times"></i>Auto Backup</li>
+                            <li><i class="fa fa-times"></i>Extended Security</li>
+                        </ul><a href="#" class="btn btn-template-outlined">Sign Up</a>
+                    </div>
+                </div> -->
+                <!-- <div class="col-md-3">
+                    <div class="best-value">
+                        <div class="package">
+                            <div class="package-header bg-primary color-white">
+                                <div class="content">
+                                    <h5>Premium</h5>
+                                    <div class="meta-text">Best Value</div>
+                                </div>
+                            </div>
+                            <div class="price-container d-flex align-items-end justify-content-center">
+                                <h4 class="h1"><span class="currency">$</span>53</h4><span class="period">/ month</span>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-check"></i>100GB Storage</li>
+                                <li><i class="fa fa-check"></i>Own config file</li>
+                                <li><i class="fa fa-times"></i>Sharing Tools</li>
+                                <li><i class="fa fa-times"></i>Auto Backup</li>
+                                <li><i class="fa fa-times"></i>Extended Security</li>
+                            </ul><a href="#" class="btn btn-template-outlined">Sign Up</a>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="col-md-3">
+                    <div class="package">
+                        <div class="package-header bg-primary color-white">
+                            <h5>Ultimate</h5>
+                        </div>
+                        <div class="price-container d-flex align-items-end justify-content-center">
+                            <h4 class="h1"><span class="currency">$</span>99</h4><span class="period">/ month</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check"></i>100GB Storage</li>
+                            <li><i class="fa fa-check"></i>Own config file</li>
+                            <li><i class="fa fa-times"></i>Sharing Tools</li>
+                            <li><i class="fa fa-times"></i>Auto Backup</li>
+                            <li><i class="fa fa-times"></i>Extended Security</li>
+                        </ul><a href="#" class="btn btn-template-outlined">Sign Up</a>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+        <section class="bar bg-gray no-mb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading">
+                            <h2>What our customers say</h2>
+                        </div>
+                        <p class="lead">We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us.</p>
+                        <!-- Carousel Start-->
+                        <ul class="owl-carousel testimonials list-unstyled equal-height">
+                            <li class="item">
+                                <div class="testimonial d-flex flex-wrap">
+                                    <div class="text">
+                                        <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</p>
+                                    </div>
+                                    <div class="bottom d-flex align-items-center justify-content-between align-self-end">
+                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="testimonial-info d-flex">
+                                            <div class="title">
+                                                <h5>John McIntyre</h5>
+                                                <p>CEO, TransTech</p>
+                                            </div>
+                                            <div class="avatar"><img alt="" src="img/person-1.jpg" class="img-fluid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="testimonial d-flex flex-wrap">
+                                    <div class="text">
+                                        <p>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me? " he thought. It wasn't a dream.</p>
+                                    </div>
+                                    <div class="bottom d-flex align-items-center justify-content-between align-self-end">
+                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="testimonial-info d-flex">
+                                            <div class="title">
+                                                <h5>John McIntyre</h5>
+                                                <p>CEO, TransTech</p>
+                                            </div>
+                                            <div class="avatar"><img alt="" src="img/person-2.jpg" class="img-fluid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="testimonial d-flex flex-wrap">
+                                    <div class="text">
+                                        <p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</p>
+                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
+                                    </div>
+                                    <div class="bottom d-flex align-items-center justify-content-between align-self-end">
+                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="testimonial-info d-flex">
+                                            <div class="title">
+                                                <h5>John McIntyre</h5>
+                                                <p>CEO, TransTech</p>
+                                            </div>
+                                            <div class="avatar"><img alt="" src="img/person-3.png" class="img-fluid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="testimonial d-flex flex-wrap">
+                                    <div class="text">
+                                        <p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite sad.</p>
+                                    </div>
+                                    <div class="bottom d-flex align-items-center justify-content-between align-self-end">
+                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="testimonial-info d-flex">
+                                            <div class="title">
+                                                <h5>John McIntyre</h5>
+                                                <p>CEO, TransTech</p>
+                                            </div>
+                                            <div class="avatar"><img alt="" src="img/person-4.jpg" class="img-fluid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="testimonial d-flex flex-wrap">
+                                    <div class="text">
+                                        <p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite sad. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite sad.</p>
+                                    </div>
+                                    <div class="bottom d-flex align-items-center justify-content-between align-self-end">
+                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="testimonial-info d-flex">
+                                            <div class="title">
+                                                <h5>John McIntyre</h5>
+                                                <p>CEO, TransTech</p>
+                                            </div>
+                                            <div class="avatar"><img alt="" src="img/person-1.jpg" class="img-fluid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- Carousel End-->
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
     <!-- GET IT-->
     <div class="get-it">
@@ -149,4 +225,83 @@
             </div>
         </div>
     </div>
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4 class="h6">About Us</h4>
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <hr>
+                    <h4 class="h6">Join Our Monthly Newsletter</h4>
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr class="d-block d-lg-none">
+                </div>
+                <div class="col-lg-3">
+                    <h4 class="h6">Blog</h4>
+                    <ul class="list-unstyled footer-blog-list">
+                        <li class="d-flex align-items-center">
+                            <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                            <div class="text">
+                                <h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                            <div class="text">
+                                <h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                            <div class="text">
+                                <h5 class="mb-0"> <a href="post.html">Very very long blog post name</a></h5>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr class="d-block d-lg-none">
+                </div>
+                <div class="col-lg-3">
+                    <h4 class="h6">Contact</h4>
+                    <p class="text-uppercase"><strong>Universal Ltd.</strong>
+                        <br>13/25 New Avenue
+                        <br>Newtown upon River
+                        <br>45Y 73J
+                        <br>England
+                        <br><strong>Great Britain</strong></p><a href="contact.html" class="btn btn-template-main">Go to contact page</a>
+                    <hr class="d-block d-lg-none">
+                </div>
+                <div class="col-lg-3">
+                    <ul class="list-inline photo-stream">
+                        <li class="list-inline-item"><a href="#"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></a></li>
+                        <li class="list-inline-item"><a href="#"><img src="img/detailsquare2.jpg" alt="..." class="img-fluid"></a></li>
+                        <li class="list-inline-item"><a href="#"><img src="img/detailsquare3.jpg" alt="..." class="img-fluid"></a></li>
+                        <li class="list-inline-item"><a href="#"><img src="img/detailsquare3.jpg" alt="..." class="img-fluid"></a></li>
+                        <li class="list-inline-item"><a href="#"><img src="img/detailsquare2.jpg" alt="..." class="img-fluid"></a></li>
+                        <li class="list-inline-item"><a href="#"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 text-center-md">
+                        <p>&copy; 2018. Your company / name goes here</p>
+                    </div>
+                    <div class="col-lg-8 text-right text-center-md">
+                        <p>Template design by <a href="https://bootstrapious.com/free-templates">Bootstrapious Templates </a></p>
+                        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>

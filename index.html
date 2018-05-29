@@ -23,6 +23,7 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="style/css/custom.css">
     <!-- Favicon and apple touch icons-->
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-57x57.png">
@@ -53,12 +54,17 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="bower_components/ngcart/dist/ngCart.js"></script>
+    <script src="bower_components/ngcart/dist/ngCart.min.js"></script>
+    <script type="text/ng-template" id="template/ngCart/addtocart.html"></script>
+    <script type="text/ng-template" id="template/ngCart/summary.html"></script>
+    <script type="text/ng-template" id="template/ngCart/cart.html"></script>
+    <script type="text/ng-template" id="template/ngCart/checkout.html"></script>
     <!-- End Bower Files -->    
 
     <!-- angulalar JS -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/controller.js"></script>
+    <script src="scripts/controllers/carrito_controller.js"></script>
     <script src="scripts/services/service.js"></script>
     <!-- End Angular JS -->
 

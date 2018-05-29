@@ -28,9 +28,11 @@
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
 
         easyTeam.arr = [
-            { 'nombre': 'ABELARDO CASTRO', 'img': 'img/product2.jpg' },
-            { 'nombre': 'RONALD BARIOS', 'img': 'img/product3.jpg' },
-            { 'nombre': 'GABRIEL VILLAREL', 'img': 'img/product4.jpg' }
+            { 'nombre': 'RIDE IN CHIVA', 'img': 'img/publicidad/chiva.jpg' },
+            { 'nombre': 'CITY TOUR', 'img': 'img/publicidad/cityTour.jpg' },
+            { 'nombre': 'DIVING', 'img': 'img/publicidad/buceo.jpg' },
+            { 'nombre': 'TOTUMO VOLCANO', 'img': 'img/publicidad/totumo.jpg' },
+            { 'nombre': 'HORSE CARRIAGE', 'img': 'img/publicidad/carriage.jpg' }
         ];
 
         easyTeam.scrollTop = function() {

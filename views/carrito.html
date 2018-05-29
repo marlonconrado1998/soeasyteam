@@ -1,169 +1,127 @@
-<dir>
-	<div id="heading-breadcrumbs">
+<div ng-controller="controEasyTeam as easyTeamCtrl">
+    <div id="heading-breadcrumbs">
         <div class="container">
-          <div class="row d-flex align-items-center flex-wrap">
-            <div class="col-md-7">
-              <h1 class="h2">Shopping Cart</h1>
+            <div class="row d-flex align-items-center flex-wrap">
+                <div class="col-md-7">
+                    <h1 class="h2">Shopping Cart</h1>
+                </div>
+                <div class="col-md-5">
+                    <ul class="breadcrumb d-flex justify-content-end">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Shopping Cart</li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-5">
-              <ul class="breadcrumb d-flex justify-content-end">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Shopping Cart</li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
-      <div id="content">
+    </div>
+    <div id="content">
         <div class="container">
-          <div class="row bar">
-            <div class="col-lg-12">
-              <p class="text-muted lead">You currently have 3 item(s) in your cart.</p>
+            <div class="row bar">
+                <div class="col-lg-6">
+                    <p class="text-muted lead">You currently have {{easyTeamCtrl.ongetTotalItems()}} item(s) in your cart.</p>
+                </div>
+                <div class="col-lg-6">
+                    <form>
+                        <div class="form-group" style="margin-top: 5px">
+                            <label for="fecha">
+                                <h5>Date Service:</h5></label>
+                            <input type="date" class="form-control" name="fecha" id="fecha" ng-model="easyTeamCtrl.fechaServicio" ng-change="easyTeamCtrl.onGuardarCompra()">
+                        </div>
+                    </form>
+                </div>
+                <div id="basket" class="col-lg-12">
+                    <div class="box mt-0 pb-0 no-horizontal-padding">
+                        <form method="get" action="shop-checkout1.html">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Product</th>
+                                            <th>Quantity</th>
+                                            <th>Unit price</th>
+                                            <th>Total Item</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in easyTeamCtrl.dataCarrito">
+                                            <td><a><img src="data:image/jpg;base64,{{x._data}}" alt="White Blouse Armani" class="img-fluid"></a></td>
+                                            <td><a>{{x._name}}</a></td>
+                                            <td>
+                                                <input type="number" class="form-control" ng-model="x._quantity" min="1">
+                                            </td>
+                                            <td>{{x._price | currency}}</td>
+                                            <td>{{easyTeamCtrl.onGetTotal(x._quantity, x._price) | currency}}</td>
+                                            <td><i class="fa fa-trash-o" ng-click="easyTeamCtrl.onRemoveItemById(x._id)"></i></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="5">Total</th>
+                                            <th colspan="2">{{easyTeamCtrl.onTotalCost() | currency}}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="box-footer d-flex justify-content-between align-items-center">
+                                <div class="dropdown">
+                                    <div class="left-col dropdown"><a href="" class="btn btn-secondary mt-0 dropdown-toggle" data-toggle="dropdown"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item"><a class="dropdown-item" ui-sref="ApartCasa">APARTMENTS AND HOUSE</a></li>
+                                        <li class="dropdown-item"><a class="dropdown-item" ui-sref="YatesBotes">YACHTS AND BOAT'S</a></li>
+                                        <li class="dropdown-item"><a class="dropdown-item-text">CARS</a></li>
+                                        <!-- <li class="dropdown-item"><a href="index4.html" class="nav-link">Option 4: Agency</a></li>
+                                        <li class="dropdown-item"><a href="index5.html" class="nav-link">Option 5: Portfolio</a></li> -->
+                                    </ul>
+                                    <!-- <div class="dropdown-menu">
+                                        <a class="dropdown-item" ui-sref="ApartCasa">APARTMENTS AND HOUSE</a>
+                                        <a class="dropdown-item" ui-sref="YatesBotes">YACHTS AND BOAT'S</a>
+                                        <a class="dropdown-item-text">CARS</a>
+                                    </div> -->
+                                </div>
+                                <div class="right-col">
+                                    <button class="btn btn-secondary"><i class="fa fa-recycle"></i> Empty Cart</button>
+                                    <button type="submit" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="bar background-pentagon no-mb text-md-center">
+                                <div class="container">
+                                    <div class="heading text-center">
+                                        <h3>You may also like these products</h3>
+                                    </div>
+                                    <!-- <p class="lead">We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us.</p> -->
+                                    <!-- Carousel Start-->
+                                    <ul class="owl-carousel testimonials list-unstyled equal-height">
+                                        <li class="item" ng-repeat="x in easyTeamCtrl.arr">
+                                            <div class="testimonial d-flex flex-wrap">
+                                                <div class="text">
+                                                    <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</p>
+                                                </div>
+                                                <div class="bottom d-flex align-items-center justify-content-between align-self-end">
+                                                    <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                                    <div class="testimonial-info d-flex">
+                                                        <div class="title">
+                                                            <h5>{{x.nombre}}</h5>
+                                                            <p>CEO, TransTech</p>
+                                                            <!-- <a ui-sref="Paquetes"></a> -->
+                                                        </div>
+                                                        <div class="avatar"><img alt="" src="img/person-1.jpg" class="img-fluid"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- Carousel End-->
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="basket" class="col-lg-9">
-              <div class="box mt-0 pb-0 no-horizontal-padding">
-                <form method="get" action="shop-checkout1.html">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th colspan="2">Product</th>
-                          <th>Quantity</th>
-                          <th>Unit price</th>
-                          <th>Discount</th>
-                          <th colspan="2">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><a href="#"><img src="img/detailsquare.jpg" alt="White Blouse Armani" class="img-fluid"></a></td>
-                          <td><a href="#">White Blouse Armani</a></td>
-                          <td>
-                            <input type="number" value="2" class="form-control">
-                          </td>
-                          <td>$123.00</td>
-                          <td>$0.00</td>
-                          <td>$246.00</td>
-                          <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                        </tr>
-<!--                         <tr>
-                          <td><a href="#"><img src="img/basketsquare.jpg" alt="Black Blouse Armani" class="img-fluid"></a></td>
-                          <td><a href="#">Black Blouse Armani</a></td>
-                          <td>
-                            <input type="number" value="1" class="form-control">
-                          </td>
-                          <td>$200.00</td>
-                          <td>$0.00</td>
-                          <td>$200.00</td>
-                          <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                        </tr> -->
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th colspan="5">Total</th>
-                          <th colspan="2">$446.00</th>
-                        </tr>
-                      </tfoot>
-                    </table>
-<!--                   </div>
-                  <div class="box-footer d-flex justify-content-between align-items-center">
-                    <div class="left-col"><a href="shop-category.html" class="btn btn-secondary mt-0"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
-                    <div class="right-col">
-                      <button class="btn btn-secondary"><i class="fa fa-refresh"></i> Update cart</button>
-                      <button type="submit" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
-                    </div>
-                  </div> -->
-                </form>
-              </div>
-              <!-- <div class="row">
-                <div class="col-lg-3 col-md-6">
-                  <div class="box text-uppercase mt-0 mb-2">
-                    <h3>You may also like these products</h3>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="img/product2.jpg" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">Fur coat</a></h3>
-                      <p class="price">$143</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="img/product3.jpg" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">Fur coat</a></h3>
-                      <p class="price">$143</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="img/product1.jpg" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">Fur coat</a></h3>
-                      <p class="price">$143</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-<!--             <div class="col-lg-3">
-              <div id="order-summary" class="box mt-0 mb-4 p-0">
-                <div class="box-header mt-0">
-                  <h3>Order summary</h3>
-                </div>
-                <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
-                <div class="table-responsive">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>Order subtotal</td>
-                        <th>$446.00</th>
-                      </tr>
-                      <tr>
-                        <td>Shipping and handling</td>
-                        <th>$10.00</th>
-                      </tr>
-                      <tr>
-                        <td>Tax</td>
-                        <th>$0.00</th>
-                      </tr>
-                      <tr class="total">
-                        <td>Total</td>
-                        <th>$456.00</th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="box box mt-0 mb-4 p-0">
-                <div class="box-header mt-0">
-                  <h4>Coupon code</h4>
-                </div>
-                <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
-                <form>
-                  <div class="input-group">
-                    <input type="text" class="form-control"><span class="input-group-btn">
-                      <button type="button" class="btn btn-template-main"><i class="fa fa-gift"></i></button></span>
-                  </div>
-                </form>
-              </div>
-            </div> -->
-<!--           </div>
         </div>
-      </div> -->
-      <!-- GET IT-->
-<!--       <div class="get-it">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 text-center p-3">
-              <h3>Do you want cool website like this one?</h3>
-            </div>
-            <div class="col-lg-4 text-center p-3">   <a href="#" class="btn btn-template-outlined-white">Buy this template now</a></div>
-          </div>
-        </div>
-      </div> -->
-</dir>
+    </div>
+</div>

@@ -53,3 +53,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
         });
     }
 ]);
+
+// app.directive("itemCarrito", function(){
+//     return {
+//         ngCart.getTotalItems()
+//     };
+// });

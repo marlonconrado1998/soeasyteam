@@ -25,7 +25,7 @@
                         <ul class="social-custom list-inline">
                             <li class="list-inline-item"><a href="http://www.facebook.com/SO-EASY-Team-SAS-1743112429116725/" target="_blank"><i class="fa fa-facebook"></i></a></li>
                             <li class="list-inline-item"><a href="http://www.instagram.com/soeasyteamsas/?hl=es-la" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                            <!--                             <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li> -->
                         </ul>
                     </div>
@@ -84,8 +84,9 @@
                         </li>
                         <li class=""><a ui-sref="ClientesFelices">happy customers</a></li>
                         <li class="nav-item dropdown "><a ui-sref="About"> About us<b class="caret"></b></a></li>
-                        <li class="nav-item dropdown "><a data-toggle="dropdown">cart<b class="caret"></b></a>
+                        <li class="nav-item dropdown "><a data-toggle="dropdown">cart <span class="relative" ng-hide="easyTeamCtrl.ongetTotalItems() == 0">{{easyTeamCtrl.ongetTotalItems()}}</span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li class="dropdown-item" ng-repeat="x in easyTeamCtrl.dataCarrito.items">{{x._name}}</li>
                                 <li class="dropdown-item"><a ui-sref="Carrito" class="nav-link">Show my car</a></li>
                                 <!--                                 <li class="dropdown-item"><a href="index2.html" class="nav-link">Option 2: Application</a></li>
                                 <li class="dropdown-item"><a href="index3.html" class="nav-link">Option 3: Startup</a></li>
@@ -98,7 +99,7 @@
                                 <li class="dropdown-item"><a class="nav-link" ng-click="easyTeamCtrl.onLogout();">Logout</a></li>
                             </ul>
                         </li>
-                        <!-- <li class="nav-item dropdown menu-large"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Features<b class="caret"></b></a>
+                        <li class="nav-item dropdown menu-large"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Features<b class="caret"></b></a>
                             <ul class="dropdown-menu megamenu">
                                 <li>
                                     <div class="row">
@@ -162,7 +163,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li>
                         <!-- ========== FULL WIDTH MEGAMENU ==================-->
                         <!-- <li class="nav-item dropdown menu-large"><a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle">All Pages <b class="caret"></b></a>
                             <ul class="dropdown-menu megamenu">

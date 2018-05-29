@@ -4,9 +4,9 @@
 
     app.controller('controEasyTeam', controEasyTeam);
 
-    controEasyTeam.$inject = ['serviEasyTeam', '$location'];
+    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', '$location'];
 
-    function controEasyTeam(serviEasyTeam, $location) {
+    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, $location) {
 
         var easyTeam = this;
 
@@ -24,6 +24,8 @@
         easyTeam.infoUsuario = JSON.parse(sessionStorage.getItem("infoUsuario"));
         easyTeam.detalleProducto = JSON.parse(sessionStorage.getItem("infoProducto")); // variable que contiene la informacion de un producto que esta en el sessionStorage para luego mostrarla en la vista detalles
         easyTeam.dataJson = [];
+        easyTeam.dataCarrito = ngCart.getItems();
+        easyTeam.fechaServicio = ""; // en esta variable se guarda la fecha en que se realizará el servicio
 
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
 
@@ -39,10 +41,44 @@
 
             body.scrollTop = 0 + "px";
             html.scrollTop = 0 + "px";
+        };
+
+        easyTeam.onAddCart = function(data) {
+            ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
+            easyTeam.dataCarrito = ngCart.getItems();
+            console.log(easyTeam.dataCarrito);
+            console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
+            console.log("Total: " + ngCart.totalCost());
+            console.log(ngCart.getTotalItems());
+        };
+
+        easyTeam.ongetTotalItems = function() {
+            return ngCart.getTotalItems();
+        };
+
+        easyTeam.onTotalCost = function() {
+            return ngCart.totalCost();
+        };
+
+        easyTeam.onGetTotal = function(quantity, price) {
+            var totaItem = quantity * price;
+            return totaItem;
+        };
+
+        easyTeam.onRemoveItemById = function(id) {
+            ngCart.removeItemById(id);
+        };
+
+        easyTeam.onGuardarCompra = function(){
+            
+            var data = [{
+                "totalVenta": ngCart.totalCost(),
+                "fecha" : easyTeam.fechaServicio,
+                "items": ngCart.getItems(),
+            }];
         }
 
-        // easyTeam.scrollTop();
-
+        // console.log(easyTeam.ongetTotalItems());
         // funcion que busca los nombre de usuario para la validacion en el registro
         easyTeam.onBuscarNombresDeUsuarios = function() {
 
@@ -172,7 +208,7 @@
             var tipo = tipo;
             var idproducto = idproducto;
             var data = [];
-            
+
             serviEasyTeam.buscarImgJson().then(function(resp) {
 
                 easyTeam.dataJson = resp.data;
@@ -266,7 +302,7 @@
                         var len2 = easyTeam.dataJson.carro.length;
                         var i = 0;
                         var j = 0;
-                        
+
                         for (i = 0; i < len; i++) {
                             if (easyTeam.dataJson.carro[i].id == idproducto) {
                                 data.push(easyTeam.dataJson.carro[i].galeria);

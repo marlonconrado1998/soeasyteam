@@ -131,16 +131,16 @@
         // funcion que guarda un nuevo cliente. Esta funcion se dispara en la vista header.html
         easyTeam.onGuardarCliente = function() {
 
-            var data = JSON.stringify(easyTeam.dataRegistro);
+            var data = easyTeam.dataRegistro;
 
             serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
 
-                swal({
-                    text: resp.data.message,
-                    type: 'success'
-                });
+                // swal({
+                //     text: resp.data.message,
+                //     type: 'success'
+                // });
 
-                // console.log(resp.data.data);
+                console.log(resp);
             }).catch(function(error) {
                 console.log(error);
             });

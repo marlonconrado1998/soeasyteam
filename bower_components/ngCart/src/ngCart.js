@@ -131,7 +131,6 @@ angular.module('ngCart', ['ngCart.directives'])
             this.$cart.items.splice(index, 1);
             $rootScope.$broadcast('ngCart:itemRemoved', {});
             $rootScope.$broadcast('ngCart:change', {});
-
         };
 
         this.removeItemById = function (id) {

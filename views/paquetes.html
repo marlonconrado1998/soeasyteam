@@ -6,14 +6,53 @@
             </div>
             <div class="col-md-5">
                 <ul class="breadcrumb d-flex justify-content-end">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="index.html">Home</a>
+                    </li>
                     <li class="breadcrumb-item active">Packages</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<div id="content" ng-controller="carritoController as cc">
+<div id="content" ng-controller="controEasyTeam as cc">
+    <div id="detail-modal" tabindex="-1" role="dialog" aria-labelledby="login-modalLabel" aria-hidden="true" class="modal fade">
+        <div role="document" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="login-modalLabel" class="modal-title">Package details</h4>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-justify" ng-bind="cc.paquete"></p>
+                    <!-- <form id="form_login" name="form_login">
+                        <div class="form-group">
+                            <input type="text" id="nomUsu" name="nomUsu" ng-model="easyTeamCtrl.login[0].nomUsu" placeholder="user name" class="form-control"
+                                required>
+                            <h6 class="modal-title" ng-show="form_login.nomUsu.$touched && form_login.nomUsu.$invalid">The E-mail Is Required</h6>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="pass" name="pass" ng-model="easyTeamCtrl.login[0].pass" placeholder="password" class="form-control"
+                                required>
+                            <h6 class="modal-title" ng-show="form_login.pass.$dirty && form_login.pass.$invalid">The Password Is Required</h6>
+                        </div>
+                        <p class="text-center">
+                            <input type="button" class="btn btn-template-outlined" ng-disabled="form_login.$invalid" ng-click="easyTeamCtrl.onLogin()"
+                                value="Log in">
+                            <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>
+                        </p>
+                    </form> -->
+                    <!-- <p class="text-center text-muted">Not registered yet?</p>
+                    <p class="text-center text-muted">
+                        <a data-dismiss="modal" aria-label="Close" ui-sref="Registro">
+                            <strong>Register now</strong>
+                        </a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <section class="bar pb-0">
             <div class="row">
@@ -21,7 +60,9 @@
                     <div class="heading">
                         <h2>Our packages</h2>
                     </div>
-                    <p class="lead">Yielding, they're air. Land replenish spirit given gathered subdue, day Blessed you'll great created, lights a one light, blessed deep morning, appear our. Fruit multiply, creeping first image. Upon saw isn't male winged to replenish tree and.</p>
+                    <p class="lead">Yielding, they're air. Land replenish spirit given gathered subdue, day Blessed you'll great created,
+                        lights a one light, blessed deep morning, appear our. Fruit multiply, creeping first image. Upon
+                        saw isn't male winged to replenish tree and.</p>
                 </div>
             </div>
         </section>
@@ -40,18 +81,23 @@
                             <h5>Basic</h5>
                         </div>
                         <div class="price-container d-flex align-items-end justify-content-center">
-                            <h4 class="h1"><span class="currency">$</span>2.500</h4><span class="period">USD</span>
+                            <h4 class="h1">
+                                <span class="currency">$</span>2.500</h4>
+                            <span class="period">USD</span>
                         </div>
                         <ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i>100GB Storage</li>
-                            <li><i class="fa fa-check"></i>Own config file</li>
-                            <li><i class="fa fa-times"></i>Sharing Tools</li>
-                            <li><i class="fa fa-times"></i>Auto Backup</li>
-                            <li><i class="fa fa-times"></i>Extended Security</li>
+                            <li>
+                                <h5>1 or 2 Persons</h5s>
+                            </li>
+                            <li>Apartment In Bocagrande Two Rooms</li>
+                            <li>5 Days And 5 Nights</li>
+                            <li>24 Hours Transportation</li>
+                            <li>Trip Through The Tosary Islands</li>
+                            <li>Bar Crawl</li>
                         </ul>
 
-                        <button class="btn btn-template-outlined" ng-click="cc.agregar(x)">Details</button>
-                        <button class="btn btn-template-outlined" ng-click="cc.agregar(x)">AddCar</button>
+                        <button class="btn btn-template-outlined" ng-click="cc.onBuscarInfoPaquete(1);" data-toggle="modal" data-target="#detail-modal">Details</button>
+                        <button class="btn btn-template-outlined">AddCar</button>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -60,18 +106,23 @@
                             <h5>Basic - 2</h5>
                         </div>
                         <div class="price-container d-flex align-items-end justify-content-center">
-                            <h4 class="h1"><span class="currency">$</span>3.500</h4><span class="period">USD</span>
+                            <h4 class="h1">
+                                <span class="currency">$</span>3.500</h4>
+                            <span class="period">USD</span>
                         </div>
                         <ul class="list-unstyled">
-                            <li><i class="fa fa-check"></i>100GB Storage</li>
-                            <li><i class="fa fa-check"></i>Own config file</li>
-                            <li><i class="fa fa-times"></i>Sharing Tools</li>
-                            <li><i class="fa fa-times"></i>Auto Backup</li>
-                            <li><i class="fa fa-times"></i>Extended Security</li>
+                            <li>
+                                <h5>1 or 4 Persons</h5s>
+                            </li>
+                            <li>Apartment In Bocagrande four Rooms</li>
+                            <li>5 Days And 5 Nights</li>
+                            <li>24 Hours Transportation</li>
+                            <li>Trip Through The Tosary Islands</li>
+                            <li>Bar Crawl</li>
                         </ul>
 
-                        <button class="btn btn-template-outlined" ng-click="cc.agregar(x)">Details</button>
-                        <button class="btn btn-template-outlined" ng-click="cc.agregar(x)">AddCar</button>
+                        <button class="btn btn-template-outlined" ng-click="cc.onBuscarInfoPaquete(2);" data-toggle="modal" data-target="#detail-modal">Details</button>
+                        <button class="btn btn-template-outlined">AddCar</button>
                     </div>
                 </div>
                 <!-- <div class="col-md-3">
@@ -137,24 +188,30 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h2>What our customers say</h2>
+                            <h2>FOR YOUR GREATEST COMFORT</h2>
                         </div>
-                        <p class="lead">We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us.</p>
-                        <!-- Carousel Start-->
-                        <ul class="owl-carousel testimonials list-unstyled equal-height">
+                        <p class="lead">All Packages Come With An Included Host That Will Accompany You At All Times For Your Safety and Tranquility</p>
+                        <!-- <ul class="owl-carousel testimonials list-unstyled equal-height">
                             <li class="item">
                                 <div class="testimonial d-flex flex-wrap">
                                     <div class="text">
-                                        <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</p>
+                                        <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed
+                                            in his bed into a horrible vermin. He lay on his armour-like back, and if he
+                                            lifted his head a little he could see his brown belly, slightly domed and divided
+                                            by arches into stiff sections.</p>
                                     </div>
                                     <div class="bottom d-flex align-items-center justify-content-between align-self-end">
-                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="icon">
+                                            <i class="fa fa-quote-left"></i>
+                                        </div>
                                         <div class="testimonial-info d-flex">
                                             <div class="title">
                                                 <h5>John McIntyre</h5>
                                                 <p>CEO, TransTech</p>
                                             </div>
-                                            <div class="avatar"><img alt="" src="img/person-1.jpg" class="img-fluid"></div>
+                                            <div class="avatar">
+                                                <img alt="" src="img/person-1.jpg" class="img-fluid">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -162,16 +219,23 @@
                             <li class="item">
                                 <div class="testimonial d-flex flex-wrap">
                                     <div class="text">
-                                        <p>The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me? " he thought. It wasn't a dream.</p>
+                                        <p>The bedding was hardly able to cover it and seemed ready to slide off any moment.
+                                            His many legs, pitifully thin compared with the size of the rest of him, waved
+                                            about helplessly as he looked. "What's happened to me? " he thought. It wasn't
+                                            a dream.</p>
                                     </div>
                                     <div class="bottom d-flex align-items-center justify-content-between align-self-end">
-                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="icon">
+                                            <i class="fa fa-quote-left"></i>
+                                        </div>
                                         <div class="testimonial-info d-flex">
                                             <div class="title">
                                                 <h5>John McIntyre</h5>
                                                 <p>CEO, TransTech</p>
                                             </div>
-                                            <div class="avatar"><img alt="" src="img/person-2.jpg" class="img-fluid"></div>
+                                            <div class="avatar">
+                                                <img alt="" src="img/person-2.jpg" class="img-fluid">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -179,17 +243,24 @@
                             <li class="item">
                                 <div class="testimonial d-flex flex-wrap">
                                     <div class="text">
-                                        <p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls.</p>
-                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.</p>
+                                        <p>His room, a proper human room although a little too small, lay peacefully between
+                                            its four familiar walls.</p>
+                                        <p>A collection of textile samples lay spread out on the table - Samsa was a travelling
+                                            salesman - and above it there hung a picture that he had recently cut out of
+                                            an illustrated magazine and housed in a nice, gilded frame.</p>
                                     </div>
                                     <div class="bottom d-flex align-items-center justify-content-between align-self-end">
-                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="icon">
+                                            <i class="fa fa-quote-left"></i>
+                                        </div>
                                         <div class="testimonial-info d-flex">
                                             <div class="title">
                                                 <h5>John McIntyre</h5>
                                                 <p>CEO, TransTech</p>
                                             </div>
-                                            <div class="avatar"><img alt="" src="img/person-3.png" class="img-fluid"></div>
+                                            <div class="avatar">
+                                                <img alt="" src="img/person-3.png" class="img-fluid">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,16 +268,23 @@
                             <li class="item">
                                 <div class="testimonial d-flex flex-wrap">
                                     <div class="text">
-                                        <p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite sad.</p>
+                                        <p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a
+                                            heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor
+                                            then turned to look out the window at the dull weather. Drops of rain could be
+                                            heard hitting the pane, which made him feel quite sad.</p>
                                     </div>
                                     <div class="bottom d-flex align-items-center justify-content-between align-self-end">
-                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="icon">
+                                            <i class="fa fa-quote-left"></i>
+                                        </div>
                                         <div class="testimonial-info d-flex">
                                             <div class="title">
                                                 <h5>John McIntyre</h5>
                                                 <p>CEO, TransTech</p>
                                             </div>
-                                            <div class="avatar"><img alt="" src="img/person-4.jpg" class="img-fluid"></div>
+                                            <div class="avatar">
+                                                <img alt="" src="img/person-4.jpg" class="img-fluid">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -214,22 +292,30 @@
                             <li class="item">
                                 <div class="testimonial d-flex flex-wrap">
                                     <div class="text">
-                                        <p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite sad. Gregor then turned to look out the window at the dull weather. Drops of rain could be heard hitting the pane, which made him feel quite sad.</p>
+                                        <p>It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a
+                                            heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor
+                                            then turned to look out the window at the dull weather. Drops of rain could be
+                                            heard hitting the pane, which made him feel quite sad. Gregor then turned to
+                                            look out the window at the dull weather. Drops of rain could be heard hitting
+                                            the pane, which made him feel quite sad.</p>
                                     </div>
                                     <div class="bottom d-flex align-items-center justify-content-between align-self-end">
-                                        <div class="icon"><i class="fa fa-quote-left"></i></div>
+                                        <div class="icon">
+                                            <i class="fa fa-quote-left"></i>
+                                        </div>
                                         <div class="testimonial-info d-flex">
                                             <div class="title">
                                                 <h5>John McIntyre</h5>
                                                 <p>CEO, TransTech</p>
                                             </div>
-                                            <div class="avatar"><img alt="" src="img/person-1.jpg" class="img-fluid"></div>
+                                            <div class="avatar">
+                                                <img alt="" src="img/person-1.jpg" class="img-fluid">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                        </ul>
-                        <!-- Carousel End-->
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -311,7 +397,7 @@
                 </div> -->
             </div>
         </div>
-         <!-- <div class="copyrights">
+        <!-- <div class="copyrights">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 text-center-md">
@@ -320,7 +406,7 @@
                     <div class="col-lg-8 text-right text-center-md">
                         <p>Template design by <a href="https://bootstrapious.com/free-templates">Bootstrapious Templates </a></p>
                          Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                    <!-- </div>
+        <!-- </div>
                 </div>
             </div>
         </div>   -->

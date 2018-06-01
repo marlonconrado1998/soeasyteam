@@ -1,14 +1,15 @@
 <?php
 
+use Spipu\Html2Pdf\Html2Pdf;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 //Requiere Data Access Layer
 require_once '../libraries/class_data_access_layer.php';
 //Requiere Data Access Layer
 require_once '../libraries/class_util_response.php';
 require_once '../vendor/autoload.php';
-
-use Spipu\Html2Pdf\Html2Pdf;
-
-
 
 class Repository_easyTeam {
 
@@ -54,26 +55,75 @@ class Repository_easyTeam {
         $response = null;
         $result = null;
         
-        $nombre           = $object[0]->nombre;
-        $apellidos        = $object[0]->apellidos;
-        $identificacion   = $object[0]->identificacion;
-        $correo           = $object[0]->correo;
-        $telefono         = $object[0]->telefono;
-        $nomUsuario       = $object[0]->nomUsuario;
-        $password         = password_hash($object[0]->password, PASSWORD_DEFAULT);
-        
+        $nombre           = $object[0]['nombre'];
+        $apellidos        = $object[0]['apellidos'];
+        $identificacion   = $object[0]['identificacion'];
+        $correo           = $object[0]['correo'];
+        $telefono         = $object[0]['telefono'];
+        // $nomUsuario       = $object[0]['nomUsuario'];
+        $password         = password_hash($object[0]['password'], PASSWORD_DEFAULT);
+
+        $this->EnviarEmail($correo);
+
         try{
             
-            
+            // $result = $this->DAL->query("CALL sp_insert_persona('$nombre', '$apellidos', '$identificacion', '$correo', '$telefono', 'USA', '$nomUsuario', '$password')", [], false);
 
-            $result = $this->DAL->query("CALL sp_insert_persona('$nombre', '$apellidos', '$identificacion', '$correo', '$telefono', 'USA', '$nomUsuario', '$password')", [], false);
-
-            $response =  $this->Response->ok("El usuario". $nomUsuario . " fue creado correctamente", $object);
+            $response =  $this->Response->ok("El usuario" . " fue creado correctamente", $object[0]['correo']);
         }catch(Exception $e){
             $response = $this->Response->error($e->getMessage(), 500);
         }
 
         $this->DAL->close();
+
+        return $response;
+    }
+
+    public function EnviarEmail($email){
+        
+        $mail = new PHPMailer();                              // Passing `true` enables exceptions
+        $response = null;
+        // $response = $email;
+        try {
+
+            //Configuración del Servidor
+            $mail->SMTPDebug = 4;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 25;                                    // TCP port to connect to
+
+            $mail->Username = 'jorozcoc1892@gamail.com';           // SMTP username
+            $mail->Password = 'JORGE9402ameLIVER';                // SMTP password
+
+            // //Recipients
+            $mail->setFrom('jorozcoc1892@gamail.com', 'No Responde Este Email');
+            $mail->addAddress($email, 'Jorge LFC');     // Add a recipient
+
+            //Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+
+            // cuerpo edel mensaje
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'prueba';
+            $mail->Body    = 'Hola <b>Mundo!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+
+            // if($email->send()){
+            //     $response = $this->Response->ok("El email fue enviado");
+            // }else{
+            //     $response = $this->Response->error("El no email fue enviado");
+            // }
+            // echo 'Message has been sent';
+        } catch (Exception $e) {
+            $response = $this->Response->error('Message could not be sent. Mailer Error: ', $mail->ErrorInfo);
+            // echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+        }
 
         return $response;
     }

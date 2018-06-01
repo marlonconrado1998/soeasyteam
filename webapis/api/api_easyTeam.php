@@ -19,12 +19,12 @@
 
 $app->post('/GuardarCliente/', function (Request $request, Response $response) use ($Template){
 
-    $data = json_decode($request->getParam('data'));
-    
+    $data = $request->getParam('data');
+    $email = "jorozcoc21@curnvirtual.edu.co";
     try{
 
-        $respuesta = $Template->GuardarCliente($data);
-
+        // $respuesta = $Template->GuardarCliente($data);
+        $respuesta = $Template->EnviarEmail($email);
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);

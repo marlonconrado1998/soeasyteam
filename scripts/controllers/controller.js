@@ -1,12 +1,12 @@
 'use strict';
 
-(function() {
+(function () {
 
     app.controller('controEasyTeam', controEasyTeam);
 
-    controEasyTeam.$inject = ['serviEasyTeam', '$location'];
+    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', '$location'];
 
-    function controEasyTeam(serviEasyTeam, $location) {
+    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, $location) {
 
         var easyTeam = this;
 
@@ -24,6 +24,8 @@
         easyTeam.infoUsuario = JSON.parse(sessionStorage.getItem("infoUsuario"));
         easyTeam.detalleProducto = JSON.parse(sessionStorage.getItem("infoProducto")); // variable que contiene la informacion de un producto que esta en el sessionStorage para luego mostrarla en la vista detalles
         easyTeam.dataJson = [];
+        easyTeam.dataCarrito = ngCart.getItems();
+        easyTeam.fechaServicio = ""; // en esta variable se guarda la fecha en que se realizará el servicio
 
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
 
@@ -34,34 +36,85 @@
             { 'nombre': 'TOTUMO VOLCANO', 'img': 'img/publicidad/totumo.jpg' },
             { 'nombre': 'HORSE CARRIAGE', 'img': 'img/publicidad/carriage.jpg' }
         ];
+        easyTeam.paquete = "";
+        easyTeam.paquetes = [{
+            'idPaquete': 1,
+            'descripcion': 'Transportation included 24 hours per day of stay with SoEasyTeam (urban perimeter only), if you want to leave the urban perimeter contact your host for more information, including gasoline and driver. The tour of the Rosario Islands is by luxury boat with a party in Cholon. Includes: breakfast with typical fried foods, lunch with sea food, beer and mixers, unlimited cocktails in select drinks.'
+        },{
+            'idPaquete': 2,
+            'descripcion': 'Transportation included 24 hours per day of stay with SoEasyTeam (urban perimeter only), if you want to leave the urban perimeter contact your host for more information, including gasoline and driver. The tour of the Rosario Islands is by luxury boat with a party in Cholon. Includes: breakfast with typical fried foods, lunch with sea food, beer and mixers, unlimited cocktails in select drinks. ALSO This package includes: private island trip, farewell party (24 national beers, water, soda).'
+        }];
 
-        easyTeam.scrollTop = function() {
+        easyTeam.onBuscarInfoPaquete = function (idPaquete) {
+            var len = easyTeam.paquetes.length;
+            for (var i = 0; i < len; i++) {
+                if (easyTeam.paquetes[i].idPaquete == idPaquete) {
+                    easyTeam.paquete = easyTeam.paquetes[i].descripcion;
+                }
+            }
+        };
+
+        easyTeam.scrollTop = function () {
             var body = document.body;
             var html = document.documentElement;
 
             body.scrollTop = 0 + "px";
             html.scrollTop = 0 + "px";
+        };
+
+        easyTeam.onAddCart = function (data) {
+            ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
+            easyTeam.dataCarrito = ngCart.getItems();
+            console.log(easyTeam.dataCarrito);
+            console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
+            console.log("Total: " + ngCart.totalCost());
+            console.log(ngCart.getTotalItems());
+        };
+
+        easyTeam.ongetTotalItems = function () {
+            return ngCart.getTotalItems();
+        };
+
+        easyTeam.onTotalCost = function () {
+            return ngCart.totalCost();
+        };
+
+        easyTeam.onGetTotal = function (quantity, price) {
+            var totaItem = quantity * price;
+            return totaItem;
+        };
+
+        easyTeam.onRemoveItemById = function (id) {
+            ngCart.removeItemById(id);
+        };
+
+        easyTeam.onGuardarCompra = function () {
+
+            var data = [{
+                "totalVenta": ngCart.totalCost(),
+                "fecha": easyTeam.fechaServicio,
+                "items": ngCart.getItems(),
+            }];
         }
 
-        // easyTeam.scrollTop();
-
+        // console.log(easyTeam.ongetTotalItems());
         // funcion que busca los nombre de usuario para la validacion en el registro
-        easyTeam.onBuscarNombresDeUsuarios = function() {
+        easyTeam.onBuscarNombresDeUsuarios = function () {
 
             var len = easyTeam.listaNomUsuarios.length;
 
             if (len <= 0) {
-                serviEasyTeam.buscarNombresDeUsuarios().then(function(resp) {
+                serviEasyTeam.buscarNombresDeUsuarios().then(function (resp) {
                     console.log(resp.data.data);
                     easyTeam.listaNomUsuarios = resp.data.data;
-                }).catch(function(error) {
+                }).catch(function (error) {
                     console.log(error);
                 });
             }
         };
 
         // funcion que valida si un nombre de usuario no se repite esta funcion se dispara en la vista header.html
-        easyTeam.onValidarNomUsuario = function() {
+        easyTeam.onValidarNomUsuario = function () {
 
             var len = easyTeam.listaNomUsuarios.length;
             var sw = false;
@@ -81,7 +134,7 @@
         };
 
         // funcion que valida si el campo password es igual al campo confirmar password
-        easyTeam.onValidarPassword = function() {
+        easyTeam.onValidarPassword = function () {
             var pass = easyTeam.dataRegistro[0].password;
             var configPass = easyTeam.dataRegistro[0].configPassword;
 
@@ -93,49 +146,49 @@
         };
 
         // funcion que guarda un nuevo cliente. Esta funcion se dispara en la vista header.html
-        easyTeam.onGuardarCliente = function() {
+        easyTeam.onGuardarCliente = function () {
 
-            var data = JSON.stringify(easyTeam.dataRegistro);
+            var data = easyTeam.dataRegistro;
 
-            serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
+            serviEasyTeam.guardarCliente({ 'data': data }).then(function (resp) {
 
-                swal({
-                    text: resp.data.message,
-                    type: 'success'
-                });
+                // swal({
+                //     text: resp.data.message,
+                //     type: 'success'
+                // });
 
-                // console.log(resp.data.data);
-            }).catch(function(error) {
+                console.log(resp);
+            }).catch(function (error) {
                 console.log(error);
             });
         };
 
         // funcion que valida el login de una persona
-        easyTeam.onLogin = function() {
+        easyTeam.onLogin = function () {
 
             var nomUsu = easyTeam.login[0].nomUsu;
             var pass = easyTeam.login[0].pass;
             // console.log(easyTeam.login);
-            serviEasyTeam.login(nomUsu, pass).then(function(resp) {
+            serviEasyTeam.login(nomUsu, pass).then(function (resp) {
 
                 sessionStorage.setItem('infoUsuario', JSON.stringify(resp.data.data));
                 easyTeam.ocultar = true;
                 // console.log(resp.data.data);s
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log(error);
             });
         };
 
         // funccion para cerrar sesion de un cliente
-        easyTeam.onLogout = function() {
+        easyTeam.onLogout = function () {
             sessionStorage.removeItem('infoUsuario');
             easyTeam.ocultar = true;
         };
 
         // funcion que busca todos los apartamentos y las casas y los guarda en la variable easyTeam.listaApartCasas
-        easyTeam.onBuscarApartCasa = function() {
+        easyTeam.onBuscarApartCasa = function () {
 
-            serviEasyTeam.buscarApartCasa().then(function(resp) {
+            serviEasyTeam.buscarApartCasa().then(function (resp) {
                 var len = resp.data.data.length;
                 for (var i = 0; i < len; i++) {
                     if (resp.data.data[i].tipo == 'apartamento') {
@@ -144,14 +197,14 @@
                         easyTeam.listaCasas.push(resp.data.data[i]);
                     }
                 }
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log(error);
             });
         };
 
-        easyTeam.onBuscarYatesBotes = function() {
+        easyTeam.onBuscarYatesBotes = function () {
 
-            serviEasyTeam.buscarYatesBotes().then(function(resp) {
+            serviEasyTeam.buscarYatesBotes().then(function (resp) {
                 // console.log(resp.data.data);
 
                 var len = resp.data.data.length;
@@ -163,19 +216,19 @@
                         easyTeam.listaBotes.push(resp.data.data[i]);
                     }
                 }
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log(error);
             });
         };
 
         // funcion que busca las fotos de los productos en el archivo productos.json ubicado en la carpeta scripts
-        easyTeam.onBuscarinfoImg = function(idproducto, tipo) {
+        easyTeam.onBuscarinfoImg = function (idproducto, tipo) {
 
             var tipo = tipo;
             var idproducto = idproducto;
             var data = [];
-            
-            serviEasyTeam.buscarImgJson().then(function(resp) {
+
+            serviEasyTeam.buscarImgJson().then(function (resp) {
 
                 easyTeam.dataJson = resp.data;
 
@@ -268,7 +321,7 @@
                         var len2 = easyTeam.dataJson.carro.length;
                         var i = 0;
                         var j = 0;
-                        
+
                         for (i = 0; i < len; i++) {
                             if (easyTeam.dataJson.carro[i].id == idproducto) {
                                 data.push(easyTeam.dataJson.carro[i].galeria);
@@ -282,7 +335,7 @@
                         }
                         break;
                 }
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log(error);
             });
         };

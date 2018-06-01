@@ -182,6 +182,25 @@ class Repository_easyTeam {
         return $response;
     }
 
+    public function BuscarPaises(){
+
+        $response = null;
+        $result = null;
+
+        try {
+            
+            $result = $this->DAL->query("CALL sp_select_paises();", [], false);
+
+            $response = $this->Response->ok(null, $result);
+        } catch (Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+
+        $this->DAL->close();
+
+        return $response;
+    }    
+
     public function BuscarApartCasa(){
 
         $response = null;

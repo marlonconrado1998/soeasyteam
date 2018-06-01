@@ -1,5 +1,5 @@
 <div ng-controller="controEasyTeam as easyTeamCtrl">
-    <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarTodosProductos();">
+    <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarTodosProductos(); easyTeamCtrl.onBuscarPaises();">
         <div class="container">
             <div class="row d-flex align-items-center flex-wrap">
                 <div class="col-md-7">
@@ -41,6 +41,12 @@
                                     <div class="form-group">
                                         <input type="email" id="correo" name="correo" ng-model="easyTeamCtrl.dataRegistro[0].correo" placeholder="Email*" class="form-control" required>
                                         <h6 ng-show="form_registro.correo.$touched && form_registro.correo.$invalid">The Email Is Required.</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pais">Country:</label>
+                                        <select class="form-control" id="pais" name="pais" ng-model="easyTeamCtrl.dataRegistro[0].pais">
+                                            <option ng-repeat="x in easyTeamCtrl.listaPaises">{{x.nombre}}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" id="telefono" name="telefono" ng-model="easyTeamCtrl.dataRegistro[0].telefono" placeholder="Cell Phone*" class="form-control" required>

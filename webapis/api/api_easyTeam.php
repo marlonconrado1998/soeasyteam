@@ -58,6 +58,18 @@ $app->get('/Login/{nomUsu}/{pass}', function (Request $request, Response $respon
     }
 });
 
+$app->get('/BuscarPaises/', function (Request $request, Response $response) use ($Template){
+
+    try{
+
+        $respuesta = $Template->BuscarPaises();
+
+        return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
+
 $app->get('/BuscarApartCasa/', function (Request $request, Response $response) use ($Template){
 
     try{

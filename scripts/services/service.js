@@ -10,6 +10,7 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     servicio.buscarYatesBotes = BuscarYatesBotes;
     servicio.buscarCarros = BuscarCarros;
     servicio.guardarCompra = GuardarCompra;
+    servicio.buscarPaises = BuscarPaises;
 
     var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
@@ -56,6 +57,19 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     function Login(nomUsu, pass) {
         var defered = $q.defer();
         var urlRequest = url + "Login/" + nomUsu + "/" + pass;
+
+        $http.get(urlRequest).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+            defered.reject(error);
+        })
+
+        return defered.promise;
+    }
+
+    function BuscarPaises() {
+        var defered = $q.defer();
+        var urlRequest = url + "BuscarPaises/";
 
         $http.get(urlRequest).then(function(resp) {
             defered.resolve(resp);

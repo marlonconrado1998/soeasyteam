@@ -46,7 +46,7 @@
                                 <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                 <div class="text">
                                     <h3 class="h5"><a >{{x.nombre}}</a></h3>
-                                    <p class="price">{{x.valor | currency}}</p>
+                                    <p class="price"><span>{{easyTeamCtrl.onValidarExistenciaProducto(x.id)}}</span> {{x.valor | currency}}</p>
                                 </div>
                                 <div class="ribbon-holder">
                                     <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate')">DETAILS</div>
@@ -67,28 +67,11 @@
                                 <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                 <div class="text">
                                     <h3 class="h5"><a >{{x.nombre}}</a></h3>
-                                    <p class="price">{{x.valor | currency}}</p>
+                                    <p class="price">{{easyTeamCtrl.onValidarExistenciaProducto(x.id)}}</span> {{x.valor | currency}}</p>
                                 </div>
                                 <div class="ribbon-holder">
                                     <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate')">DETAILS</div>
                                     <div class="ribbon new manito" ng-click="easyTeamCtrl.onAddCart(x)">Add <i class="fa fa-shopping-cart"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="products-big">
-                        <div class="row products">
-                            <div class="col-lg-4 col-md-4" ng-repeat="x in easyTeamCtrl.listaBotes">
-                                <div class="product">
-                                    <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a >{{x.nombre}} {{x.capacidad}}</a></h3>
-                                        <p class="price">{{x.valor | currency}}</p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'bote')">DETAILS</div>
-                                        <div class="ribbon new manito" ng-click="easyTeamCtrl.onAddCart(x)">Add <i class="fa fa-shopping-cart"></i></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

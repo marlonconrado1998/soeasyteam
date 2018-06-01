@@ -26,6 +26,7 @@
         easyTeam.dataJson = [];
         easyTeam.dataCarrito = ngCart.getItems();
         easyTeam.fechaServicio = ""; // en esta variable se guarda la fecha en que se realizará el servicio
+        easyTeam.listaPaises = []; // variable que contiene la lista de paises
 
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
 
@@ -50,10 +51,10 @@
             if (!ngCart.getItemById(data.id)) {
                 ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
                 easyTeam.dataCarrito = ngCart.getItems();
-                console.log(easyTeam.dataCarrito);
-                console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
-                console.log("Total: " + ngCart.totalCost());
-                console.log(ngCart.getTotalItems());
+                // console.log(easyTeam.dataCarrito);
+                // console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
+                // console.log("Total: " + ngCart.totalCost());
+                // console.log(ngCart.getTotalItems());
                 toaster.pop({
                     type: 'success',
                     title: 'Added',
@@ -69,6 +70,13 @@
                     timeout: 1500,
                     showCloseButton: true
                 });
+            }
+        };
+
+        easyTeam.onValidarExistenciaProducto = function(idproducto){
+
+            if (ngCart.getItemById(idproducto)) {
+                return "This Item Is In Your Cart";
             }
         };
 
@@ -195,22 +203,33 @@
             }
         };
 
+        // funcion que busca los paises para mostraslos en el select del registro
+        easyTeam.onBuscarPaises = function(){
+
+            serviEasyTeam.buscarPaises().then(function(resp){
+                // console.log(resp.data.data);
+                easyTeam.listaPaises = resp.data.data;
+            }).catch(function(error){
+                console.log(error);
+            });
+        };
+
         // funcion que guarda un nuevo cliente. Esta funcion se dispara en la vista header.html
         easyTeam.onGuardarCliente = function() {
 
             var data = easyTeam.dataRegistro;
 
-            serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
+            // serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
 
-                // swal({
-                //     text: resp.data.message,
-                //     type: 'success'
-                // });
+            //     // swal({
+            //     //     text: resp.data.message,
+            //     //     type: 'success'
+            //     // });
 
-                console.log(resp);
-            }).catch(function(error) {
-                console.log(error);
-            });
+            //     console.log(resp);
+            // }).catch(function(error) {
+            //     console.log(error);
+            // });
         };
 
         // funcion que valida el login de una persona
@@ -275,7 +294,7 @@
 
             serviEasyTeam.buscarCarros().then(function(resp) {
                 easyTeam.listaCarros = resp.data.data;
-                console.log(resp.data.data);
+                // console.log(resp.data.data);
             }).catch(function(error) {
                 console.log(error);
             });

@@ -48,7 +48,7 @@
                                 <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                 <div class="text">
                                     <h3 class="h5"><a >{{x.nombre}}</a></h3>
-                                    <p class="price">{{x.valor | currency}}</p>
+                                    <p class="price">{{easyTeamCtrl.onValidarExistenciaProducto(x.id)}}</span> {{x.valor | currency}}</p>
                                 </div>
                                 <div class="ribbon-holder">
                                     <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate')">DETAILS</div>
@@ -85,7 +85,7 @@
                                 <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                 <div class="text">
                                     <h3 class="h5"><a >{{x.nombre}}</a></h3>
-                                    <p class="price">{{x.valor | currency}}</p>
+                                    <p class="price">{{easyTeamCtrl.onValidarExistenciaProducto(x.id)}}</span> {{x.valor | currency}}</p>
                                 </div>
                                 <div class="ribbon-holder">
                                     <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate')">DETAILS</div>

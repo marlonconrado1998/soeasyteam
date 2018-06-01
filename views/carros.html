@@ -1,5 +1,5 @@
- <div ng-controller="controEasyTeam as easyTeamCtrl">
-    <div id="heading-breadcrumbs" ng-init="">
+<div ng-controller="controEasyTeam as easyTeamCtrl">
+    <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarCarros();">
         <div class="container">
             <div class="row d-flex align-items-center flex-wrap">
                 <div class="col-md-7">
@@ -17,30 +17,52 @@
     <div id="content">
         <div class="container">
             <div class="row bar">
-                <div class="col-md-12">
+                <div class="col-md-3">
+                    <!-- MENUS AND FILTERS-->
+                    <div class="panel panel-default sidebar-menu">
+                        <div class="panel-heading">
+                            <h3 class="h4 panel-title">Categories</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills flex-column text-sm category-menu">
+                                <li class="nav-item manito"><a ui-sref="Paquetes" class="nav-link d-flex align-items-center justify-content-between"><span>PACKAGES</span></a>
+                                </li>
+                                <li class="nav-item manito"><a ui-sref="ApartCasa" class="nav-link d-flex align-items-center justify-content-between"><span>APARTMENTS AND HOUSE</span></a>
+                                </li>
+                                <li class="nav-item manito"><a ui-sref="YatesBotes" class="nav-link d-flex align-items-center justify-content-between"><span>YACHTS AND BOAT'S</span></a>
+                                </li>
+                                <li class="nav-item manito"><a class="nav-link d-flex align-items-center justify-content-between"><span>VIP SERVICE</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
                     <p class="text-muted lead text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
                     <div class="products-big">
-                        <h1 class="h2">APARTMENTS</h1>
+                        <h1 class="h2">CARS</h1>
                         <br>
                         <br>
-                        <div class="row products">
-                            <div class="col-lg-4 col-md-4" ng-repeat="x in apartCasaCtrl.dataApartCasa.apartamentos">
+                        <toaster-container></toaster-container>
+                        <div class="row products products-big">
+                            <div class="col-lg-4 col-md-6" ng-repeat="x in easyTeamCtrl.listaCarros">
                                 <div class="product">
-                                    <div class="image"><a ><img src="img/apartamentos/{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                    <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                     <div class="text">
                                         <h3 class="h5"><a >{{x.nombre}}</a></h3>
                                         <p class="price">{{x.valor | currency}}</p>
                                     </div>
                                     <div class="ribbon-holder">
-                                        <div class="ribbon sale manito" ng-click="apartCasaCtrl.onCapturarInfoApartCasa(x.id)">DETAILS</div>
-                                        <div class="ribbon new manito">Add <i class="fa fa-shopping-cart"></i></div>
+                                        <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate')">DETAILS</div>
+                                        <div class="ribbon new manito" ng-click="easyTeamCtrl.onAddCart(x)">Add <i class="fa fa-shopping-cart"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br><br>
-                    <h1 class="h2">HOUSES</h1>
+                    <br>
+                    <br>
+                    <!-- <h1 class="h2">HOUSES</h1>
                     <br><br>
                     <div class="products-big">
                         <div class="row products">
@@ -58,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

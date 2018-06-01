@@ -269,7 +269,7 @@ p.lead {
   width: 100px;
   height: 2px;
   margin-top: .6rem;
-  background: #4fbfa8;
+  background: #005890
 }
 
 .heading.text-center h1:after, .text-center.panel-heading h1:after, .heading.text-center h2:after, .text-center.panel-heading h2:after, .heading.text-center h3:after, .text-center.panel-heading h3:after, .heading.text-center h4:after, .text-center.panel-heading h4:after, .heading.text-center h5:after, .text-center.panel-heading h5:after, .heading.text-center h6:after, .text-center.panel-heading h6:after {
@@ -876,14 +876,14 @@ header.nav-holder.sticky {
 
 .btn-template-outlined {
   background: none;
-  border: 1px solid #4fbfa8 !important;
-  color: #4fbfa8;
+  border: 1px solid #005890 !important;
+  color: #474344;
   border-radius: 0 !important;
   text-decoration: none;
 }
 
 .btn-template-outlined:hover, .btn-template-outlined:focus {
-  background: #4fbfa8;
+  background: #005890;
   color: #fff !important;
 }
 
@@ -1569,7 +1569,7 @@ header.nav-holder.sticky {
 
 .package {
   text-align: center;
-  border: 1px solid #4fbfa8;
+  border: 1px solid #005890;
   margin-top: 25px;
   margin-bottom: 20px;
   padding-bottom: 15px;
@@ -3040,7 +3040,7 @@ body {
 }
 
 a {
-  color: #4fbfa8;
+  color: #212529;
   text-decoration: none;
 }
 
@@ -3283,7 +3283,7 @@ a.text-primary:focus, a.text-primary:hover {
 * 6. UTILITIES
 */
 .bg-primary {
-  background-color: #4fbfa8 !important;
+  background-color: #005890 !important;
 }
 
 a.bg-primary:focus, a.bg-primary:hover {

@@ -92,7 +92,7 @@ class Repository_easyTeam {
             $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
             $mail->SMTPAuth = true;                               // Enable SMTP authentication
             $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 25;                                    // TCP port to connect to
+            $mail->Port = 587;                                    // TCP port to connect to
 
             $mail->Username = 'jorozcoc1892@gamail.com';           // SMTP username
             $mail->Password = 'JORGE9402ameLIVER';                // SMTP password
@@ -218,6 +218,65 @@ class Repository_easyTeam {
         $this->DAL->close();
 
         return $response;
+    }
+
+    public function BuscarCarros(){
+
+        $response = null;
+        $result = null;
+
+        try {
+            
+            $result = $this->DAL->query("CALL sp_select_carros();", [], false);
+
+            $response = $this->Response->ok(null, $result);
+        } catch (Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+
+        $this->DAL->close();
+
+        return $response;
+    }
+
+    public function GuardarCompra($object){
+        
+        $response = null;
+        $result = null;
+        $result2 = null;
+
+        $fk_usurario = 1;
+        $iva = 0;
+        $estado = 'porPrestar';
+        $fecha = $object[0]['fecha'];
+        $total_venta = $object[0]['totalVenta'];
+        $items = $object[0]['items'];
+
+        try {
+            
+            $result = $this->DAL->query("CALL sp_insert_po($fk_usurario, $iva, $total_venta, '$fecha', '$estado');", [], false);
+
+            $arrIdpo = $this->DAL->query("CALL sp_select_ultimo_id_po();", [], false);
+            $fk_po = $arrIdpo[0]['fk_po'];
+
+            $len = count($items);
+            
+            for ($i=0; $i < $len; $i++) {
+                $fk_producto = $items[$i]['_id'];
+                $cantidad = $items[$i]['_quantity'];
+                $precio_unidad = $items[$i]['_price'];
+                $iva_unidad = 0;
+                $result2 = $this->DAL->query("CALL sp_insert_poline($fk_producto, $cantidad, $precio_unidad, $iva_unidad, $fk_po);", [], false);
+            }
+
+            $response = $this->Response->ok("successful purchase", $fk_po);
+        } catch (Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+
+        $this->DAL->close();
+
+        return $response;        
     }
 }
 ?>

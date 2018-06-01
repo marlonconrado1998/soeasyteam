@@ -37,6 +37,23 @@
             { 'nombre': 'TOTUMO VOLCANO', 'img': 'img/publicidad/totumo.jpg' },
             { 'nombre': 'HORSE CARRIAGE', 'img': 'img/publicidad/carriage.jpg' }
         ];
+        easyTeam.paquete = "";
+        easyTeam.paquetes = [{
+            'idPaquete': 1,
+            'descripcion': 'Transportation included 24 hours per day of stay with SoEasyTeam (urban perimeter only), if you want to leave the urban perimeter contact your host for more information, including gasoline and driver. The tour of the Rosario Islands is by luxury boat with a party in Cholon. Includes: breakfast with typical fried foods, lunch with sea food, beer and mixers, unlimited cocktails in select drinks.'
+        }, {
+            'idPaquete': 2,
+            'descripcion': 'Transportation included 24 hours per day of stay with SoEasyTeam (urban perimeter only), if you want to leave the urban perimeter contact your host for more information, including gasoline and driver. The tour of the Rosario Islands is by luxury boat with a party in Cholon. Includes: breakfast with typical fried foods, lunch with sea food, beer and mixers, unlimited cocktails in select drinks. ALSO This package includes: private island trip, farewell party (24 national beers, water, soda).'
+        }];
+
+        easyTeam.onBuscarInfoPaquete = function(idPaquete) {
+            var len = easyTeam.paquetes.length;
+            for (var i = 0; i < len; i++) {
+                if (easyTeam.paquetes[i].idPaquete == idPaquete) {
+                    easyTeam.paquete = easyTeam.paquetes[i].descripcion;
+                }
+            }
+        };
 
         easyTeam.scrollTop = function() {
             var body = document.body;
@@ -73,7 +90,7 @@
             }
         };
 
-        easyTeam.onValidarExistenciaProducto = function(idproducto){
+        easyTeam.onValidarExistenciaProducto = function(idproducto) {
 
             if (ngCart.getItemById(idproducto)) {
                 return "This Item Is In Your Cart";
@@ -204,12 +221,12 @@
         };
 
         // funcion que busca los paises para mostraslos en el select del registro
-        easyTeam.onBuscarPaises = function(){
+        easyTeam.onBuscarPaises = function() {
 
-            serviEasyTeam.buscarPaises().then(function(resp){
+            serviEasyTeam.buscarPaises().then(function(resp) {
                 // console.log(resp.data.data);
                 easyTeam.listaPaises = resp.data.data;
-            }).catch(function(error){
+            }).catch(function(error) {
                 console.log(error);
             });
         };
@@ -218,18 +235,17 @@
         easyTeam.onGuardarCliente = function() {
 
             var data = easyTeam.dataRegistro;
+            serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
 
-            // serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
 
-            //     // swal({
-            //     //     text: resp.data.message,
-            //     //     type: 'success'
-            //     // });
-
-            //     console.log(resp);
-            // }).catch(function(error) {
-            //     console.log(error);
-            // });
+                // swal({
+                //     text: resp.data.message,
+                //     type: 'success'
+                // });
+                console.log(resp);
+            }).catch(function(error) {
+                console.log(error);
+            });
         };
 
         // funcion que valida el login de una persona

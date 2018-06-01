@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row d-flex align-items-center">
                 <div class="col-md-6 d-md-block d-none">
-                    <p>Contact us on +57 300 765 8139 or admin@soeasyteam.com wolf of wallstreet.</p>
+                    <p>Contact us on +57 300 765 8139 or admin@soeasyteam.com</p>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-md-end justify-content-between">
@@ -84,15 +84,17 @@
                         </li>
                         <li class=""><a ui-sref="ClientesFelices">happy customers</a></li>
                         <li class="nav-item dropdown "><a ui-sref="About"> About us<b class="caret"></b></a></li>
-                        <li class="nav-item dropdown "><a data-toggle="dropdown">cart <span class="relative" ng-hide="easyTeamCtrl.ongetTotalItems() == 0">{{easyTeamCtrl.ongetTotalItems()}}</span><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-item" ng-repeat="x in easyTeamCtrl.dataCarrito.items">{{x._name}}</li>
-                                <li class="dropdown-item"><a ui-sref="Carrito" class="nav-link">Show my car</a></li>
+
+                        
+                        <li class="nav-item dropdown "><a ui-sref="Carrito">cart<b class="caret"></b> <span class="relative" ng-hide="easyTeamCtrl.ongetTotalItems() == 0">{{easyTeamCtrl.ongetTotalItems()}}</span></a>
+                            <!-- <ul class="dropdown-menu"> -->
+                                <!-- <li class="dropdown-item" ng-repeat="x in easyTeamCtrl.dataCarrito.items">{{x._name}}</li>
+                                <li class="dropdown-item"><a ui-sref="Carrito" class="nav-link">Show my car</a></li> -->
                                 <!--                                 <li class="dropdown-item"><a href="index2.html" class="nav-link">Option 2: Application</a></li>
                                 <li class="dropdown-item"><a href="index3.html" class="nav-link">Option 3: Startup</a></li>
                                 <li class="dropdown-item"><a href="index4.html" class="nav-link">Option 4: Agency</a></li>
                                 <li class="dropdown-item"><a href="index5.html" class="nav-link">Option 5: Portfolio</a></li> -->
-                            </ul>
+                            <!-- </ul> -->
                         </li>
                         <!-- <li class="nav-item dropdown" ng-show="easyTeamCtrl.infoUsuario.length !== 0"><a data-toggle="dropdown">{{easyTeamCtrl.infoUsuario[0].nombre_usuario}}</a><b class="caret"></b>
                             <ul class="dropdown-menu" ng-show="easyTeamCtrl.infoUsuario.length !== 0">
@@ -128,8 +130,8 @@
                                     </div>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item dropdown menu-large"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Portfolio <b class="caret"></b></a>
+                        </li> -->
+                        <!-- <li class="nav-item dropdown menu-large"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Portfolio <b class="caret"></b></a>
                             <ul class="dropdown-menu megamenu">
                                 <li>
                                     <div class="row">

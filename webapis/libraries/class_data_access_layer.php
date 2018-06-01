@@ -199,15 +199,12 @@ class Data_Access_Layer {
         if ($this->connected === true) {
 
             return $this->connection->lastInsertId();
-
         } else {
 
             $this->error = "Not Connected to Database Server";
 
             return null;
-
         }
-
     }
 
     /**

@@ -224,7 +224,27 @@
     "carro": [
     {
         "id": 11,
-        "imagen": "",
+        "imagen": "img/carros/aveo.jpg",
+        "galeria": [
+        {
+            "imagen": "img/carros/aveo.jpg"
+        },
+        {
+            "imagen": "img/carros/ToyotaPrado.jpg"
+        },
+        {
+            "imagen": "img/carros/RenaultCaptur.jpg"
+        },
+        {
+            "imagen": "img/carros/RenaultDuster.jpg"
+        },
+        {
+            "imagen": "img/carros/RenaultSandero.jpg"
+        }]
+    },
+    {
+        "id": 12,
+        "imagen": "img/carros/",
         "galeria": [
         {
             "imagen": ""
@@ -242,24 +262,5 @@
             "imagen": ""
         }]
     },
-    {
-        "id": 12,
-        "imagen": "",
-        "galeria": [
-        {
-            "imagen": ""
-        },
-        {
-            "imagen": ""
-        },
-        {
-            "imagen": ""
-        },
-        {
-            "imagen": ""
-        },
-        {
-            "imagen": ""
-        }]
-    }]
+    ]
 }

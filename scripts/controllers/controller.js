@@ -4,9 +4,9 @@
 
     app.controller('controEasyTeam', controEasyTeam);
 
-    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', '$location'];
+    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location'];
 
-    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, $location) {
+    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location) {
 
         var easyTeam = this;
 
@@ -62,13 +62,31 @@
             html.scrollTop = 0 + "px";
         };
 
-        easyTeam.onAddCart = function (data) {
-            ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
-            easyTeam.dataCarrito = ngCart.getItems();
-            console.log(easyTeam.dataCarrito);
-            console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
-            console.log("Total: " + ngCart.totalCost());
-            console.log(ngCart.getTotalItems());
+        easyTeam.onAddCart = function(data) {
+
+            if (!ngCart.getItemById(data.id)) {
+                ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
+                easyTeam.dataCarrito = ngCart.getItems();
+                console.log(easyTeam.dataCarrito);
+                console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
+                console.log("Total: " + ngCart.totalCost());
+                console.log(ngCart.getTotalItems());
+                toaster.pop({
+                    type: 'success',
+                    title: 'Added',
+                    body: data.nombre,
+                    timeout: 1500,
+                    showCloseButton: true
+                });
+            } else {
+                toaster.pop({
+                    type: 'warning',
+                    title: 'Warning',
+                    body: 'The Product ' + data.nombre + ' Exists',
+                    timeout: 1500,
+                    showCloseButton: true
+                });
+            }
         };
 
         easyTeam.ongetTotalItems = function () {
@@ -88,14 +106,63 @@
             ngCart.removeItemById(id);
         };
 
-        easyTeam.onGuardarCompra = function () {
+        easyTeam.onCambiarEstadoFecha = function() {
+            if (easyTeam.fechaServicio !== null || easyTeam.fechaServicio !== undefined || easyTeam.fechaServicio != "") {
+                easyTeam.fechaVali = true;
+            }
+        };
+
+        easyTeam.onGuardarCompra = function() {
 
             var data = [{
                 "totalVenta": ngCart.totalCost(),
                 "fecha": easyTeam.fechaServicio,
                 "items": ngCart.getItems(),
             }];
-        }
+
+            easyTeam.fechaVali = true;
+            // console.log(data);
+
+            if (easyTeam.ongetTotalItems() > 0) {
+                if (easyTeam.fechaServicio === null || easyTeam.fechaServicio === undefined || easyTeam.fechaServicio == "") {
+                    easyTeam.scrollTop();
+                    easyTeam.fechaVali = false;
+                } else {
+                    easyTeam.fechaVali = true;
+                    swal({
+                        title: 'Confirm Purchase',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Confirm!'
+                    }).then((status) => {
+                        if (status.value) {
+                            serviEasyTeam.guardarCompra({ 'data': data }).then(function(resp) {
+                                easyTeam.dataCarrito = [];
+                                ngCart.empty();
+                                swal({
+                                    title: resp.data.message,
+                                    type: 'success',
+                                });
+                            }).catch(function(error) {
+                                console.log(error);
+                            });
+                        } else {
+                            swal({
+                                title: 'Declined Purchase',
+                                type: 'warning',
+                            });
+                        }
+                    });
+                }
+            } else {
+                swal({
+                    title: 'Please Add Products To Cart',
+                    type: 'warning',
+                });
+            }
+        };
 
         // console.log(easyTeam.ongetTotalItems());
         // funcion que busca los nombre de usuario para la validacion en el registro
@@ -217,6 +284,16 @@
                     }
                 }
             }).catch(function (error) {
+                console.log(error);
+            });
+        };
+
+        easyTeam.onBuscarCarros = function() {
+
+            serviEasyTeam.buscarCarros().then(function(resp) {
+                easyTeam.listaCarros = resp.data.data;
+                console.log(resp.data.data);
+            }).catch(function(error) {
                 console.log(error);
             });
         };

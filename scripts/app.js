@@ -3,7 +3,8 @@
 
 var app = angular.module('easyTeam', [
     'ui.router',
-    'ngCart'
+    'ngCart',
+    'toaster'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider',
@@ -18,7 +19,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
     		url: "/Hola",
     		templateUrl: "views/hola.html"
     	}).state('Paquetes', {
-    		url: "/Paquetes",
+    		url: "/Package",
     		templateUrl: "views/paquetes.html"
     	}).state('Productos', {
     		url: "/Productos",
@@ -48,7 +49,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
             url: "/Transporte",
             templateUrl: "views/transporte.html"
         }).state('Carros', {
-            url: "/Carros",
+            url: "/Cars",
             templateUrl: "views/carros.html"
         });
     }

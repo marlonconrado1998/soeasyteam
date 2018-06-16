@@ -45,7 +45,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="x in easyTeamCtrl.dataCarrito">
-                                        <td><a><img src="data:image/jpg;base64,{{x._data}}" alt="White Blouse Armani" class="img-fluid"></a></td>
+                                        <td><a><img ng-src="data:image/jpg;base64,{{x._data}}" alt="White Blouse Armani" class="img-fluid"></a></td>
                                         <td><a>{{x._name}}</a></td>
                                         <td>
                                             <input type="number" class="form-control" ng-model="x._quantity" min="1">

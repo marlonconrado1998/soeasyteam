@@ -4,9 +4,9 @@
 
     app.controller('controEasyTeam', controEasyTeam);
 
-    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location'];
+    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location','$sessionStorage','auth_service'];
 
-    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location) {
+    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location,$sessionStorage,auth_service) {
 
         var easyTeam = this;
 
@@ -21,8 +21,10 @@
         easyTeam.nomUsuValid = false; // variable que se utiliza para mandar una alerta en el campo nomUsuario en la vista header.html en el formulario de rigistro
         easyTeam.passValid = false; // variable que se utiliza para mandar una alerta en el campo configPassqord en la vista header.html en el formulario de rigistro
         easyTeam.ocultar = false; // variable que se utiliza para ocultas el sigin sing up cuando el usuario se loguea
-        easyTeam.infoUsuario = JSON.parse(sessionStorage.getItem("infoUsuario"));
-        easyTeam.detalleProducto = JSON.parse(sessionStorage.getItem("infoProducto")); // variable que contiene la informacion de un producto que esta en el sessionStorage para luego mostrarla en la vista detalles
+        //easyTeam.infoUsuario = auth_service.jwt();
+        if($sessionStorage.infoProducto){
+          easyTeam.detalleProducto = JSON.parse($sessionStorage.infoProducto); // variable que contiene la informacion de un producto que esta en el sessionStorage para luego mostrarla en la vista detalles  
+        }
         easyTeam.dataJson = [];
         easyTeam.dataCarrito = ngCart.getItems();
         easyTeam.fechaServicio = ""; // en esta variable se guarda la fecha en que se realizará el servicio
@@ -237,8 +239,7 @@
             var pass = easyTeam.login[0].pass;
             // console.log(easyTeam.login);
             serviEasyTeam.login(nomUsu, pass).then(function (resp) {
-
-                sessionStorage.setItem('infoUsuario', JSON.stringify(resp.data.data));
+                $sessionStorage.infoUsuario = resp.data.data;
                 easyTeam.ocultar = true;
                 // console.log(resp.data.data);s
             }).catch(function (error) {
@@ -248,8 +249,9 @@
 
         // funccion para cerrar sesion de un cliente
         easyTeam.onLogout = function () {
-            sessionStorage.removeItem('infoUsuario');
             easyTeam.ocultar = true;
+            $sessionStorage.token = null;
+            $sessionStorage.clear();
         };
 
         // funcion que busca todos los apartamentos y las casas y los guarda en la variable easyTeam.listaApartCasas
@@ -328,7 +330,7 @@
                                 data.push(easyTeam.dataJson.yate[j].galeria);
                             }
                         }
-                        sessionStorage.setItem("infoProducto", JSON.stringify(data));
+                        //$sessionStorage.infoProducto=JSON.stringify(data);
                         break;
                     case "bote":
                         var len = easyTeam.listaBotes.length;
@@ -349,7 +351,7 @@
                             }
                         }
 
-                        sessionStorage.setItem("infoProducto", JSON.stringify(data));
+                        $sessionStorage.infoProducto=JSON.stringify(data);
                         break;
                     case "apartamento":
                         var len = easyTeam.dataJson.apartamento.length;
@@ -370,7 +372,7 @@
                             }
                         }
 
-                        sessionStorage.setItem("infoProducto", JSON.stringify(data));
+                        $sessionStorage.infoProducto=JSON.stringify(data);
                         break;
                     case "casa":
 
@@ -391,7 +393,7 @@
                                 data.push(easyTeam.dataJson.casa[j].galeria);
                             }
                         }
-                        sessionStorage.setItem("infoProducto", JSON.stringify(data));
+                        $sessionStorage.infoProducto=JSON.stringify(data);
                         break;
                     case "carro":
                         var len = easyTeam.listaCarros.length;

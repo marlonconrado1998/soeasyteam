@@ -138,7 +138,6 @@ class Data_Access_Layer {
                     if ($expectSingleResult === true) {
 
                         $results = $this->querey->fetch();
-
                     } else {
 
                         $results = $this->querey->fetchAll();
@@ -202,7 +201,7 @@ class Data_Access_Layer {
         } else {
 
             $this->error = "Not Connected to Database Server";
-
+            
             return null;
         }
     }

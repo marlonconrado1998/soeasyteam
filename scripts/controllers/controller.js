@@ -17,10 +17,10 @@
         easyTeam.listaYates = []; // variable que guarda la info de los yates, su valor es asignado en la función easyTeam.onBuscarYatesBotes
         easyTeam.listaBotes = []; // variable que guarda la info de los botes, su valor es asignado en la función easyTeam.onBuscarYatesBotes
         easyTeam.listaCarros = []; // variable que guarda la info de los carros, su valor es asignado en la función easyTeam.onBuscarCarros
-        easyTeam.listaNomUsuarios = []; // variable que guarda la lista de nombres de usuarios su, valor es asignado en la funcion easyTeam.onBuscarNombresDeUsuarios;
-        easyTeam.nomUsuValid = false; // variable que se utiliza para mandar una alerta en el campo nomUsuario en la vista header.html en el formulario de rigistro
+        easyTeam.listaEmailUsuarios = []; // variable que guarda la lista de nombres de usuarios su, valor es asignado en la funcion easyTeam.onBuscarNombresDeUsuarios;
+        easyTeam.emailUsuValid = false; // variable que se utiliza para mandar una alerta en el campo nomUsuario en la vista header.html en el formulario de rigistro
         easyTeam.passValid = false; // variable que se utiliza para mandar una alerta en el campo configPassqord en la vista header.html en el formulario de rigistro
-        easyTeam.ocultar = false; // variable que se utiliza para ocultas el sigin sing up cuando el usuario se loguea
+        easyTeam.ocultar = true; // variable que se utiliza para ocultas el sigin sing up cuando el usuario se loguea
         easyTeam.infoUsuario = JSON.parse(sessionStorage.getItem("infoUsuario"));
         easyTeam.detalleProducto = JSON.parse(sessionStorage.getItem("infoProducto")); // variable que contiene la informacion de un producto que esta en el sessionStorage para luego mostrarla en la vista detalles
         easyTeam.dataJson = [];
@@ -68,10 +68,10 @@
             if (!ngCart.getItemById(data.id)) {
                 ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
                 easyTeam.dataCarrito = ngCart.getItems();
-                // console.log(easyTeam.dataCarrito);
-                // console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
-                // console.log("Total: " + ngCart.totalCost());
-                // console.log(ngCart.getTotalItems());
+                console.log(easyTeam.dataCarrito);
+                console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
+                console.log("Total: " + ngCart.totalCost());
+                console.log(ngCart.getTotalItems());
                 toaster.pop({
                     type: 'success',
                     title: 'Added',
@@ -126,10 +126,11 @@
                 "totalVenta": ngCart.totalCost(),
                 "fecha": easyTeam.fechaServicio,
                 "items": ngCart.getItems(),
+                "correo": easyTeam.infoUsuario[0].email
             }];
 
             easyTeam.fechaVali = true;
-            // console.log(data);
+            console.log(data);
 
             if (easyTeam.ongetTotalItems() > 0) {
                 if (easyTeam.fechaServicio === null || easyTeam.fechaServicio === undefined || easyTeam.fechaServicio == "") {
@@ -156,11 +157,6 @@
                             }).catch(function(error) {
                                 console.log(error);
                             });
-                        } else {
-                            swal({
-                                title: 'Declined Purchase',
-                                type: 'warning',
-                            });
                         }
                     });
                 }
@@ -174,14 +170,14 @@
 
         // console.log(easyTeam.ongetTotalItems());
         // funcion que busca los nombre de usuario para la validacion en el registro
-        easyTeam.onBuscarNombresDeUsuarios = function() {
+        easyTeam.onBuscarEmailUsuarios = function() {
 
-            var len = easyTeam.listaNomUsuarios.length;
+            var len = easyTeam.listaEmailUsuarios.length;
 
             if (len <= 0) {
-                serviEasyTeam.buscarNombresDeUsuarios().then(function(resp) {
-                    console.log(resp.data.data);
-                    easyTeam.listaNomUsuarios = resp.data.data;
+                serviEasyTeam.buscarEmailUsuarios().then(function(resp) {
+                    // console.log(resp.data.data);
+                    easyTeam.listaEmailUsuarios = resp.data.data;
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -189,27 +185,26 @@
         };
 
         // funcion que valida si un nombre de usuario no se repite esta funcion se dispara en la vista header.html
-        easyTeam.onValidarNomUsuario = function() {
+        easyTeam.onValidarEmail = function() {
 
-            var len = easyTeam.listaNomUsuarios.length;
+            var len = easyTeam.listaEmailUsuarios.length;
             var sw = false;
-            // console.log("hola nomUsu");
+
             for (var i = 0; i < len; i++) {
-                if (easyTeam.dataRegistro[0].nomUsuario == easyTeam.listaNomUsuarios[i].nombre_usuario) {
+                if (easyTeam.dataRegistro[0].correo == easyTeam.listaEmailUsuarios[i].email) {
                     sw = true;
                     break;
                 }
             }
 
             if (sw) {
-                easyTeam.nomUsuValid = true;
-            } else {
-                easyTeam.nomUsuValid = false;
+                easyTeam.emailUsuValid = true;
             }
         };
 
         // funcion que valida si el campo password es igual al campo confirmar password
         easyTeam.onValidarPassword = function() {
+
             var pass = easyTeam.dataRegistro[0].password;
             var configPass = easyTeam.dataRegistro[0].configPassword;
 
@@ -234,31 +229,62 @@
         // funcion que guarda un nuevo cliente. Esta funcion se dispara en la vista header.html
         easyTeam.onGuardarCliente = function() {
 
-            var data = easyTeam.dataRegistro;
-            serviEasyTeam.guardarCliente({ 'data': data }).then(function(resp) {
+            if (easyTeam.emailUsuValid == false && easyTeam.passValid == false) {
 
+                serviEasyTeam.guardarCliente({ 'data': easyTeam.dataRegistro }).then(function(resp) {
 
-                // swal({
-                //     text: resp.data.message,
-                //     type: 'success'
-                // });
-                console.log(resp);
-            }).catch(function(error) {
-                console.log(error);
-            });
+                    swal({
+                        text: resp.data.message,
+                        type: 'success'
+                    });
+
+                    if (resp.data.data) {
+                        $location.path('Inicio');
+                        easyTeam.scrollTop();
+                    }
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            } else {
+
+                if (easyTeam.emailUsuValid) {
+                    swal({
+                        title: "Change The Mail",
+                        type: "warning",
+                    });
+                } else {
+                    swal({
+                        title: "Passwords Are Not The Same",
+                        type: "warning",
+                    });
+                }
+            }
         };
 
         // funcion que valida el login de una persona
         easyTeam.onLogin = function() {
 
-            var nomUsu = easyTeam.login[0].nomUsu;
-            var pass = easyTeam.login[0].pass;
             // console.log(easyTeam.login);
-            serviEasyTeam.login(nomUsu, pass).then(function(resp) {
+            serviEasyTeam.login({ 'data': easyTeam.login }).then(function(resp) {
+                
+                if (resp.data.data != false) {
+                    sessionStorage.setItem('infoUsuario', JSON.stringify(resp.data.data));
+                    console.log(resp.data.data);
+                    easyTeam.ocultar = true;
 
-                sessionStorage.setItem('infoUsuario', JSON.stringify(resp.data.data));
-                easyTeam.ocultar = true;
-                // console.log(resp.data.data);s
+                    easyTeam.infoUsuario = resp.data.data;
+
+                    document.getElementById('cerrarModal').click();
+
+                    swal({
+                        title: 'Welcome ' + resp.data.data[0].nombre,
+                        type: 'success',
+                    });
+
+                    $location.path('Inicio');
+                } else {
+                    easyTeam.msjErrorLogin = resp.data.message;
+                }
             }).catch(function(error) {
                 console.log(error);
             });
@@ -267,11 +293,43 @@
         // funccion para cerrar sesion de un cliente
         easyTeam.onLogout = function() {
             sessionStorage.removeItem('infoUsuario');
-            easyTeam.ocultar = true;
+            easyTeam.infoUsuario = [];
+            easyTeam.infoUsuario[0].email = null;
+            easyTeam.infoUsuario[0].pass = null;
+            easyTeam.ocultar = false;
         };
+
+        easyTeam.onNuevoEmailConfimacionCorreo = function() {
+
+            var email = document.getElementById("email").value;
+
+            if (validar_email(email)) {
+                serviEasyTeam.nuevoEmailConfirmarCorreo({ 'data': easyTeam.login[0].email }).then(function(resp) {
+                    console.log(resp.data.message);
+                    swal({
+                        title: resp.data.message,
+                        type: 'success',
+                    });
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            } else {
+                swal({
+                    title: 'Please specify a valid email',
+                    type: 'warning',
+                });
+            }
+        };
+
+        function validar_email(email) {
+            var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email) ? true : false;
+        }
 
         // funcion que busca todos los apartamentos y las casas y los guarda en la variable easyTeam.listaApartCasas
         easyTeam.onBuscarApartCasa = function() {
+
+            easyTeam.scrollTop();
 
             serviEasyTeam.buscarApartCasa().then(function(resp) {
                 var len = resp.data.data.length;
@@ -288,6 +346,8 @@
         };
 
         easyTeam.onBuscarYatesBotes = function() {
+
+            easyTeam.scrollTop();
 
             serviEasyTeam.buscarYatesBotes().then(function(resp) {
                 // console.log(resp.data.data);
@@ -307,6 +367,8 @@
         };
 
         easyTeam.onBuscarCarros = function() {
+
+            easyTeam.scrollTop();
 
             serviEasyTeam.buscarCarros().then(function(resp) {
                 easyTeam.listaCarros = resp.data.data;

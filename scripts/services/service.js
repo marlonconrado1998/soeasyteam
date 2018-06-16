@@ -1,3 +1,5 @@
+'use strict';
+
 app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
 
     var servicio = this;
@@ -5,12 +7,13 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     servicio.guardarCliente = GuardarCliente;
     servicio.login = Login;
     servicio.buscarApartCasa = BuscarApartCasa;
-    servicio.buscarNombresDeUsuarios = BuscarNombresDeUsuarios;
+    servicio.buscarEmailUsuarios = BuscarEmailUsuarios;
     servicio.buscarImgJson = BuscarImgJson;
     servicio.buscarYatesBotes = BuscarYatesBotes;
     servicio.buscarCarros = BuscarCarros;
     servicio.guardarCompra = GuardarCompra;
     servicio.buscarPaises = BuscarPaises;
+    servicio.nuevoEmailConfirmarCorreo = NuevoEmailConfirmarCorreo;
 
     var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
@@ -41,9 +44,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         return defered.promise;
     }
 
-    function BuscarNombresDeUsuarios() {
+    function BuscarEmailUsuarios() {
         var defered = $q.defer();
-        var urlRequest = url + "BuscarNombresDeUsuarios/";
+        var urlRequest = url + "BuscarEmailUsuarios/";
 
         $http.get(urlRequest).then(function(resp) {
             defered.resolve(resp);
@@ -54,11 +57,24 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         return defered.promise;
     }
 
-    function Login(nomUsu, pass) {
+    function Login(data) {
         var defered = $q.defer();
-        var urlRequest = url + "Login/" + nomUsu + "/" + pass;
+        var urlRequest = url + "Login/";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.post(urlRequest, data).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+            defered.reject(error);
+        })
+
+        return defered.promise;
+    }
+
+    function NuevoEmailConfirmarCorreo(data) {
+        var defered = $q.defer();
+        var urlRequest = url + "NuevoEmailConfirmarCorreo/";
+
+        $http.post(urlRequest, data).then(function(resp) {
             defered.resolve(resp);
         }).catch(function(error) {
             defered.reject(error);

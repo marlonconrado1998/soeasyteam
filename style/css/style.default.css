@@ -386,7 +386,7 @@ p.lead {
   /* background-color: #e9ecef8a;   */
 }
 .dark-mask.mask-primary {
-  background: #ebeaea8a;
+  background: #171616c2;
   width: 100%;
   height: 100%;
 }
@@ -1261,17 +1261,23 @@ header.nav-holder.sticky {
 
 .box-simple {
   margin-bottom: 40px;
+  border-radius: 8px;
   text-align: center;
 }
 
 .box-simple:hover .icon-outlined {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  background-color: #005990d7;
+  color: white;
+  cursor: pointer; 
+  border: 2px solid #005990d7;
 }
 
 .box-simple .icon-outlined {
-  color: #005890;
-  border: 1px solid #fddb2d;
+  color: white;
+  border: 2px solid #005890;
+  background-color: #005890;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }

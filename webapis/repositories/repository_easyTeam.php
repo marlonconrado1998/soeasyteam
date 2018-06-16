@@ -265,8 +265,9 @@ class Repository_easyTeam {
                 $fk_producto = $items[$i]['_id'];
                 $cantidad = $items[$i]['_quantity'];
                 $precio_unidad = $items[$i]['_price'];
+                $num_days = $items[$i]['_data']['num_days'];
                 $iva_unidad = 0;
-                $result2 = $this->DAL->query("CALL sp_insert_poline($fk_producto, $cantidad, $precio_unidad, $iva_unidad, $fk_po);", [], false);
+                $result2 = $this->DAL->query("CALL sp_insert_poline($fk_producto, $cantidad, $precio_unidad, $iva_unidad, $fk_po, $num_days);", [], false);
             }
 
             $response = $this->Response->ok("successful purchase", $fk_po);

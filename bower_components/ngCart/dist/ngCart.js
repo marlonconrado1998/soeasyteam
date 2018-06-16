@@ -282,7 +282,7 @@ angular.module('ngCart', ['ngCart.directives'])
 
 
         item.prototype.getTotal = function(){
-            return +parseFloat(this.getQuantity() * this.getPrice()).toFixed(2);
+            return +parseFloat(this.getQuantity() * this.getPrice() * this.getData().num_days).toFixed(2);
         };
 
         item.prototype.toObject = function() {

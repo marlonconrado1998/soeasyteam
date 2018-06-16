@@ -36,23 +36,24 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">Product</th>
+                                        <th><!--Image--></th>
+                                        <th>Product</th>
                                         <th>Quantity</th>
                                         <th>Unit price</th>
                                         <th>Total Item</th>
                                         <th>Delete</th>
+                                        <th>Number of days</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="x in easyTeamCtrl.dataCarrito">
-                                        <td><a><img src="data:image/jpg;base64,{{x._data}}" alt="White Blouse Armani" class="img-fluid"></a></td>
+                                        <td><a><img src="data:image/jpg;base64,{{x._data.imagen}}" alt="White Blouse Armani" class="img-fluid"></a></td>
                                         <td><a>{{x._name}}</a></td>
-                                        <td>
-                                            <input type="number" class="form-control" ng-model="x._quantity" min="1">
-                                        </td>
+                                        <td><input type="number" class="form-control" ng-model="x._quantity" min="1"></td>
                                         <td>{{x._price | currency}}</td>
-                                        <td>{{easyTeamCtrl.onGetTotal(x._quantity, x._price) | currency}}</td>
+                                        <td>{{easyTeamCtrl.onGetTotal(x._quantity, x._price, x._data.num_days) | currency}}</td>
                                         <td><i class="fa fa-trash-o manito" ng-click="easyTeamCtrl.onRemoveItemById(x._id)"></i></td>
+                                        <td><input type="number" class="form-control" ng-model="x._data.num_days" min="1"></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

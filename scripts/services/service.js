@@ -106,6 +106,7 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     }
 
     function GuardarCompra(data) {
+        console.log(data);
         var defered = $q.defer();
         var urlRequest = url + "GuardarCompra/";
 

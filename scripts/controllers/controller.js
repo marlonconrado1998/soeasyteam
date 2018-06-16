@@ -40,7 +40,7 @@
         easyTeam.paquetes = [{
             'idPaquete': 1,
             'descripcion': 'Transportation included 24 hours per day of stay with SoEasyTeam (urban perimeter only), if you want to leave the urban perimeter contact your host for more information, including gasoline and driver. The tour of the Rosario Islands is by luxury boat with a party in Cholon. Includes: breakfast with typical fried foods, lunch with sea food, beer and mixers, unlimited cocktails in select drinks.'
-        },{
+        }, {
             'idPaquete': 2,
             'descripcion': 'Transportation included 24 hours per day of stay with SoEasyTeam (urban perimeter only), if you want to leave the urban perimeter contact your host for more information, including gasoline and driver. The tour of the Rosario Islands is by luxury boat with a party in Cholon. Includes: breakfast with typical fried foods, lunch with sea food, beer and mixers, unlimited cocktails in select drinks. ALSO This package includes: private island trip, farewell party (24 national beers, water, soda).'
         }];
@@ -62,15 +62,16 @@
             html.scrollTop = 0 + "px";
         };
 
-        easyTeam.onAddCart = function(data) {
+        easyTeam.onAddCart = function (data) {
 
             if (!ngCart.getItemById(data.id)) {
-                ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
+                ngCart.addItem(data.id, data.nombre, data.valor, 1, {imagen: data.imagen, num_days: 1});
                 easyTeam.dataCarrito = ngCart.getItems();
-                console.log(easyTeam.dataCarrito);
-                console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
-                console.log("Total: " + ngCart.totalCost());
-                console.log(ngCart.getTotalItems());
+                // console.log(easyTeam.dataCarrito);
+                // console.log(easyTeam.dataCarrito);
+                // console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
+                // console.log("Total: " + ngCart.totalCost());
+                // console.log(ngCart.getTotalItems());
                 toaster.pop({
                     type: 'success',
                     title: 'Added',
@@ -97,8 +98,8 @@
             return ngCart.totalCost();
         };
 
-        easyTeam.onGetTotal = function (quantity, price) {
-            var totaItem = quantity * price;
+        easyTeam.onGetTotal = function (quantity, price, num_days) {
+            var totaItem = quantity * price * num_days;
             return totaItem;
         };
 
@@ -106,13 +107,13 @@
             ngCart.removeItemById(id);
         };
 
-        easyTeam.onCambiarEstadoFecha = function() {
+        easyTeam.onCambiarEstadoFecha = function () {
             if (easyTeam.fechaServicio !== null || easyTeam.fechaServicio !== undefined || easyTeam.fechaServicio != "") {
                 easyTeam.fechaVali = true;
             }
         };
 
-        easyTeam.onGuardarCompra = function() {
+        easyTeam.onGuardarCompra = function () {
 
             var data = [{
                 "totalVenta": ngCart.totalCost(),
@@ -138,14 +139,14 @@
                         confirmButtonText: 'Confirm!'
                     }).then((status) => {
                         if (status.value) {
-                            serviEasyTeam.guardarCompra({ 'data': data }).then(function(resp) {
+                            serviEasyTeam.guardarCompra({ 'data': data }).then(function (resp) {
                                 easyTeam.dataCarrito = [];
                                 ngCart.empty();
                                 swal({
                                     title: resp.data.message,
                                     type: 'success',
                                 });
-                            }).catch(function(error) {
+                            }).catch(function (error) {
                                 console.log(error);
                             });
                         } else {
@@ -288,12 +289,12 @@
             });
         };
 
-        easyTeam.onBuscarCarros = function() {
+        easyTeam.onBuscarCarros = function () {
 
-            serviEasyTeam.buscarCarros().then(function(resp) {
+            serviEasyTeam.buscarCarros().then(function (resp) {
                 easyTeam.listaCarros = resp.data.data;
                 console.log(resp.data.data);
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.log(error);
             });
         };

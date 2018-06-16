@@ -94,13 +94,10 @@ $app->get('/BuscarCarros/', function (Request $request, Response $response) use 
     }
 });
 
-$app->post('/GuardarCompra/', function (Request $request, Response $response) use ($Template){
-
+$app->post('/GuardarCompra/', function (Request $request, Response $response) use ($Template) {
     $data = $request->getParam('data');
     try{
-
         $respuesta = $Template->GuardarCompra($data);
-
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);

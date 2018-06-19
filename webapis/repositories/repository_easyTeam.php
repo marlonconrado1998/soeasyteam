@@ -117,18 +117,18 @@ class Repository_easyTeam {
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
                     $mail->send(); // Enviar Email
                     // Se verifica si el email ha sido enviado
-                    if($mail->send()){
-                        $response = $this->Response->ok("The email has been sent");
-                    }else{
-                        $response = $this->Response->error("The email has not been sent: " . $mail->ErrorInfo);
-                    }
+                    // if($mail->send()){
+                    //     $response = $this->Response->ok("The email has been sent");
+                    // }else{
+                    //     $response = $this->Response->error("The email has not been sent: " . $mail->ErrorInfo);
+                    // }
                     break;
                 case 2:
 
                     $mail->addAddress($data[0]['correo']); // Recetor Del Email
 
                     // Archivos Adjuntos
-                    $mail->addAttachment('xibia1.docx', 'contract');
+                    $mail->addAttachment('xibia1.docx', 'contract.docx');
 
                     $tabla = '<head>
                                 <style>
@@ -185,11 +185,11 @@ class Repository_easyTeam {
                     
                     // Se verifica si el email ha sido enviado
                     $mail->send();
-                    if($mail->send()){
-                        $response = $this->Response->ok("The email has been sent");
-                    }else{
-                        $response = $this->Response->error("The email has not been sent: " . $mail->ErrorInfo);
-                    }
+                    // if($mail->send()){
+                    //     $response = $this->Response->ok("The email has been sent");
+                    // }else{
+                    //     $response = $this->Response->error("The email has not been sent: " . $mail->ErrorInfo);
+                    // }
                     break;
             }
         } catch (Exception $e) {
@@ -243,39 +243,51 @@ class Repository_easyTeam {
 
         $response = null;
         $result = null;
-        
-        $email = $object[0]['email'];
-        $pass = $object[0]['pass'];
 
         try{
 
-            $usuarios = array();
-            $sw = false;
+            if (isset($object[0]['email']) && !empty($object[0]['email']) && isset($object[0]['pass']) && !empty($object[0]['pass'])) {
 
-            $usuarios = $this->DAL->query("CALL sp_validacionLogin('$email');", [], false);
+                $email = $object[0]['email'];
+                $pass = $object[0]['pass'];
 
-            $len = count($usuarios);
-            $response = $this->Response->ok(null, $object[0]['email']);
-            
-            if ($usuarios[0]['estado'] != 0) {
+                $usuarios = array();
+                $sw = false;
+
+                $usuarios = $this->DAL->query("CALL sp_validacionLogin('$email');", [], false);
+
+                $len = count($usuarios);              
+                
                 if($len > 0){
                     for ($i=0; $i < $len ; $i++) { 
                         if ($email == $usuarios[$i]['email'] && password_verify($pass, $usuarios[$i]['password'])) {
                             $sw = true;
+                            break;
                         }
                     }
-                }
 
-                if($sw){
-                    session_start();
-                    $result = $this->DAL->query("CALL sp_select_info_usuario('$email');", [], false);
-                    $_SESSION['nombre'] = $result[0]['nombre'];
-                    $response = $this->Response->ok(null, $result);
+                    if($sw){
+
+                        if ($usuarios[0]['estado'] != 0) {
+                            session_start();
+                            $result = $this->DAL->query("CALL sp_select_info_usuario('$email');", [], false);
+                            $_SESSION['nombre'] = $result[0]['nombre'];
+                            $response = $this->Response->ok(null, $result);
+                        }else{
+                            $arr = array('estadoUser'=>false, 'sw'=>false);
+                            $response = $this->Response->ok("The Email Has Not Been Confirmed Yet", $arr);
+                        }
+                    }else{
+                        $arr = array('estadoUser'=>true, 'sw'=>false);
+                        $response = $this->Response->ok("User Or Password Are Not Valid", $arr);
+                    }
                 }else{
-                    $response = $this->Response->ok("user or password are not valid", false);
+                    $arr = array('estadoUser'=>true, 'sw'=>false);
+                    $response = $this->Response->ok("Mail Does Not Have An Associated Account In SoEasyTeam", $arr);
                 }
             }else{
-                $response = $this->Response->ok("The email has not been confirmed", false);
+                $arr = array('estadoUser'=>true, 'sw'=>false);
+                $response = $this->Response->ok("User Or Password Are Not Valid", $arr);
             }
         }catch(Exception $e){
             $response = $this->Response->error($e->getMessage(), 500);
@@ -368,9 +380,9 @@ class Repository_easyTeam {
         $result = null;
         $result2 = null;
 
-        $fk_usurario = 1;
         $iva = 0;
         $estado = 'porPrestar';
+        $fk_usurario = $object[0]['id_usuario'];
         $fecha = $object[0]['fecha'];
         $total_venta = $object[0]['totalVenta'];
         $items = $object[0]['items'];
@@ -395,7 +407,7 @@ class Repository_easyTeam {
 
             $this->EnviarEmail($object, 2);
 
-            $response = $this->Response->ok("successful purchase", $fk_po);
+            $response = $this->Response->ok("successful purchase", null);
         } catch (Exception $e) {
             $response = $this->Response->error($e->getMessage(), 500);
         }
@@ -403,6 +415,42 @@ class Repository_easyTeam {
         $this->DAL->close();
 
         return $response;        
+    }
+
+    public function NuevoEmailConfirmarCorreo($email){
+
+        $response = null;
+        $result = null;
+
+        try {
+            
+            $usuarios = array();
+
+            $usuarios = $this->DAL->query("CALL sp_select_emailUsuarios();", [], false);
+
+            $len = count($usuarios);
+            $sw = false;      
+            
+            for ($i=0; $i < $len; $i++) { 
+                if ($email == $usuarios[$i]['email']) {
+                    $sw = true;
+                    break;
+                }
+            }
+
+            if ($sw) {
+                $this->EnviarEmail($email, 1);
+                $response = $this->Response->ok('A Confirmation Mail Has Been Sent To Your Account of Email', $sw);
+            }else{
+                $response = $this->Response->ok('The Email You Want To Verify Does Not Exist In SoEasyTeam', $sw);
+            }
+        } catch (Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+
+        $this->DAL->close();
+
+        return $response;
     }
 }
 ?>

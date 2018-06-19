@@ -68,10 +68,6 @@
             if (!ngCart.getItemById(data.id)) {
                 ngCart.addItem(data.id, data.nombre, data.valor, 1, data.imagen);
                 easyTeam.dataCarrito = ngCart.getItems();
-                console.log(easyTeam.dataCarrito);
-                console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
-                console.log("Total: " + ngCart.totalCost());
-                console.log(ngCart.getTotalItems());
                 toaster.pop({
                     type: 'success',
                     title: 'Added',
@@ -114,18 +110,21 @@
             ngCart.removeItemById(id);
         };
 
+        // funcion que cambia el estado del campo fecha en la vista carrito
         easyTeam.onCambiarEstadoFecha = function() {
             if (easyTeam.fechaServicio !== null || easyTeam.fechaServicio !== undefined || easyTeam.fechaServicio != "") {
                 easyTeam.fechaVali = true;
             }
         };
 
+        // funcion que guarda la compra hecha por un cliente
         easyTeam.onGuardarCompra = function() {
 
             var data = [{
                 "totalVenta": ngCart.totalCost(),
                 "fecha": easyTeam.fechaServicio,
                 "items": ngCart.getItems(),
+                "id_usuario": easyTeam.infoUsuario[0].idusuarios,
                 "correo": easyTeam.infoUsuario[0].email
             }];
 
@@ -137,28 +136,43 @@
                     easyTeam.scrollTop();
                     easyTeam.fechaVali = false;
                 } else {
-                    easyTeam.fechaVali = true;
-                    swal({
-                        title: 'Confirm Purchase',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Confirm!'
-                    }).then((status) => {
-                        if (status.value) {
-                            serviEasyTeam.guardarCompra({ 'data': data }).then(function(resp) {
-                                easyTeam.dataCarrito = [];
-                                ngCart.empty();
-                                swal({
-                                    title: resp.data.message,
-                                    type: 'success',
+                    var d = new Date();
+
+                    var fechaServi = new Date(easyTeam.fechaServicio.getFullYear(), easyTeam.fechaServicio.getMonth(), easyTeam.fechaServicio.getDate());
+                    var fechaActual = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+                    if (fechaServi >= fechaActual) {
+                        easyTeam.fechaVali = true;
+                        swal({
+                            title: 'Confirm Purchase',
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Confirm!'
+                        }).then((status) => {
+                            if (status.value) {
+                                serviEasyTeam.guardarCompra({ 'data': data }).then(function(resp) {
+                                    easyTeam.dataCarrito = [];
+                                    ngCart.empty();
+                                    document.getElementById('fecha').value = "";
+                                    swal({
+                                        title: resp.data.message,
+                                        text: 'An email has been sent with the details of your purchase',
+                                        type: 'success',
+                                    });
+                                }).catch(function(error) {
+                                    console.log(error);
                                 });
-                            }).catch(function(error) {
-                                console.log(error);
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }else{
+                        swal({
+                            title: "enter a date greater than or equal to today's",
+                            type: 'warning',
+                        });
+                        easyTeam.scrollTop();
+                    }
                 }
             } else {
                 swal({
@@ -234,7 +248,8 @@
                 serviEasyTeam.guardarCliente({ 'data': easyTeam.dataRegistro }).then(function(resp) {
 
                     swal({
-                        text: resp.data.message,
+                        title: resp.data.message,
+                        text: 'A Confirmation Mail Has Been Sent To Your Account of Email',
                         type: 'success'
                     });
 
@@ -266,10 +281,11 @@
 
             // console.log(easyTeam.login);
             serviEasyTeam.login({ 'data': easyTeam.login }).then(function(resp) {
-                
-                if (resp.data.data != false) {
+
+                if (resp.data.data.sw != false) {
+                    
                     sessionStorage.setItem('infoUsuario', JSON.stringify(resp.data.data));
-                    console.log(resp.data.data);
+                    
                     easyTeam.ocultar = true;
 
                     easyTeam.infoUsuario = resp.data.data;
@@ -283,7 +299,14 @@
 
                     $location.path('Inicio');
                 } else {
+                    
                     easyTeam.msjErrorLogin = resp.data.message;
+
+                    if (resp.data.data.estadoUser) {
+                        easyTeam.estadoUser = resp.data.data.estadoUser;
+                    }else{
+                        easyTeam.estadoUser = resp.data.data.estadoUser;
+                    }
                 }
             }).catch(function(error) {
                 console.log(error);
@@ -294,22 +317,22 @@
         easyTeam.onLogout = function() {
             sessionStorage.removeItem('infoUsuario');
             easyTeam.infoUsuario = [];
-            easyTeam.infoUsuario[0].email = null;
-            easyTeam.infoUsuario[0].pass = null;
+            document.getElementById("pass").value = "";
             easyTeam.ocultar = false;
         };
 
+        // funcion que envia un nuevo email de confirmación
         easyTeam.onNuevoEmailConfimacionCorreo = function() {
 
-            var email = document.getElementById("email").value;
-
-            if (validar_email(email)) {
+            if (validar_email(easyTeam.login[0].email)) {
                 serviEasyTeam.nuevoEmailConfirmarCorreo({ 'data': easyTeam.login[0].email }).then(function(resp) {
-                    console.log(resp.data.message);
-                    swal({
-                        title: resp.data.message,
-                        type: 'success',
-                    });
+                    
+                    if (resp.data.data) {
+                        swal({
+                            title: resp.data.message,
+                            type: 'success',
+                        });
+                    }
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -321,6 +344,7 @@
             }
         };
 
+        // valida si un email está bien escrito
         function validar_email(email) {
             var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             return regex.test(email) ? true : false;

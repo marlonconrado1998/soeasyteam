@@ -74,7 +74,7 @@ $app->post('/NuevoEmailConfirmarCorreo/', function (Request $request, Response $
 
     try{
 
-        $respuesta = $Template->EnviarEmail($email, 1);
+        $respuesta = $Template->NuevoEmailConfirmarCorreo($email);
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);

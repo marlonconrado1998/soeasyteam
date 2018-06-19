@@ -58,8 +58,8 @@
                         </p>
                     </form>
                     <p class="text-center text-muted">{{easyTeamCtrl.msjErrorLogin}}</p>
-                    <p class="text-center text-muted"><a class="manito" ng-show="easyTeamCtrl.msjErrorLogin.length > 0" ng-click="easyTeamCtrl.onNuevoEmailConfimacionCorreo();">Click here to send a confirmation email</a></p>
-                    <p class="text-center text-muted">Not registered yet?</p>
+                    <p class="text-center text-muted" ng-show="easyTeamCtrl.estadoUser == false">Click <strong class="manito" ng-click="easyTeamCtrl.onNuevoEmailConfimacionCorreo();">Here</strong> To Send A Confirmation Email</p>
+                    <!-- <p class="text-center text-muted">Not registered yet?</p> -->
                     <p class="text-center text-muted"><a ui-sref="Registro"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
                 </div>
             </div>

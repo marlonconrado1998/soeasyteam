@@ -10,6 +10,7 @@ require_once '../libraries/class_data_access_layer.php';
 //Requiere Data Access Layer
 require_once '../libraries/class_util_response.php';
 require_once '../vendor/autoload.php';
+require_once 'repository_authJwt.php';
 
 class Repository_easyTeam {
 
@@ -19,6 +20,7 @@ class Repository_easyTeam {
     public function __construct() {
         $this->DAL = new Data_Access_Layer();
         $this->Response = new Response();
+        $this->jwt = new class_jwt();
     }
 
     public function add($object) {
@@ -154,6 +156,7 @@ class Repository_easyTeam {
         $result = null;
         $usuarios = array();
         $sw = false;
+        $jwt = null;
 
         try{
 
@@ -169,7 +172,10 @@ class Repository_easyTeam {
 
             if($sw){
                 $result = $this->DAL->query("CALL sp_select_info_usuario('$nomUsu');", [], false);
-                $response = $this->Response->ok(null, $result);
+                if ($result) {
+                    $jwt =  $this->jwt->generar_jwt($result);
+                }
+                $response = $this->Response->ok(null, $jwt);
             }else{
                 $response = $this->Response->ok("EL Usario o contraseña no son validos", null);
             }

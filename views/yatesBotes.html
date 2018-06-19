@@ -43,7 +43,7 @@
                     <div class="row products products-big">
                         <div class="col-lg-4 col-md-6" ng-repeat="x in easyTeamCtrl.listaYates">
                             <div class="product">
-                                <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                <div class="image"><a><img ng-src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                 <div class="text">
                                     <h3 class="h5"><a >{{x.nombre}}</a></h3>
                                     <p class="price">{{x.valor | currency}}</p>
@@ -64,7 +64,7 @@
                     <div class="row products products-big">
                         <div class="col-lg-4 col-md-6" ng-repeat="x in easyTeamCtrl.listaBotes">
                             <div class="product">
-                                <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                <div class="image"><a><img ng-src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                 <div class="text">
                                     <h3 class="h5"><a >{{x.nombre}}</a></h3>
                                     <p class="price">{{x.valor | currency}}</p>
@@ -80,7 +80,7 @@
                         <div class="row products">
                             <div class="col-lg-4 col-md-4" ng-repeat="x in easyTeamCtrl.listaBotes">
                                 <div class="product">
-                                    <div class="image"><a><img src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                    <div class="image"><a><img ng-src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
                                     <div class="text">
                                         <h3 class="h5"><a >{{x.nombre}} {{x.capacidad}}</a></h3>
                                         <p class="price">{{x.valor | currency}}</p>

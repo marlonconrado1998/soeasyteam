@@ -4,7 +4,10 @@
 var app = angular.module('easyTeam', [
     'ui.router',
     'ngCart',
-    'toaster'
+    'toaster',
+    'angular-jwt',
+    'angular-md5',
+    'ngStorage'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider',

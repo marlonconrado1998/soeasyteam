@@ -1,20 +1,25 @@
+<style type="text/css">
+    body {
+        background-image: url(img/fondoRegistro.jpg); 
+    }
+</style>
 <div ng-controller="controEasyTeam as easyTeamCtrl">
-    <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarTodosProductos();">
+    <!-- <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarTodosProductos(); easyTeamCtrl.onBuscarPaises();">
         <div class="container">
             <div class="row d-flex align-items-center flex-wrap">
                 <div class="col-md-7">
                     <h1 class="h2">Sign Up</h1>
                 </div>
-                <!-- <div class="col-md-5">
+                <div class="col-md-5">
                     <ul class="breadcrumb d-flex justify-content-end">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item active">Category Full</li>
                     </ul>
-                </div> -->
+                </div>
             </div>
         </div>
-    </div>
-    <div id="content">
+    </div> -->
+    <div id="content" ng-init="easyTeamCtrl.onBuscarEmailUsuarios(); easyTeamCtrl.onBuscarPaises();">
         <div class="container">
             <div class="row bar">
                 <div class="col-md-12">
@@ -41,21 +46,29 @@
                                     <div class="form-group">
                                         <input type="email" id="correo" name="correo" ng-model="easyTeamCtrl.dataRegistro[0].correo" placeholder="Email*" class="form-control" required>
                                         <h6 ng-show="form_registro.correo.$touched && form_registro.correo.$invalid">The Email Is Required.</h6>
+                                        <h6 ng-show="easyTeamCtrl.emailUsuValid == true" style="color: red; margin-top: 5px;">The Email Exists.</h6>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" id="telefono" name="telefono" ng-model="easyTeamCtrl.dataRegistro[0].telefono" placeholder="Cell Phone*" class="form-control" required>
+                                        <label for="pais">Country:</label>
+                                        <select class="form-control" id="pais" name="pais" ng-model="easyTeamCtrl.dataRegistro[0].pais">
+                                            <option ng-repeat="x in easyTeamCtrl.listaPaises">{{x.printable_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" id="telefono" name="telefono" ng-model="easyTeamCtrl.dataRegistro[0].telefono" placeholder="Cell Phone*" class="form-control" required>
                                         <h6 ng-show="form_registro.telefono.$touched && form_registro.telefono.$invalid">The Cell Phone Is Required.</h6>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="password" name="password" ng-model="easyTeamCtrl.dataRegistro[0].password" placeholder="Password*" class="form-control" minlength="8" maxlength="45" required>
+                                        <input type="password" id="password" name="password" ng-blur="easyTeamCtrl.onValidarPassword();" ng-model="easyTeamCtrl.dataRegistro[0].password" placeholder="Password*" class="form-control" minlength="1" maxlength="5" required>
                                         <h6 ng-show="form_registro.password.$touched && form_registro.password.$invalid">The Password Is Required.</h6>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" id="configPassword" name="configPassword" ng-model="easyTeamCtrl.dataRegistro[0].configPassword" placeholder="Confirm Password*" class="form-control" minlength="8" maxlength="45" required>
+                                        <input type="password" id="configPassword" name="configPassword" ng-blur="easyTeamCtrl.onValidarPassword();" ng-model="easyTeamCtrl.dataRegistro[0].configPassword" placeholder="Confirm Password*" class="form-control" minlength="1" maxlength="5" required>
                                         <h6 ng-show="form_registro.configPassword.$touched && form_registro.configPassword.$invalid">The Confirm Password Is Required.</h6>
-                                    </div>
+                                        <h6 ng-show="easyTeamCtrl.passValid == true" style="color: red; margin-top: 5px;">Passwords Are Not The Same.</h6>
+                                    </div> 
                                     <p class="text-center">
-                                        <input type="button" class="btn btn-template-outlined" ng-click="easyTeamCtrl.onGuardarCliente();" value="Create">
+                                        <input type="button" class="btn btn-template-outlined" ng-disabled="form_registro.$invalid" ng-click="easyTeamCtrl.onGuardarCliente();" value="Create">
                                         <!-- <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i>Create</button> -->
                                     </p>
                                 </form>

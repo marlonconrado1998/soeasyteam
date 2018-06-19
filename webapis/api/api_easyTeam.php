@@ -20,22 +20,47 @@
 $app->post('/GuardarCliente/', function (Request $request, Response $response) use ($Template){
 
     $data = $request->getParam('data');
-    $email = "jorozcoc21@curnvirtual.edu.co";
+
     try{
 
-        // $respuesta = $Template->GuardarCliente($data);
-        $respuesta = $Template->EnviarEmail($email);
+        $respuesta = $Template->GuardarCliente($data);
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);
     }
 });
 
-$app->get('/BuscarNombresDeUsuarios/', function (Request $request, Response $response) use ($Template){
+$app->get('/ConfirmarUsuario/{email}', function (Request $request, Response $response) use ($Template){
+
+    $email = $request->getAttribute('email');
     
     try{
 
-        $respuesta = $Template->BuscarNombresDeUsuarios();
+        $respuesta = $Template->CambiarEstadoUser($email);
+        // return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
+
+$app->get('/BuscarEmailUsuarios/', function (Request $request, Response $response) use ($Template){
+    
+    try{
+
+        $respuesta = $Template->BuscarEmailUsuarios();
+        return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
+
+$app->post('/Login/', function (Request $request, Response $response) use ($Template){
+
+    $data = $request->getParam('data');
+
+    try{
+
+        $respuesta = $Template->Login($data);
 
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
@@ -43,14 +68,24 @@ $app->get('/BuscarNombresDeUsuarios/', function (Request $request, Response $res
     }
 });
 
-$app->get('/Login/{nomUsu}/{pass}', function (Request $request, Response $response) use ($Template){
+$app->post('/NuevoEmailConfirmarCorreo/', function (Request $request, Response $response) use ($Template){
 
-    $nomUsu = $request->getAttribute('nomUsu');
-    $pass = $request->getAttribute('pass');
+    $email = $request->getParam('data');
 
     try{
 
-        $respuesta = $Template->Login($nomUsu, $pass);
+        $respuesta = $Template->NuevoEmailConfirmarCorreo($email);
+        return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
+
+$app->get('/BuscarPaises/', function (Request $request, Response $response) use ($Template){
+
+    try{
+
+        $respuesta = $Template->BuscarPaises();
 
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){

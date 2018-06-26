@@ -90,7 +90,7 @@
                         </li>
                         <li ng-show="easyTeamCtrl.infoUsuario.length > 0" class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">{{easyTeamCtrl.infoUsuario[0].nombre}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item"><a  class="nav-link manito">Perfil</a></li>
+                                <li class="dropdown-item"><a  class="nav-link manito" ui-sref="Account">My account</a></li>
                                 <li class="dropdown-item"><a  ng-click="easyTeamCtrl.onLogout();" class="nav-link manito">Logout</a></li>
                             </ul>
                         </li>

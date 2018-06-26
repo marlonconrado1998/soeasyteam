@@ -403,6 +403,7 @@ class Repository_easyTeam {
                 $fk_producto = $items[$i]['_id'];
                 $cantidad = $items[$i]['_quantity'];
                 $precio_unidad = $items[$i]['_price'] * $cantidad;
+                $num_days = $items[$i]['_data']['num_days'];
                 $iva_unidad = 0;
                 $result2 = $this->DAL->query("CALL sp_insert_poline($fk_producto, $cantidad, $precio_unidad, $iva_unidad, $fk_po, $num_days);", [], false);
             }
@@ -452,6 +453,45 @@ class Repository_easyTeam {
 
         $this->DAL->close();
 
+        return $response;
+    }
+
+    public function BuscarProductosUsuario ($fk_usurario) {
+        try{
+            $result = $this->DAL->query("CALL sp_select_products_user($fk_usurario);", [], false);
+            $response = $this->Response->ok('OK', $result);
+        } catch(Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+        return $response;
+    }
+
+    public function CambiarContraseña ($usuario){ 
+        try{
+            extract($usuario);
+            $result = $this->DAL->query("CALL sp_select_password($id);", [], true);
+
+            if(password_verify($old_pass, $result['password'])){
+                $pass_hash = password_hash($new_pass, PASSWORD_DEFAULT);
+                $result = $this->DAL->query("call sp_update_password($id, '$pass_hash');", [], true);
+                $response = $this->Response->ok('OK', 'Bien');
+            }else{
+                $response = $this->Response->ok('OK', 'Mal');
+            }
+        } catch(Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+        return $response;
+    }
+    
+    public function UpdateInfo ($usuario){ 
+        try{
+            extract($usuario);
+            $result = $this->DAL->query("CALL sp_update_info($idusuarios, '$email', '$telefono');", [], true);
+            $response = $this->Response->ok('OK', $usuario);
+        } catch(Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
         return $response;
     }
 }

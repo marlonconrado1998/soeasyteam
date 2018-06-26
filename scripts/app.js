@@ -54,6 +54,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
         }).state('Carros', {
             url: "/Cars",
             templateUrl: "views/carros.html"
+        }).state('Account', {
+            url: "/Account",
+            templateUrl: "views/account.html"
         });
     }
 ]);

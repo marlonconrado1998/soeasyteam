@@ -14,6 +14,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     servicio.guardarCompra = GuardarCompra;
     servicio.buscarPaises = BuscarPaises;
     servicio.nuevoEmailConfirmarCorreo = NuevoEmailConfirmarCorreo;
+    servicio.buscarProductosUsuario = BuscarProductosUsuario;
+    servicio.cambiarContraseña = CambiarContraseña;
+    servicio.updateInfo = UpdateInfo;
 
     var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
@@ -136,11 +139,49 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     }
 
     function GuardarCompra(data) {
-        console.log(data);
         var defered = $q.defer();
         var urlRequest = url + "GuardarCompra/";
 
         $http.post(urlRequest, data).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+            defered.reject(error);
+        })
+
+        return defered.promise;
+    }
+
+    function BuscarProductosUsuario(fk_usuario) {
+        var defered = $q.defer();
+        var urlRequest = url + "BuscarProductosUsuario/"+fk_usuario;
+
+        $http.get(urlRequest).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+            defered.reject(error);
+        })
+
+        return defered.promise;
+    }
+    
+    function CambiarContraseña(usuario) {
+        var defered = $q.defer();
+        var urlRequest = url + "CambiarContrasena";
+
+        $http.post(urlRequest, usuario).then(function(resp) {
+            defered.resolve(resp);
+        }).catch(function(error) {
+            defered.reject(error);
+        })
+
+        return defered.promise;
+    }
+    
+    function UpdateInfo (usuario) {
+        var defered = $q.defer();
+        var urlRequest = url + "UpdateInfo";
+
+        $http.post(urlRequest, usuario).then(function(resp) {
             defered.resolve(resp);
         }).catch(function(error) {
             defered.reject(error);

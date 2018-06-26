@@ -1,0 +1,175 @@
+<div ng-controller="controEasyTeam as easyTeamCtrl">
+    <div id="heading-breadcrumbs">
+        <div class="container">
+            <div class="row d-flex align-items-center flex-wrap">
+                <div class="col-md-7">
+                    <h1 class="h2">Account </h1>
+                </div>
+                <div class="col-md-5">
+                    <ul class="breadcrumb d-flex justify-content-end">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="content" ng-init="easyTeamCtrl.scrollTop();">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 mt-4 mt-md-0">
+                    <br>
+                    <div ng-switch="easyTeamCtrl.accountPage">
+                        <div ng-switch-when="Home">
+                            <center>
+                                <p class="display-4 text-center"> ¡WELCOME {{easyTeamCtrl.infoUsuario[0].nombre}}! </p>
+                                <img src="img/Picture2_copy.png" class="img-fluid">
+                            </center>
+                        </div>
+                        <div ng-switch-when="Products">
+                            <!-- <div class="box mt-0 mb-lg-0"> -->
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Cant</th>
+                                            <th>Num of days</th>
+                                            <th>Total</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="product in easyTeamCtrl.productsUsuario">
+                                            <th ng-bind="product.product"></th>
+                                            <td ng-bind="product.cant"></td>
+                                            <td ng-bind="product.num_days"></td>
+                                            <td ng-bind="product.total | currency"></td>
+                                            <td ng-bind="product.date | date"></td>
+                                            <td>
+                                                <span class="badge badge-success" ng-bind="product.status"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div ng-switch-when="Info">
+                            <div class="bo3">
+                                <div class="heading">
+                                    <h3 class="text-uppercase">Personal details</h3>
+                                </div>
+                                <form name="form_info">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstname">Firstname</label>
+                                                <input id="firstname" type="text" class="form-control" ng-value="easyTeamCtrl.infoUsuario[0].nombre" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstname">Lastname</label>
+                                                <input id="firstname" type="text" class="form-control" ng-value="easyTeamCtrl.infoUsuario[0].apellidos" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="phone">Telephone</label>
+                                                <input id="phone" type="text" class="form-control" name="tel" ng-model="easyTeamCtrl.infoUsuario[0].telefono" required>
+                                                <span class="text-danger" ng-if="!form_info.tel.$pristine && form_info.tel.$invalid">
+                                                    Telephone is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email_account">Email</label>
+                                                <input id="email_account" type="email" name="email" class="form-control" ng-model="easyTeamCtrl.infoUsuario[0].email" required>
+                                                <span class="text-danger" ng-if="!form_info.email.$pristine && form_info.email.$invalid">
+                                                    Email is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn btn-template-outlined" ng-click="easyTeamCtrl.onUpdateInfo();">
+                                                <i class="fa fa-save"></i> Save changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <br>
+                                <br>
+                                <div class="heading">
+                                    <h3 class="text-uppercase">Change password</h3>
+                                </div>
+                                <form class="form_pass" name="form_pass">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="password_old">Old password</label> <label class="text-danger">*</label>
+                                                <input  id="password_old" name="old_pass" type="password" class="form-control" ng-model="easyTeamCtrl.pass.old_pass" required>
+                                                <span class="text-danger" ng-if="!form_pass.old_pass.$pristine && form_pass.old_pass.$invalid">
+                                                    Old password is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="password_1">New password</label> <label class="text-danger">*</label>
+                                                <input id="password_1" name="new_pass" type="password" class="form-control" ng-model="easyTeamCtrl.pass.new_pass" required>
+                                                <span class="text-danger" ng-if="!form_pass.new_pass.$pristine && form_pass.new_pass.$invalid">
+                                                    New password is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="password_2">Retype new password</label> <label class="text-danger">*</label>
+                                                <input id="password_2" type="password" class="form-control" ng-model="easyTeamCtrl.pass.new_pass2" required >
+                                                <span class="text-danger" ng-if="easyTeamCtrl.pass.new_pass !== easyTeamCtrl.pass.new_pass2">
+                                                    Password does not match
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-template-outlined" ng-disabled="form_pass.$invalid || easyTeamCtrl.pass.new_pass !== easyTeamCtrl.pass.new_pass2" ng-click="easyTeamCtrl.onCambiarContrasena();">
+                                            <i class="fa fa-save"></i> Save new password</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+                <div class="col-md-3 mt-4 mt-md-0">
+                    <!-- CUSTOMER MENU -->
+                    <div class="panel panel-default sidebar-menu">
+                        <div class="panel-heading">
+                            <h3 class="h4 panel-title">Customer section</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills flex-column text-sm">
+                                <li class="nav-item" ng-click="easyTeamCtrl.accountPage = 'Products'; easyTeamCtrl.onBuscarProductosUsuario();">
+                                    <a class="nav-link manito" id="opcProducts" onclick="$('#opcProducts').addClass('active'); $('#opcInfo').removeClass('active');">
+                                        <i class="fa fa-list"></i> My products</a>
+                                </li>
+                                <li class="nav-item" ng-click="easyTeamCtrl.accountPage = 'Info'">
+                                    <a class="nav-link manito" id="opcInfo" onclick="$('#opcInfo').addClass('active'); $('#opcProducts').removeClass('active');">
+                                        <i class="fa fa-user"></i> My info</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

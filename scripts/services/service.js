@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
+app.service('serviEasyTeam', ['$http', '$q', function ($http, $q) {
 
     var servicio = this;
 
@@ -17,18 +17,19 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
     servicio.buscarProductosUsuario = BuscarProductosUsuario;
     servicio.cambiarContraseña = CambiarContraseña;
     servicio.updateInfo = UpdateInfo;
+    servicio.searchGalery = SearchGalery;
 
     var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
-    function BuscarImgJson(){
+    function BuscarImgJson() {
 
         var defered = $q.defer();
         var urlRequest = "http://localhost/soEasyTeam/scripts/productos.json";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
-           defered.reject(error);
+        }).catch(function (error) {
+            defered.reject(error);
         });
 
         return defered.promise;
@@ -38,9 +39,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "GuardarCliente/";
 
-        $http.post(urlRequest, data).then(function(resp) {
+        $http.post(urlRequest, data).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -51,9 +52,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "BuscarEmailUsuarios/";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -64,9 +65,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "Login/";
 
-        $http.post(urlRequest, data).then(function(resp) {
+        $http.post(urlRequest, data).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -77,9 +78,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "NuevoEmailConfirmarCorreo/";
 
-        $http.post(urlRequest, data).then(function(resp) {
+        $http.post(urlRequest, data).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -90,9 +91,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "BuscarPaises/";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -103,9 +104,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "BuscarApartCasa/";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -116,9 +117,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "BuscarYatesBotes/";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -129,9 +130,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "BuscarCarros/";
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -142,9 +143,9 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "GuardarCompra/";
 
-        $http.post(urlRequest, data).then(function(resp) {
+        $http.post(urlRequest, data).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
@@ -153,40 +154,52 @@ app.service('serviEasyTeam', ['$http', '$q', function($http, $q) {
 
     function BuscarProductosUsuario(fk_usuario) {
         var defered = $q.defer();
-        var urlRequest = url + "BuscarProductosUsuario/"+fk_usuario;
+        var urlRequest = url + "BuscarProductosUsuario/" + fk_usuario;
 
-        $http.get(urlRequest).then(function(resp) {
+        $http.get(urlRequest).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
         return defered.promise;
     }
-    
+
     function CambiarContraseña(usuario) {
         var defered = $q.defer();
         var urlRequest = url + "CambiarContrasena";
 
-        $http.post(urlRequest, usuario).then(function(resp) {
+        $http.post(urlRequest, usuario).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
         return defered.promise;
     }
-    
-    function UpdateInfo (usuario) {
+
+    function UpdateInfo(usuario) {
         var defered = $q.defer();
         var urlRequest = url + "UpdateInfo";
 
-        $http.post(urlRequest, usuario).then(function(resp) {
+        $http.post(urlRequest, usuario).then(function (resp) {
             defered.resolve(resp);
-        }).catch(function(error) {
+        }).catch(function (error) {
             defered.reject(error);
         })
 
         return defered.promise;
+    }
+
+    function SearchGalery(idproducto) {
+        var defered = $q.defer();
+        var urlRequest = url + "SearchGalery/" + idproducto;
+        $http.get(urlRequest).then(function (resp) {
+            defered.resolve(resp.data);
+        }).catch(function (error) {
+            defered.reject(error);
+        });
+        return defered.promise;
+
     }
 }]);

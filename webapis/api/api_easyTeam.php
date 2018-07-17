@@ -177,4 +177,14 @@ $app->post('/UpdateInfo', function (Request $request, Response $response) use ($
     }
 });
 
+$app->get('/SearchGalery/{idproduct}', function (Request $request, Response $response) use ($Template) {
+    try{
+        $idproduct = $request->getAttribute("idproduct");
+        $respuesta = $Template->SearchGalery($idproduct);
+        return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
+
 $app->run();

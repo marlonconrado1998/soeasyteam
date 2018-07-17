@@ -25,8 +25,8 @@
                         <br>
                         <div class="row products">
                             <div class="col-lg-4 col-md-4" ng-repeat="x in yatesBotesCtrl.dataYatesBotes.yates">
-                                <div class="product">
-                                    <div class="image"><a ><img ng-src="img/yates/{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
+                                <div class="product card">
+                                    <div class="image"><a ><img ng-src="img/yates/{{x.imagen}}" alt="" class="img-fluid image1" style="height: 170px"></a></div>
                                     <div class="text">
                                         <h3 class="h5"><a >{{x.nombre}}</a></h3>
                                         <p class="price">{{x.valor | currency}}</p>

@@ -30,6 +30,8 @@
         easyTeam.productsUsuario = []; // variable que contiene los productos que ha comprado del usuario        
         easyTeam.accountPage = 'Home'; // Páginas en la cuenta de usuario        
         easyTeam.pass = {}; // Páginas en la cuenta de usuario        
+        easyTeam.detailtProduct = JSON.parse(sessionStorage.getItem("detailtProduct")); // detalles de un producto                
+        easyTeam.galeryProduct = [];
 
 
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
@@ -97,7 +99,8 @@
         easyTeam.onValidarExistenciaProducto = function (idproducto) {
 
             if (ngCart.getItemById(idproducto)) {
-                return "This Item Is In Your Cart";
+                // return "Added";
+                return true;
             }
         };
 
@@ -135,7 +138,7 @@
             }];
 
             easyTeam.fechaVali = true;
-            console.log(data);
+            // console.log(data);
 
             if (easyTeam.ongetTotalItems() > 0) {
                 if (easyTeam.fechaServicio === null || easyTeam.fechaServicio === undefined || easyTeam.fechaServicio == "") {
@@ -325,6 +328,9 @@
             easyTeam.infoUsuario = [];
             document.getElementById("pass").value = "";
             easyTeam.ocultar = false;
+            if ($location.url() === "/Account") {
+                $location.path('Inicio');
+            }
         };
 
         // funcion que envia un nuevo email de confirmación
@@ -548,7 +554,6 @@
                 console.log(error);
             });
         }
-        console.log(easyTeam.infoUsuario);
         easyTeam.onUpdateInfo = function () {
             serviEasyTeam.updateInfo(easyTeam.infoUsuario[0]).then(function (resp) {
                 sessionStorage.setItem('infoUsuario', JSON.stringify(easyTeam.infoUsuario));
@@ -556,6 +561,23 @@
             }).catch(function (error) {
                 console.log(error);
             });
+        }
+
+        easyTeam.viewDetails = function (product) {
+            sessionStorage.setItem('detailtProduct', JSON.stringify(product));
+            $location.path("/Detail");
+        }
+
+        easyTeam.onGaleryProduct = function (id) {
+            serviEasyTeam.searchGalery(id).then(function (resp) {
+                easyTeam.galeryProduct = resp;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        };
+
+        if (easyTeam.detailtProduct &&  easyTeam.detailtProduct.id) {
+            easyTeam.onGaleryProduct(easyTeam.detailtProduct.id);
         }
     }
 })();

@@ -4,9 +4,9 @@
 
     app.controller('controEasyTeam', controEasyTeam);
 
-    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location', '$sessionStorage', 'auth_service'];
+    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location', '$sessionStorage', 'auth_service', 'CONSTANTS'];
 
-    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location, $sessionStorage, auth_service) {
+    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location, $sessionStorage, auth_service, CONSTANTS) {
 
         var easyTeam = this;
 
@@ -32,7 +32,7 @@
         easyTeam.pass = {}; // Páginas en la cuenta de usuario        
         easyTeam.detailtProduct = JSON.parse(sessionStorage.getItem("detailtProduct")); // detalles de un producto                
         easyTeam.galeryProduct = [];
-
+        easyTeam.whatsapp = CONSTANTS.whatsapp;
 
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
         easyTeam.arr = [

@@ -1,10 +1,10 @@
-<div ng-controller="controEasyTeam as easyTeamCtrl">
+<div ng-controller="controEasyTeam as easyTeamCtrl" id="EasyTeam">
     <!-- Top bar-->
     <div class="top-bar">
         <div class="container">
             <div class="row d-flex align-items-center">
                 <div class="col-md-6 d-md-block d-none">
-                    <p>Contact us on +  57 300 765 8139 or admin@soeasyteam.com</p>
+                    <p>Contact us on + 57 300 765 8139 or admin@soeasyteam.com</p>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-md-end justify-content-between">
@@ -12,19 +12,31 @@
                             <li class="list-inline-item"><a href="#"><i class="fa fa-phone"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li>
                         </ul>
-                        <div class="login" ng-hide="easyTeamCtrl.infoUsuario.length > 0">
-                            <a href="" data-toggle="modal" data-target="#login-modal" class="login-btn">
-                            <i class="fa fa-sign-in"></i>
-                            <span class="d-none d-md-inline-block">Sign In</span>
-                        </a>
-                            <a ui-sref="Registro" class="signup-btn">
-                            <i class="fa fa-user"></i>
-                            <span class="d-none d-md-inline-block">Sign Up</span>
-                        </a>
+                        <div class="login">
+
+                            <div ng-hide="easyTeamCtrl.infoUsuario.length > 0">
+                                <a href="" data-toggle="modal" data-target="#login-modal" class="login-btn">
+                                    <i class="fa fa-sign-in"></i>
+                                    <span class="d-none d-md-inline-block">Sign In</span>
+                                </a>
+                                <a ui-sref="Registro" class="signup-btn">
+                                    <i class="fa fa-user"></i>
+                                    <span class="d-none d-md-inline-block">Sign Up</span>
+                                </a>
+                            </div>
+                            <!-- <div ng-if="easyTeamCtrl.infoUsuario.length <= 0">
+                                {{easyTeamCtrl.infoUsuario.length}}
+                                <a href class="signup-btn">
+                                    <i class="fa fa-user"></i>
+                                    <span class="d-none d-md-inline-block">Sign Out</span>
+                                </a>
+                            </div> -->
                         </div>
                         <ul class="social-custom list-inline">
-                            <li class="list-inline-item"><a href="http://www.facebook.com/SO-EASY-Team-SAS-1743112429116725/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="http://www.instagram.com/soeasyteamsas/?hl=es-la" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="http://www.facebook.com/SO-EASY-Team-SAS-1743112429116725/"
+                                    target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="http://www.instagram.com/soeasyteamsas/?hl=es-la"
+                                    target="_blank"><i class="fa fa-instagram"></i></a></li>
                             <!--<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li> -->
                         </ul>
@@ -40,27 +52,43 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 id="login-modalLabel" class="modal-title">Customer Login</h4>
-                    <button type="button" id="cerrarModal" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                    <button type="button" id="cerrarModal" data-dismiss="modal" aria-label="Close" class="close"><span
+                            aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
                     <form id="form_login" name="form_login">
                         <div class="form-group">
-                            <input type="email" id="email" name="email" ng-model="easyTeamCtrl.login[0].email" placeholder="Email" class="form-control" required>
-                            <h6 class="modal-title" ng-show="form_login.email.$touched && form_login.email.$invalid">The E-mail Is Required</h6>
+                            <input type="email" id="email" name="email" ng-model="easyTeamCtrl.login[0].email"
+                                placeholder="Email" class="form-control" required>
+                            <h6 class="modal-title" ng-show="form_login.email.$touched && form_login.email.$invalid">The
+                                E-mail Is Required</h6>
                         </div>
                         <div class="form-group">
-                            <input type="password" id="pass" name="pass" ng-model="easyTeamCtrl.login[0].pass" placeholder="password" class="form-control" required>
-                            <h6 class="modal-title" ng-show="form_login.pass.$dirty && form_login.pass.$invalid">The Password Is Required</h6>
+                            <input type="password" id="pass" name="pass" ng-model="easyTeamCtrl.login[0].pass"
+                                placeholder="password" class="form-control" required>
+                            <h6 class="modal-title" ng-show="form_login.pass.$dirty && form_login.pass.$invalid">The
+                                Password Is Required</h6>
                         </div>
                         <p class="text-center">
-                            <input type="button" class="btn btn-template-outlined" ng-disabled="form_login.$invalid" ng-click="easyTeamCtrl.onLogin()" value="Log in">
+                            <input type="button" class="btn btn-template-outlined" ng-disabled="form_login.$invalid"
+                                ng-click="easyTeamCtrl.onLogin()" value="Log in">
                             <!-- <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button> -->
                         </p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <strong>OR</strong>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="fb-login-button" data-size="large" data-button-type="login_with"
+                                data-show-faces="false" data-use-continue-as="true" onlogin="checkLogin();" data-scope="email"></div>
+                        </div>
                     </form>
                     <p class="text-center text-muted">{{easyTeamCtrl.msjErrorLogin}}</p>
-                    <p class="text-center text-muted" ng-show="easyTeamCtrl.estadoUser == false">Click <strong class="manito" ng-click="easyTeamCtrl.onNuevoEmailConfimacionCorreo();">Here</strong> To Send A Confirmation Email</p>
+                    <p class="text-center text-muted" ng-show="easyTeamCtrl.estadoUser == false">Click <strong class="manito"
+                            ng-click="easyTeamCtrl.onNuevoEmailConfimacionCorreo();">Here</strong> To Send A
+                        Confirmation Email</p>
                     <!-- <p class="text-center text-muted">Not registered yet?</p> -->
-                    <p class="text-center text-muted"><a ui-sref="Registro"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+                    <p class="text-center text-muted"><a ui-sref="Registro"><strong>Register now</strong></a>! It is
+                        easy and done in 1 minute and gives you access to special discounts and much more!</p>
                 </div>
             </div>
         </div>
@@ -71,14 +99,19 @@
     <!-- Navbar Start-->
     <header class="nav-holder make-sticky">
         <div id="navbar" role="navigation" class="navbar navbar-expand-lg">
-            <div class="container"><a href="#" class="navbar-brand home"><img src="img/Picture2_copy.png" style="width: 120px; height: 80px;" alt="Universal logo" class="d-none d-md-inline-block"><img src="img/Picture2_copy.png" alt="Universal logo" class="d-inline-block d-md-none" style="width: 90px; height: 47px;"><span class="sr-only">Universal - go to homepage</span></a>
-                <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn-template-outlined"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
+            <div class="container"><a href="#" class="navbar-brand home"><img src="img/Picture2_copy.png" style="width: 120px; height: 80px;"
+                        alt="Universal logo" class="d-none d-md-inline-block"><img src="img/Picture2_copy.png" alt="Universal logo"
+                        class="d-inline-block d-md-none" style="width: 90px; height: 47px;"><span class="sr-only">Universal
+                        - go to homepage</span></a>
+                <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn-template-outlined"><span
+                        class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
                 <div id="navigation" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item dropdown"><a ui-sref="Inicio">Home<b class="caret"></b></a></li>
                         <li class=""><a ui-sref="ClientesFelices">happy customers</a></li>
                         <li class="nav-item dropdown "><a ui-sref="About"> About us<b class="caret"></b></a></li>
-                        <li class="nav-item dropdown "><a ui-sref="Carrito">cart<b class="caret"></b> <span class="relative" ng-hide="easyTeamCtrl.ongetTotalItems() == 0">{{easyTeamCtrl.ongetTotalItems()}}</span></a>
+                        <li class="nav-item dropdown "><a ui-sref="Carrito">cart<b class="caret"></b> <span class="relative"
+                                    ng-hide="easyTeamCtrl.ongetTotalItems() == 0">{{easyTeamCtrl.ongetTotalItems()}}</span></a>
                             <!-- <ul class="dropdown-menu"> -->
                             <!-- <li class="dropdown-item" ng-repeat="x in easyTeamCtrl.dataCarrito.items">{{x._name}}</li>
                                 <li class="dropdown-item"><a ui-sref="Carrito" class="nav-link">Show my car</a></li> -->
@@ -88,10 +121,14 @@
                                 <li class="dropdown-item"><a href="index5.html" class="nav-link">Option 5: Portfolio</a></li> -->
                             <!-- </ul> -->
                         </li>
-                        <li ng-show="easyTeamCtrl.infoUsuario.length > 0" class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">{{easyTeamCtrl.infoUsuario[0].nombre}} <b class="caret"></b></a>
+                        <li ng-show="easyTeamCtrl.infoUsuario.length > 0" class="nav-item dropdown"><a href="javascript: void(0)"
+                                data-toggle="dropdown" class="dropdown-toggle">
+                                {{easyTeamCtrl.infoUsuario[0].nombre}}
+                                <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item"><a  class="nav-link manito" ui-sref="Account">My account</a></li>
-                                <li class="dropdown-item"><a  ng-click="easyTeamCtrl.onLogout();" class="nav-link manito">Logout</a></li>
+                                <li class="dropdown-item"><a class="nav-link manito" ui-sref="Account">My account</a></li>
+                                <li class="dropdown-item"><a ng-click="easyTeamCtrl.onLogout();" onclick="logout();"
+                                        class="nav-link manito">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -100,7 +137,7 @@
                     <form role="search" class="navbar-form">
                         <div class="input-group">
                             <input type="text" placeholder="Search" class="form-control"><span class="input-group-btn">
-                    <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button></span>
+                                <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button></span>
                         </div>
                     </form>
                 </div>

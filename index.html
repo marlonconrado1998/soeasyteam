@@ -64,7 +64,7 @@
     <script src="bower_components/angular-jwt/dist/angular-jwt.min.js" type="text/javascript"></script>
     <script src="bower_components/angular-md5/angular-md5.min.js" type="text/javascript"></script>
     <script src="bower_components/ngstorage/ngStorage.min.js" type="text/javascript"></script>
-    <!-- End Bower Files -->    
+    <!-- End Bower Files -->
 
     <!-- angulalar JS -->
     <script src="scripts/app.js"></script>
@@ -96,6 +96,56 @@
     <script src="views/vendor/jquery.scrollto/jquery.scrollTo.min.js"></script>
     <script src="scripts/js/front.js"></script>
     <!-- End Javascript files-->
+    <script>
+        var id = "220717455274294";
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: id,
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v3.1'
+            });
+        }
+
+        function checkLogin() {
+            FB.getLoginStatus(function (response) {
+                if (response.status == 'connected') login();
+            });
+        }
+
+        function login() {
+            FB.api('/me?fields=email,first_name,last_name,hometown', function (data) {
+                let usuario = [{
+                    nombre: data.first_name,
+                    idusuarios: data.id,
+                    email: data.email,
+                    apellidos: data.last_name
+                }];
+                getElement('EasyTeam').loginFacebook(usuario);
+            });
+        }
+
+        function logout() {
+            FB.getLoginStatus(function (response) {
+                if (response.status == 'connected') FB.logout();;
+            });
+        }
+
+        function getElement(idElement) {
+            return angular.element(document.getElementById(idElement)).scope()
+        }
+    </script>
 </body>
 
 </html>

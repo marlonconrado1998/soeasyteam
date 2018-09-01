@@ -4,9 +4,9 @@
 
     app.controller('controEasyTeam', controEasyTeam);
 
-    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location', '$sessionStorage', 'auth_service', 'CONSTANTS'];
+    controEasyTeam.$inject = ['serviEasyTeam', 'ngCart', 'ngCartItem', 'toaster', '$location', '$sessionStorage', 'auth_service', 'CONSTANTS', '$scope'];
 
-    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location, $sessionStorage, auth_service, CONSTANTS) {
+    function controEasyTeam(serviEasyTeam, ngCart, ngCartItem, toaster, $location, $sessionStorage, auth_service, CONSTANTS, $scope) {
 
         var easyTeam = this;
 
@@ -33,14 +33,29 @@
         easyTeam.detailtProduct = JSON.parse(sessionStorage.getItem("detailtProduct")); // detalles de un producto                
         easyTeam.galeryProduct = [];
         easyTeam.whatsapp = CONSTANTS.whatsapp;
+        easyTeam.keyfacebook = CONSTANTS.keyfacebook;
 
         easyTeam.clientesFelices = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg", "img9.jpeg", "img7.jpg", "img8.jpg"];
-        easyTeam.arr = [
-            { 'nombre': 'RIDE IN CHIVA', 'img': 'img/publicidad/chiva.jpg' },
-            { 'nombre': 'CITY TOUR', 'img': 'img/publicidad/cityTour.jpg' },
-            { 'nombre': 'DIVING', 'img': 'img/publicidad/buceo.jpg' },
-            { 'nombre': 'TOTUMO VOLCANO', 'img': 'img/publicidad/totumo.jpg' },
-            { 'nombre': 'HORSE CARRIAGE', 'img': 'img/publicidad/carriage.jpg' }
+        easyTeam.arr = [{
+                'nombre': 'RIDE IN CHIVA',
+                'img': 'img/publicidad/chiva.jpg'
+            },
+            {
+                'nombre': 'CITY TOUR',
+                'img': 'img/publicidad/cityTour.jpg'
+            },
+            {
+                'nombre': 'DIVING',
+                'img': 'img/publicidad/buceo.jpg'
+            },
+            {
+                'nombre': 'TOTUMO VOLCANO',
+                'img': 'img/publicidad/totumo.jpg'
+            },
+            {
+                'nombre': 'HORSE CARRIAGE',
+                'img': 'img/publicidad/carriage.jpg'
+            }
         ];
         easyTeam.paquete = "";
         easyTeam.paquetes = [{
@@ -71,7 +86,10 @@
         easyTeam.onAddCart = function (data) {
 
             if (!ngCart.getItemById(data.id)) {
-                ngCart.addItem(data.id, data.nombre, data.valor, 1, { imagen: data.imagen, num_days: 1 });
+                ngCart.addItem(data.id, data.nombre, data.valor, 1, {
+                    imagen: data.imagen,
+                    num_days: 1
+                });
                 easyTeam.dataCarrito = ngCart.getItems();
                 // console.log(easyTeam.dataCarrito);
                 // console.log(easyTeam.dataCarrito);
@@ -161,7 +179,9 @@
                             confirmButtonText: 'Confirm!'
                         }).then((status) => {
                             if (status.value) {
-                                serviEasyTeam.guardarCompra({ 'data': data }).then(function (resp) {
+                                serviEasyTeam.guardarCompra({
+                                    'data': data
+                                }).then(function (resp) {
                                     easyTeam.dataCarrito = [];
                                     ngCart.empty();
                                     document.getElementById('fecha').value = "";
@@ -254,7 +274,9 @@
 
             if (easyTeam.emailUsuValid == false && easyTeam.passValid == false) {
 
-                serviEasyTeam.guardarCliente({ 'data': easyTeam.dataRegistro }).then(function (resp) {
+                serviEasyTeam.guardarCliente({
+                    'data': easyTeam.dataRegistro
+                }).then(function (resp) {
 
                     swal({
                         title: resp.data.message,
@@ -288,21 +310,25 @@
         // funcion que valida el login de una persona
         easyTeam.onLogin = function () {
 
-            // console.log(easyTeam.login);
-            serviEasyTeam.login({ 'data': easyTeam.login }).then(function (resp) {
+            serviEasyTeam.login({
+                'data': easyTeam.login
+            }).then(function (resp) {
 
                 if (resp.data.data.sw != false) {
 
-                    sessionStorage.setItem('infoUsuario', JSON.stringify(resp.data.data));
+                    var response = resp.data.data.data;
+                    var token = resp.data.data.token;
+
+                    sessionStorage.setItem('infoUsuario', JSON.stringify(response));
+                    sessionStorage.setItem('token', JSON.stringify(token));
 
                     easyTeam.ocultar = true;
-
-                    easyTeam.infoUsuario = resp.data.data;
+                    easyTeam.infoUsuario = response;
 
                     document.getElementById('cerrarModal').click();
 
                     swal({
-                        title: 'Welcome ' + resp.data.data[0].nombre,
+                        title: 'Welcome ' + response[0].nombre,
                         type: 'success',
                     });
 
@@ -325,6 +351,8 @@
         // funccion para cerrar sesion de un cliente
         easyTeam.onLogout = function () {
             sessionStorage.removeItem('infoUsuario');
+            sessionStorage.removeItem('token');
+            
             easyTeam.infoUsuario = [];
             document.getElementById("pass").value = "";
             easyTeam.ocultar = false;
@@ -337,7 +365,9 @@
         easyTeam.onNuevoEmailConfimacionCorreo = function () {
 
             if (validar_email(easyTeam.login[0].email)) {
-                serviEasyTeam.nuevoEmailConfirmarCorreo({ 'data': easyTeam.login[0].email }).then(function (resp) {
+                serviEasyTeam.nuevoEmailConfirmarCorreo({
+                    'data': easyTeam.login[0].email
+                }).then(function (resp) {
 
                     if (resp.data.data) {
                         swal({
@@ -546,18 +576,29 @@
             easyTeam.pass.id = easyTeam.infoUsuario[0].idusuarios;
             serviEasyTeam.cambiarContraseña(easyTeam.pass).then(function (resp) {
                 if (resp.data.data == "Bien") {
-                    alert("Sucess")
+                    swal({
+                        title: "Password changed successly",
+                        type: "success",
+                    });
                 } else if (resp.data.data == "Mal") {
-                    alert("Bad")
+                    swal({
+                        title: "Error to change password",
+                        type: "warning",
+                    });
                 }
             }).catch(function (error) {
                 console.log(error);
             });
         }
+
+
         easyTeam.onUpdateInfo = function () {
             serviEasyTeam.updateInfo(easyTeam.infoUsuario[0]).then(function (resp) {
                 sessionStorage.setItem('infoUsuario', JSON.stringify(easyTeam.infoUsuario));
-                alert("Success")
+                swal({
+                    title: "Personal details changed successly",
+                    type: "success",
+                });
             }).catch(function (error) {
                 console.log(error);
             });
@@ -576,8 +617,18 @@
             });
         };
 
-        if (easyTeam.detailtProduct &&  easyTeam.detailtProduct.id) {
+        if (easyTeam.detailtProduct && easyTeam.detailtProduct.id) {
             easyTeam.onGaleryProduct(easyTeam.detailtProduct.id);
+        }
+
+        $scope.loginFacebook = function (usuario) {
+            $scope.$apply(function () {
+                document.getElementById('cerrarModal').click();
+                sessionStorage.setItem('infoUsuario', JSON.stringify(usuario));
+                easyTeam.infoUsuario = usuario;
+                easyTeam.ocultar = true;
+                $location.path('Inicio');
+            });
         }
     }
 })();

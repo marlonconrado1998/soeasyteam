@@ -24,16 +24,18 @@ class class_jwt {
     }
 
     public function generar_jwt($json) {
+        
         $jwt = null;
         $time = time();
 
         $token = array(
             'iat' => $time, // Tiempo que inició el token
-            'exp' => $time + (60 * 5), // Tiempo que expirará el token (5 min)
+            'exp' => $time + (60 * 60), // Tiempo que expirará el token (60 min)
             'iss' => $this->iss,
             'aud' => $this->aud,
             'data' => $json
         );
+
         $jwt = JWT::encode($token, $this->clave);
         $jwt = $this->encriptar_jwt($jwt);
         return $jwt;
@@ -57,7 +59,7 @@ class class_jwt {
         }
     }
 
-    private function desencriptar_jwt($jwt) {
+    public function desencriptar_jwt($jwt) {
         $fecha = getdate();
         $remplazar = md5($fecha['mday']);
         $jwt = substr($jwt, 0, strlen($jwt) - $this->char_relleno);
@@ -83,7 +85,7 @@ class class_jwt {
 
     private function clave() {
         $fecha = getdate();
-        $temp = $fecha['year'] . $fecha['mon'] . $fecha['mday'] . $fecha['weekday'];
+        $temp = '04so'. $fecha['year'] . '13ea'. $fecha['mon'] . '22sy'. $fecha['mday'] . '31te' . $fecha['weekday'] . '40am';
         $clave = md5(md5($temp));
         return $clave;
     }
@@ -91,7 +93,7 @@ class class_jwt {
     private function error() {
         $respuesta = array(
             "estado" => false,
-            "mensaje" => "Aceso denegado",
+            "mensaje" => "Acceso denegado",
             "data" => null
         );
         return $respuesta;
@@ -106,4 +108,7 @@ class class_jwt {
         return $respuesta;
     }
 
+    private function getKeyToken () {
+
+    }
 }

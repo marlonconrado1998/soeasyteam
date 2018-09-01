@@ -24,7 +24,7 @@
 
   <!--Other config-->
     <setting>
-    <key>Api_Folder</key>
-    <value></value>
+    <key>SECRET_TOKEN</key>
+    <value>-SOhdfc-hsahg21o3287327nlkascbasEAg1278kj32-xklashe37SY239,xcnhasdTEAM,marlonconradorobertorestrepojorgeoroscosoesasyteam</value>
   </setting>
 </appSettings>

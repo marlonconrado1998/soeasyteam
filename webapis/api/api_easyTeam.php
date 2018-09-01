@@ -12,10 +12,12 @@
     //Require
     require '../vendor/autoload.php';
     require '../repositories/repository_easyTeam.php';
+    require '../middleware/autorization.php';
 
     //Objects
     $app = new \Slim\App;
     $Template = new Repository_easyTeam();
+    $Auto = new Autorization();
 
 $app->post('/GuardarCliente/', function (Request $request, Response $response) use ($Template){
 
@@ -86,12 +88,14 @@ $app->get('/BuscarPaises/', function (Request $request, Response $response) use 
     try{
 
         $respuesta = $Template->BuscarPaises();
+        // $token = $request->getAttribute('token');
 
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);
     }
 });
+
 
 $app->get('/BuscarApartCasa/', function (Request $request, Response $response) use ($Template){
 
@@ -139,20 +143,20 @@ $app->post('/GuardarCompra/', function (Request $request, Response $response) us
     }
 });
 
-$app->get('/BuscarProductosUsuario/{fk_usuario}', function (Request $request, Response $response) use ($Template) {
+$app->get('/BuscarProductosUsuario', function (Request $request, Response $response) use ($Template) {
     try{
-        $fk_usuario = $request->getAttribute('fk_usuario');
-        $respuesta = $Template->BuscarProductosUsuario($fk_usuario);
+        $idusauario = (int)$request->getAttribute('idusuarios');
+        $respuesta = $Template->BuscarProductosUsuario($idusauario);
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);
     }
-});
+})->add( $Auto );
 
 $app->post('/CambiarContrasena', function (Request $request, Response $response) use ($Template) {
     try{
         $usuario = array(
-            "id" => (int)$request->getParam('id'),
+            "id" => (int)$request->getAttribute('idusuarios'),
             "old_pass" => $request->getParam('old_pass'),
             "new_pass" => $request->getParam('new_pass')
         );
@@ -161,12 +165,12 @@ $app->post('/CambiarContrasena', function (Request $request, Response $response)
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);
     }
-});
+})->add( $Auto );
 
 $app->post('/UpdateInfo', function (Request $request, Response $response) use ($Template) {
     try{
         $usuario = array(
-            "idusuarios" => (int)$request->getParam('idusuarios'),
+            "idusuarios" => (int)$request->getAttribute('idusuarios'),
             "email" => $request->getParam('email'),
             "telefono" => $request->getParam('telefono')
         );
@@ -175,7 +179,7 @@ $app->post('/UpdateInfo', function (Request $request, Response $response) use ($
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);
     }
-});
+})->add( $Auto );
 
 $app->get('/SearchGalery/{idproduct}', function (Request $request, Response $response) use ($Template) {
     try{

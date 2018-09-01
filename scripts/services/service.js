@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('serviEasyTeam', ['$http', '$q', function ($http, $q) {
+app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http, $q, $sessionStorage) {
 
     var servicio = this;
 
@@ -18,6 +18,7 @@ app.service('serviEasyTeam', ['$http', '$q', function ($http, $q) {
     servicio.cambiarContraseña = CambiarContraseña;
     servicio.updateInfo = UpdateInfo;
     servicio.searchGalery = SearchGalery;
+    servicio.token = JSON.parse(sessionStorage.getItem('token'));
 
     var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
@@ -154,9 +155,9 @@ app.service('serviEasyTeam', ['$http', '$q', function ($http, $q) {
 
     function BuscarProductosUsuario(fk_usuario) {
         var defered = $q.defer();
-        var urlRequest = url + "BuscarProductosUsuario/" + fk_usuario;
+        var urlRequest = url + "BuscarProductosUsuario";
 
-        $http.get(urlRequest).then(function (resp) {
+        $http.get(urlRequest, {headers: {'TOKEN': servicio.token}}).then(function (resp) {
             defered.resolve(resp);
         }).catch(function (error) {
             defered.reject(error);
@@ -169,7 +170,7 @@ app.service('serviEasyTeam', ['$http', '$q', function ($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "CambiarContrasena";
 
-        $http.post(urlRequest, usuario).then(function (resp) {
+        $http.post(urlRequest, usuario, {headers: {'TOKEN': servicio.token}}).then(function (resp) {
             defered.resolve(resp);
         }).catch(function (error) {
             defered.reject(error);
@@ -182,7 +183,7 @@ app.service('serviEasyTeam', ['$http', '$q', function ($http, $q) {
         var defered = $q.defer();
         var urlRequest = url + "UpdateInfo";
 
-        $http.post(urlRequest, usuario).then(function (resp) {
+        $http.post(urlRequest, usuario, {headers: {'TOKEN': servicio.token}}).then(function (resp) {
             defered.resolve(resp);
         }).catch(function (error) {
             defered.reject(error);

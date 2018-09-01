@@ -16,6 +16,7 @@ class Repository_easyTeam {
 
     public $DAL;
     public $Response;
+    public $jwt;
 
     public function __construct() {
         $this->DAL = new Data_Access_Layer();
@@ -269,12 +270,16 @@ class Repository_easyTeam {
                     }
 
                     if($sw){
-
                         if ($usuarios[0]['estado'] != 0) {
+                            
                             session_start();
                             $result = $this->DAL->query("CALL sp_select_info_usuario('$email');", [], false);
                             $_SESSION['nombre'] = $result[0]['nombre'];
-                            $response = $this->Response->ok(null, $result);
+                            $response = $this->Response->ok(null, array(
+                                "data" => $result,
+                                "token" => $this->jwt->generar_jwt($result[0])
+                            ));
+
                         }else{
                             $arr = array('estadoUser'=>false, 'sw'=>false);
                             $response = $this->Response->ok("The Email Has Not Been Confirmed Yet", $arr);
@@ -296,7 +301,6 @@ class Repository_easyTeam {
         }
 
         $this->DAL->close();
-
         return $response;
     }
 

@@ -125,13 +125,13 @@
         }
 
         function login() {
-            FB.api('/me?fields=email,first_name,last_name,hometown', function (data) {
-                let usuario = [{
+            FB.api('/me?fields=email,first_name,last_name,address', function (data) {
+                let usuario = {
                     nombre: data.first_name,
                     idusuarios: data.id,
                     email: data.email,
                     apellidos: data.last_name
-                }];
+                };
                 getElement('EasyTeam').loginFacebook(usuario);
             });
         }

@@ -352,7 +352,7 @@
         easyTeam.onLogout = function () {
             sessionStorage.removeItem('infoUsuario');
             sessionStorage.removeItem('token');
-            
+
             easyTeam.infoUsuario = [];
             document.getElementById("pass").value = "";
             easyTeam.ocultar = false;
@@ -622,13 +622,24 @@
         }
 
         $scope.loginFacebook = function (usuario) {
-            $scope.$apply(function () {
-                document.getElementById('cerrarModal').click();
-                sessionStorage.setItem('infoUsuario', JSON.stringify(usuario));
-                easyTeam.infoUsuario = usuario;
-                easyTeam.ocultar = true;
-                $location.path('Inicio');
-            });
+            easyTeam.onBuscarFacebook(usuario.email);
         }
+
+        easyTeam.onBuscarFacebook = function (email) {
+            serviEasyTeam.buscarFacebook(email).then(function (resp) {
+                if (resp && angular.isObject(resp)) {
+                    
+                    sessionStorage.setItem('infoUsuario', JSON.stringify([resp.data.data]));
+                    sessionStorage.setItem('token', JSON.stringify(resp.data.token));
+                    easyTeam.infoUsuario = [resp.data.data];
+
+                    easyTeam.ocultar = true;
+                    document.getElementById('cerrarModal').click();
+                    $location.path('Inicio');
+                };
+            }).catch(function (error) {
+                console.log(error);
+            });
+        };
     }
 })();

@@ -507,6 +507,23 @@ class Repository_easyTeam {
             $response = $this->Response->error($e->getMessage(), 500);
         }
         return $response;
-    }       
+    }     
+    
+    public function LoginFB ($email) {
+        try{
+            $result = $this->DAL->query("CALL sp_login_facebook(:email);", [":email" => $email], true);            
+            
+            if ($result == false){
+                return "No se encontró una cuenta de Facebook asociada a " . $email;
+            }
+            $response = $this->Response->ok(null, array(
+                "data" => $result,
+                "token" => $this->jwt->generar_jwt($result)
+            ));
+        } catch(Exception $e) {
+            $response = $this->Response->error($e->getMessage(), 500);
+        }
+        return $response;
+    }
 }
 ?>

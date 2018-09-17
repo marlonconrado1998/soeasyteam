@@ -70,6 +70,9 @@ $app->post('/Login/', function (Request $request, Response $response) use ($Temp
     }
 });
 
+
+
+
 $app->post('/NuevoEmailConfirmarCorreo/', function (Request $request, Response $response) use ($Template){
 
     $email = $request->getParam('data');
@@ -191,4 +194,15 @@ $app->get('/SearchGalery/{idproduct}', function (Request $request, Response $res
     }
 });
 
+
+$app->post('/LoginFB/', function (Request $request, Response $response) use ($Template){
+
+    $email = $request->getParam('email');
+    try{
+        $respuesta = $Template->LoginFB($email);
+        return $response->withJson($respuesta, 200);
+    }catch(Exception $e){
+        return $response->withJson($e->getMessage(), 500);
+    }
+});
 $app->run();

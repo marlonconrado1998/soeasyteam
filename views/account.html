@@ -68,19 +68,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="firstname">Firstname</label>
-                                                <input id="firstname" type="text" class="form-control" ng-value="easyTeamCtrl.infoUsuario[0].nombre" readonly>
+                                                <input id="firstname" type="text" class="form-control" ng-value="easyTeamCtrl.infoUsuario[0].nombre"
+                                                    readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="lastname">Lastname</label>
-                                                <input id="lastname" type="text" class="form-control" ng-value="easyTeamCtrl.infoUsuario[0].apellidos" readonly>
+                                                <input id="lastname" type="text" class="form-control" ng-value="easyTeamCtrl.infoUsuario[0].apellidos"
+                                                    readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="phone">Telephone</label>
-                                                <input id="phone" type="text" class="form-control" name="tel" ng-model="easyTeamCtrl.infoUsuario[0].telefono" required>
+                                                <input id="phone" type="text" class="form-control" name="tel" ng-model="easyTeamCtrl.infoUsuario[0].telefono"
+                                                    required>
                                                 <span class="text-danger" ng-if="!form_info.tel.$pristine && form_info.tel.$invalid">
                                                     Telephone is required
                                                 </span>
@@ -89,7 +92,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="email_account">Email</label>
-                                                <input id="email_account" type="email" name="email" class="form-control" ng-model="easyTeamCtrl.infoUsuario[0].email" required>
+                                                <input id="email_account" type="email" name="email" class="form-control"
+                                                    ng-model="easyTeamCtrl.infoUsuario[0].email" required>
                                                 <span class="text-danger" ng-if="!form_info.email.$pristine && form_info.email.$invalid">
                                                     Email is required
                                                 </span>
@@ -101,50 +105,56 @@
                                         </div>
                                     </div>
                                 </form>
-                                <br>
-                                <br>
-                                <div class="heading">
-                                    <h3 class="text-uppercase">Change password</h3>
+                                <div ng-if="easyTeamCtrl.infoUsuario[0].facebook != 1;">
+                                    <br>
+                                    <br>
+                                    <div class="heading">
+                                        <h3 class="text-uppercase">Change password</h3>
+                                    </div>
+                                    <form class="form_pass" name="form_pass">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="password_old">Old password</label> <label class="text-danger">*</label>
+                                                    <input id="password_old" name="old_pass" type="password" class="form-control"
+                                                        ng-model="easyTeamCtrl.pass.old_pass" required>
+                                                    <span class="text-danger" ng-if="!form_pass.old_pass.$pristine && form_pass.old_pass.$invalid">
+                                                        Old password is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="password_1">New password</label> <label class="text-danger">*</label>
+                                                    <input id="password_1" name="new_pass" type="password" class="form-control"
+                                                        ng-model="easyTeamCtrl.pass.new_pass" required>
+                                                    <span class="text-danger" ng-if="!form_pass.new_pass.$pristine && form_pass.new_pass.$invalid">
+                                                        New password is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="password_2">Retype new password</label> <label class="text-danger">*</label>
+                                                    <input id="password_2" type="password" class="form-control"
+                                                        ng-model="easyTeamCtrl.pass.new_pass2" required>
+                                                    <span class="text-danger" ng-if="easyTeamCtrl.pass.new_pass !== easyTeamCtrl.pass.new_pass2">
+                                                        Password does not match
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-template-outlined" ng-disabled="form_pass.$invalid || easyTeamCtrl.pass.new_pass !== easyTeamCtrl.pass.new_pass2"
+                                                ng-click="easyTeamCtrl.onCambiarContrasena();">
+                                                <i class="fa fa-save"></i> Save new password</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <form class="form_pass" name="form_pass">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="password_old">Old password</label> <label class="text-danger">*</label>
-                                                <input  id="password_old" name="old_pass" type="password" class="form-control" ng-model="easyTeamCtrl.pass.old_pass" required>
-                                                <span class="text-danger" ng-if="!form_pass.old_pass.$pristine && form_pass.old_pass.$invalid">
-                                                    Old password is required
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="password_1">New password</label> <label class="text-danger">*</label>
-                                                <input id="password_1" name="new_pass" type="password" class="form-control" ng-model="easyTeamCtrl.pass.new_pass" required>
-                                                <span class="text-danger" ng-if="!form_pass.new_pass.$pristine && form_pass.new_pass.$invalid">
-                                                    New password is required
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="password_2">Retype new password</label> <label class="text-danger">*</label>
-                                                <input id="password_2" type="password" class="form-control" ng-model="easyTeamCtrl.pass.new_pass2" required >
-                                                <span class="text-danger" ng-if="easyTeamCtrl.pass.new_pass !== easyTeamCtrl.pass.new_pass2">
-                                                    Password does not match
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-template-outlined" ng-disabled="form_pass.$invalid || easyTeamCtrl.pass.new_pass !== easyTeamCtrl.pass.new_pass2" ng-click="easyTeamCtrl.onCambiarContrasena();">
-                                            <i class="fa fa-save"></i> Save new password</button>
-                                    </div>
-                                </form>
+                                <br>
                             </div>
-                            <br>
                         </div>
                     </div>
                     <!-- </div> -->

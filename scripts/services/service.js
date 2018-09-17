@@ -19,6 +19,7 @@ app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http,
     servicio.updateInfo = UpdateInfo;
     servicio.searchGalery = SearchGalery;
     servicio.token = JSON.parse(sessionStorage.getItem('token'));
+    servicio.buscarFacebook = buscarFacebook;
 
     var url = "http://localhost/soEasyTeam/webapis/api/api_easyTeam.php/";
 
@@ -157,7 +158,11 @@ app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http,
         var defered = $q.defer();
         var urlRequest = url + "BuscarProductosUsuario";
 
-        $http.get(urlRequest, {headers: {'TOKEN': servicio.token}}).then(function (resp) {
+        $http.get(urlRequest, {
+            headers: {
+                'TOKEN': servicio.token
+            }
+        }).then(function (resp) {
             defered.resolve(resp);
         }).catch(function (error) {
             defered.reject(error);
@@ -170,7 +175,11 @@ app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http,
         var defered = $q.defer();
         var urlRequest = url + "CambiarContrasena";
 
-        $http.post(urlRequest, usuario, {headers: {'TOKEN': servicio.token}}).then(function (resp) {
+        $http.post(urlRequest, usuario, {
+            headers: {
+                'TOKEN': servicio.token
+            }
+        }).then(function (resp) {
             defered.resolve(resp);
         }).catch(function (error) {
             defered.reject(error);
@@ -183,7 +192,11 @@ app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http,
         var defered = $q.defer();
         var urlRequest = url + "UpdateInfo";
 
-        $http.post(urlRequest, usuario, {headers: {'TOKEN': servicio.token}}).then(function (resp) {
+        $http.post(urlRequest, usuario, {
+            headers: {
+                'TOKEN': servicio.token
+            }
+        }).then(function (resp) {
             defered.resolve(resp);
         }).catch(function (error) {
             defered.reject(error);
@@ -201,6 +214,18 @@ app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http,
             defered.reject(error);
         });
         return defered.promise;
+    }
 
+    function buscarFacebook(email) {
+        
+        var defered = $q.defer();
+        var urlRequest = url + "LoginFB/";
+
+        $http.post(urlRequest, {"email": email}).then(function (resp) {
+            defered.resolve(resp.data);
+        }).catch(function (error) {
+            defered.reject(error);
+        });
+        return defered.promise;
     }
 }]);

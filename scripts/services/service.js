@@ -216,12 +216,12 @@ app.service('serviEasyTeam', ['$http', '$q', '$sessionStorage', function ($http,
         return defered.promise;
     }
 
-    function buscarFacebook(email) {
+    function buscarFacebook(usuario) {
         
         var defered = $q.defer();
         var urlRequest = url + "LoginFB/";
 
-        $http.post(urlRequest, {"email": email}).then(function (resp) {
+        $http.post(urlRequest, {"userFB": usuario}).then(function (resp) {
             defered.resolve(resp.data);
         }).catch(function (error) {
             defered.reject(error);

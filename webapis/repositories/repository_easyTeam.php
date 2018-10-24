@@ -509,19 +509,22 @@ class Repository_easyTeam {
         return $response;
     }     
     
-    public function LoginFB ($email) {
+    public function LoginFB ($usuario) {
         try{
-            $result = $this->DAL->query("CALL sp_login_facebook(:email);", [":email" => $email], true);            
+            
+            $result = $this->DAL->query("CALL sp_login_facebook(:email);", array(":email" => $usuario['email']), true);            
             
             if ($result == false){
                 return "No se encontró una cuenta de Facebook asociada a " . $email;
+                // $result = $this->DAL->query("CALL sp_insert_persona(:nombre, :apellidos, :identificacion, , '$telefono', '$pais', '$password')", [], false);
+                // $this->EnviarEmail($correo, 1);
             }
             $response = $this->Response->ok(null, array(
                 "data" => $result,
                 "token" => $this->jwt->generar_jwt($result)
             ));
         } catch(Exception $e) {
-            $response = $this->Response->error($e->getMessage(), 500);
+            $response = $this->Response->error("Error interno del servidor.", 500);
         }
         return $response;
     }

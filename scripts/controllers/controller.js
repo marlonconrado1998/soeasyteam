@@ -622,11 +622,13 @@
         }
 
         $scope.loginFacebook = function (usuario) {
-            easyTeam.onBuscarFacebook(usuario.email);
+            easyTeam.onBuscarFacebook(usuario);
+            // console.log(usuario);
         }
 
-        easyTeam.onBuscarFacebook = function (email) {
-            serviEasyTeam.buscarFacebook(email).then(function (resp) {
+        easyTeam.onBuscarFacebook = function (usuario) {
+            serviEasyTeam.buscarFacebook(usuario).then(function (resp) {
+
                 if (resp && angular.isObject(resp)) {
                     
                     sessionStorage.setItem('infoUsuario', JSON.stringify([resp.data.data]));

@@ -197,9 +197,9 @@ $app->get('/SearchGalery/{idproduct}', function (Request $request, Response $res
 
 $app->post('/LoginFB/', function (Request $request, Response $response) use ($Template){
 
-    $email = $request->getParam('email');
+    $usuario = $request->getParam('userFB');
     try{
-        $respuesta = $Template->LoginFB($email);
+        $respuesta = $Template->LoginFB($usuario);
         return $response->withJson($respuesta, 200);
     }catch(Exception $e){
         return $response->withJson($e->getMessage(), 500);

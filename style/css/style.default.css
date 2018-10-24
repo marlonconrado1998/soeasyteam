@@ -251,6 +251,7 @@ p.lead {
   align-items: stretch !important;
 }
 
+
 .background-pentagon,
 #heading-breadcrumbs {
   background: url("../../img/texture-bw.png") center center repeat;
@@ -1347,6 +1348,11 @@ header.nav-holder.sticky {
   margin-bottom: 40px;
   border-radius: 8px;
   text-align: center;
+  padding: 18px;
+  box-shadow: 0px 0px 4.2px 4.2px #ccc;
+  height: 270px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .box-simple:hover .icon-outlined {
@@ -1354,16 +1360,14 @@ header.nav-holder.sticky {
   transform: scale(1.2);
   background-color: #005990d7;
   color: white;
-  cursor: pointer;
   border: 2px solid #005990d7;
 }
 
-.box-simple .icon-outlined {
-  color: white;
-  border: 2px solid #005890;
-  background-color: #005890;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+.box-simple:hover {
+  -webkit-transform: scale(1.02);
+  transform: scale(1.07);
+  cursor: pointer;
+  background-color: rgba(211, 211, 211, 0.103);
 }
 
 .box-simple h3 {
@@ -3934,4 +3938,24 @@ a>code {
   -webkit-box-shadow: 1px 1px 47px -4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 1px 1px 47px -4px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 1px 47px -4px rgba(0, 0, 0, 0.75);
+}
+
+.font-special {
+  font-family: 'Indie Flower', cursive !important;
+  color: white !important;
+}
+
+.box-simple .icon-outlined {
+  color: #005890;
+  border: 2px solid #005890;
+  background-color: #fefefe;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  color: #ffffff;
+  background-color: #0f6296;
+}
+
+.top-bar ul.social-custom a:hover {
+  background: #f6f8f8;
+  color: #005890;
 }

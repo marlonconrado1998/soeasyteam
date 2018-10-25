@@ -91,11 +91,6 @@
                     num_days: 1
                 });
                 easyTeam.dataCarrito = ngCart.getItems();
-                // console.log(easyTeam.dataCarrito);
-                // console.log(easyTeam.dataCarrito);
-                // console.log(easyTeam.dataCarrito[0]._id + " " + easyTeam.dataCarrito[0]._name);
-                // console.log("Total: " + ngCart.totalCost());
-                // console.log(ngCart.getTotalItems());
                 toaster.pop({
                     type: 'success',
                     title: 'Added',

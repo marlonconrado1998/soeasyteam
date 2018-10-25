@@ -1,3 +1,4 @@
+<toaster-container></toaster-container>
 <div ng-controller="controEasyTeam as easyTeamCtrl">
     <div id="heading-breadcrumbs" ng-init="easyTeamCtrl.onBuscarApartCasa();">
         <div class="container">
@@ -55,106 +56,11 @@
                         aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
                         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                         officia deserunt mollit anim id est laborum..</p>
-                    <h1 class="h2">APARTMENTS</h1>
 
-                    <br>
-                    <br>
-                    <div class="row products products-big">
-                        <div class="col-lg-4 col-md-6" ng-repeat="x in easyTeamCtrl.listaApartamentos">
-                            <div class="product card">
-                                <div class="image">
-                                    <a>
-                                        <img ng-src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1" style="height: 170px">
-                                    </a>
-                                    <div class="mt-3">
-                                        <h3 class="h6" style="color: gray;">
-                                            <a>{{x.nombre}}</a>
-                                        </h3>
-                                        <p class="h3" style="color: #5bc0de" ng-hide="easyTeamCtrl.onValidarExistenciaProducto(x.id)">
-                                            {{x.valor | currency}}
-                                        </p>
-                                        <p class="h4" style="color: #4fbfa8" ng-show="easyTeamCtrl.onValidarExistenciaProducto(x.id)">
-                                            ADDED
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="ribbon-holder">
-                                    <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate'); easyTeamCtrl.viewDetails(x);">DETAILS</div>
-                                    <div class="ribbon new manito" ng-hide="easyTeamCtrl.onValidarExistenciaProducto(x.id);" ng-click="easyTeamCtrl.onAddCart(x)">Add
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="row products">
-                            <div class="col-lg-4 col-md-4" ng-repeat="x in easyTeamCtrl.listaApartamentos">
-                                <div class="product">
-                                    <div class="image"><a><img src="data:image/jpeg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a >{{x.nombre}} {{x.capacidad}}</a></h3>
-                                        <p class="price">{{x.valor | currency}}</p>
-                                        <p class="price">DAY</p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'apartamento')">DETAILS</div>
-                                        <div class="ribbon new manito" ng-click="easyTeamCtrl.onAddCart(x)">Add <i class="fa fa-shopping-cart"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                    <br>
-                    <br>
-                    <h1 class="h2">HOUSES</h1>
-                    <br>
-                    <br>
-                    <toaster-container></toaster-container>
-                    <div class="row products products-big">
-                        <div class="col-lg-4 col-md-6" ng-repeat="x in easyTeamCtrl.listaCasas">
-                            <div class="product card">
-                                <div class="image">
-                                    <a>
-                                        <img ng-src="data:image/jpg;base64,{{x.imagen}}" alt="" class="img-fluid image1" style="height: 170px">
-                                    </a>
-                                    <div class="mt-3">
-                                        <h3 class="h6" style="color: gray;">
-                                            <a>{{x.nombre}}</a>
-                                        </h3>
-                                        <p class="h3" style="color: #5bc0de" ng-hide="easyTeamCtrl.onValidarExistenciaProducto(x.id)">
-                                            {{x.valor | currency}}
-                                        </p>
-                                        <p class="h4" style="color: #4fbfa8" ng-show="easyTeamCtrl.onValidarExistenciaProducto(x.id)">
-                                            ADDED
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="ribbon-holder">
-                                    <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'yate'); easyTeamCtrl.viewDetails(x);">DETAILS</div>
-                                    <div class="ribbon new manito" ng-hide="easyTeamCtrl.onValidarExistenciaProducto(x.id);" ng-click="easyTeamCtrl.onAddCart(x)">Add
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="products-big">
-                        <div class="row products">
-                            <div class="col-lg-6 col-md-6" ng-repeat="x in easyTeamCtrl.listaCasas">
-                                <div class="product">
-                                    <div class="image"><a><img src="data:image/jpeg;base64,{{x.imagen}}" alt="" class="img-fluid image1"></a></div>
-                                    <div class="text">
-                                        <h3 class="h5"><a >{{x.nombre}} {{x.capacidad}}</a></h3>
-                                        <p class="price">{{x.valor | currency}}</p>
-                                        <p class="price">DAY</p>
-                                    </div>
-                                    <div class="ribbon-holder">
-                                        <div class="ribbon sale manito" ng-click="easyTeamCtrl.onBuscarinfoImg(x.idproducto, 'casa')">DETAILS</div>
-                                        <div class="ribbon new manito" ng-click="easyTeamCtrl.onAddCart(x)">Add <i class="fa fa-shopping-cart"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                    <h1 class="h2 mt-5 mb-5">APARTMENTS</h1>
+                    <mc-product array-product="easyTeamCtrl.listaApartamentos"></mc-product>
+                    <h1 class="h2 mt-5 mb-5">HOUSES</h1>
+                    <mc-product array-product="easyTeamCtrl.listaCasas"></mc-product>
                 </div>
             </div>
         </div>

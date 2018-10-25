@@ -1,0 +1,28 @@
+<div class="row products products-big">
+    <div class="col-lg-4 col-md-6" ng-repeat="product in productCtrl.arrayProduct">
+        <div class="product card">
+            <div class="image">
+                <a>
+                    <img ng-src="data:image/jpg;base64,{{product.imagen}}" alt="" class="img-fluid image1" style="height: 170px">
+                </a>
+                <div class="mt-3">
+                    <h3 class="h6" style="color: gray;">
+                        <a>{{product.nombre}}</a>
+                    </h3>
+                    <p class="h3" style="color: #5bc0de">
+                        {{product.valor | currency}}
+                    </p>
+                    <p class="h4" style="color: #4fbfa8">
+                        ADDED
+                    </p>
+                </div>
+            </div>
+            <div class="ribbon-holder">
+                <div class="ribbon sale manito" ng-click="productCtrl.onBuscarinfoImg(product.idproducto, 'yate'); productCtrl.viewDetails(product);">DETAILS</div>
+                <div class="ribbon new manito" ng-click="productCtrl.onAddCart(product)">Add
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

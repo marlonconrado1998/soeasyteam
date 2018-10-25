@@ -1349,10 +1349,17 @@ header.nav-holder.sticky {
   border-radius: 8px;
   text-align: center;
   padding: 18px;
-  box-shadow: 0px 0px 4.2px 4.2px #ccc;
+  border: 1px solid rgba(211, 211, 211, 0.521);
   height: 270px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+.active_nav {
+  background: #fcfcfc !important;
+  color: rgb(10, 10, 10) !important;
+  text-decoration: none !important;
+  border-color: #cecbca !important;
 }
 
 .box-simple:hover .icon-outlined {
@@ -1366,6 +1373,7 @@ header.nav-holder.sticky {
 .box-simple:hover {
   -webkit-transform: scale(1.02);
   transform: scale(1.07);
+  box-shadow: 0px 0px 12px -1.8px #ccc;
   cursor: pointer;
   background-color: rgba(211, 211, 211, 0.103);
 }
@@ -3919,15 +3927,6 @@ a>code {
   background-color: #005890;
 }
 
-.card {
-  -webkit-box-shadow: 0px 4px 15px 1px rgba(148, 148, 148, 0.57);
-  -moz-box-shadow: 0px 4px 15px 1px rgba(148, 148, 148, 0.57);
-  box-shadow: 0px 4px 15px 1px rgba(148, 148, 148, 0.57);
-  border-radius: 8px;
-  cursor: pointer;
-  /* background-color: lightgray; */
-}
-
 .float-button {
   position: fixed;
   right: 30px;
@@ -3958,4 +3957,14 @@ a>code {
 .top-bar ul.social-custom a:hover {
   background: #f6f8f8;
   color: #005890;
+}
+
+/* Over write */
+
+.card {
+  -webkit-box-shadow: 0px 0px 20px -4px rgba(148, 148, 148, 0.57);
+  -moz-box-shadow: 0px 0px 20px -4px rgba(148, 148, 148, 0.57);
+  box-shadow: 0px 0px 20px -4px rgba(148, 148, 148, 0.57);
+  cursor: pointer;
+  border: 0 0 0 0 !important;
 }

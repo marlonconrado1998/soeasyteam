@@ -13,6 +13,7 @@
     "AngularJS-Toaster": "angularjs-toaster#^2.2.0",
     "angular-md5": "^0.1.10",
     "ngstorage": "^0.3.11",
-    "angular-jwt": "^0.1.10"
+    "angular-jwt": "^0.1.10",
+    "ngCart": "ngcart#^1.0.0"
   }
 }

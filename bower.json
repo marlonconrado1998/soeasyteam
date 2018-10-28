@@ -1,0 +1,18 @@
+{
+  "name": "soeasyteam",
+  "authors": [
+    "elconrado <marlon.conrado@zabud.co>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "http://www.soeasyteam.com",
+  "private": true,
+  "dependencies": {
+    "angular": "1.7.0",
+    "AngularJS-Toaster": "angularjs-toaster#^2.2.0",
+    "angular-md5": "^0.1.10",
+    "ngstorage": "^0.3.11",
+    "angular-jwt": "^0.1.10"
+  }
+}
